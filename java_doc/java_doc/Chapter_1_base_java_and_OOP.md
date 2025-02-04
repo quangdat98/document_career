@@ -71,11 +71,20 @@
   - Đầu vào của JRE thường là file jar.
 3.3 JVM - máy ảo
   - 
-3.4 Quá trình JRE làm việc như thế nào??
-    + Load mã bytecode vào bộ nhớ: JRE nhận file .class hoặc .jar (chứa bytecode) và tải chúng vào bộ nhớ RAM. Class Loader đọc các .class từ file hệ thống, JAR, hoặc mạng. (Class Loader làm việc theo 3 giai đoạn chính: Loading: Tải bytecode của class vào JVM => Linking: Kiểm tra và chuẩn bị class để chạy => Initialization: Chạy các khối static (static {}) và cấp phát bộ nhớ.) 
-    + JVM dịch bytecode sang mã máy (Just-In-Time Compilation - JIT): JVM không chạy trực tiếp bytecode mà cần dịch nó sang mã máy phù hợp với hệ điều hành.JVM dùng Interpreter để dịch từng dòng bytecode sang mã máy.Nếu một đoạn mã được chạy nhiều lần, JIT Compiler sẽ tối ưu hóa và biên dịch thành mã máy để tăng tốc độ.
-    + Quản lý bộ nhớ và Garbage Collection: JVM cấp phát bộ nhớ cho đối tượng trong Heap Memory. Khi một đối tượng không còn được sử dụng, Garbage Collector (GC) sẽ tự động thu hồi để tránh rò rỉ bộ nhớ.
-    + Giao tiếp với hệ điều hành: JVM sử dụng Java Native Interface (JNI) để gọi các hàm hệ thống như đọc/ghi file, quản lý luồng (thread), kết nối mạng. VD: Khi chương trình cần in ra màn hình hoặc ghi vào file: VM gọi thư viện Java (System.out.println() → java.io.*). JVM dùng JNI để gọi API hệ điều hành (printf() trên Linux, WriteConsole() trên Windows).
+3.4 Quá trình JRE làm việc như thế nào???
+  - Load mã bytecode vào bộ nhớ:
+   + JRE nhận file .class hoặc .jar (chứa bytecode) và tải chúng vào bộ nhớ RAM.
+   + Class Loader đọc các .class từ file hệ thống, JAR, hoặc mạng. (Class Loader làm việc theo 3 giai đoạn chính: Loading: Tải bytecode của class vào JVM => Linking: Kiểm tra và chuẩn bị class để chạy => Initialization: Chạy các khối static (static {}) và cấp phát bộ nhớ.) 
+  - JVM dịch bytecode sang mã máy (Just-In-Time Compilation - JIT):
+   + JVM không chạy trực tiếp bytecode mà cần dịch nó sang mã máy phù hợp với hệ điều hành.
+   + JVM dùng Interpreter để dịch từng dòng bytecode sang mã máy.Nếu một đoạn mã được chạy nhiều lần.
+   + JIT Compiler sẽ tối ưu hóa và biên dịch thành mã máy để tăng tốc độ.
+  - Quản lý bộ nhớ và Garbage Collection:
+   + JVM cấp phát bộ nhớ cho đối tượng trong Heap Memory.
+   + Khi một đối tượng không còn được sử dụng, Garbage Collector (GC) sẽ tự động thu hồi để tránh rò rỉ bộ nhớ.
+  - Giao tiếp với hệ điều hành:
+   + JVM sử dụng Java Native Interface (JNI) để gọi các hàm hệ thống như đọc/ghi file, quản lý luồng (thread), kết nối mạng.
+   + VD: Khi chương trình cần in ra màn hình hoặc ghi vào file: VM gọi thư viện Java (System.out.println() → java.io.*). JVM dùng JNI để gọi API hệ điều hành (printf() trên Linux, WriteConsole() trên Windows).
 3.5 JRE và Java Platform Independence
   - JRE giúp Java chạy trên nhiều nền tảng khác nhau nhờ JVM.
   - Java không biên dịch thành mã máy (Machine Code) trực tiếp như C/C++.
