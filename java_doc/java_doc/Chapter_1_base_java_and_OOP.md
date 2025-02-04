@@ -62,6 +62,7 @@
     + java.sql – Hỗ trợ kết nối database (JDBC).
     + java.security – Bảo mật, mã hóa dữ liệu.
     + ...
+      
 3.2 JRE (Java Runtime Environment) - Môi trường chạy Java
   - JRE giúp chạy các ứng dụng Java, bao gồm:
     + JVM (Java Virtual Machine): Máy ảo Java, thực thi bytecode.
@@ -69,8 +70,10 @@
     + Java Class Loader: Load các class vào JVM khi chạy.
     + (chú ý: nếu muốn chạy ứng dụng java chỉ cần JRE mà không cần JDK, Không có JRE riêng có thể tùy trỉnh bằng jlink - chưa tìm hiểu được)
   - Đầu vào của JRE thường là file jar.
+    
 3.3 JVM - máy ảo
   - 
+  
 3.4 Quá trình JRE làm việc như thế nào???
   - Load mã bytecode vào bộ nhớ:
     + JRE nhận file .class hoặc .jar (chứa bytecode) và tải chúng vào bộ nhớ RAM.
