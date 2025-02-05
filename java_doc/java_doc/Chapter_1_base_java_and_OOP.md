@@ -31,6 +31,7 @@
   - Đơn giản và dễ học: Khá giống với C++ nhưng loại bỏ các phần phức tạm VD như con trỏ. Có thư viện phong phú giúp giảm bớt việc coding (lombok)
   - Hiệu suất cao: JIT Compiler (Just-In-Time Compiler) giúp biên dịch bytecode thành mã máy ngay lúc chạy, tăng tốc độ thực thi. Java hỗ trợ NIO (New Input/Output), Streams API, Lambda Expressions, giúp tối ưu xử lý dữ liệu.
   - Bảo mật: Java không sử dụng con trỏ, giúp tránh lỗi truy cập bộ nhớ trái phép. Cơ chế Garbage Collection giúp tránh lỗi rò rỉ bộ nhớ. (Con trỏ là một biến chứa địa chỉ bộ nhớ của một biến khác. Trong nhiều ngôn ngữ lập trình như C/C++, con trỏ có thể được sử dụng để thao tác trực tiếp với bộ nhớ, điều này có thể dẫn đến các lỗ hổng bảo mật như tràn bộ đệm (buffer overflow). Java không hỗ trợ con trỏ tường minh, nghĩa là lập trình viên không thể trực tiếp truy cập và thao tác địa chỉ bộ nhớ. Thay vào đó, Java sử dụng các tham chiếu để truy cập các đối tượng, giúp giảm thiểu nguy cơ bảo mật liên quan đến con trỏ.)
+  - Java là ngôn ngữ vừa thông dịch vừa biên dịch. Mã nguồn(.java) được javac biên dịch thành mã bytecode(.class). JVM sẽ thông dịch bytecode thành mã cụ thể phù hợp với hệ điều hành.
 
 ## *** 3. Các Thành phần của JDK ***
 ===> Tài liệu tham khảo <===
@@ -115,6 +116,20 @@
   - JVM trên Windows, Linux, macOS khác nhau, nhưng tất cả đều hiểu bytecode chung.
 => Nhờ đó, chương trình Java có thể chạy trên mọi hệ điều hành mà không cần biên dịch lại. 🚀
 ### 3.6 Just-In-Time (JIT) Compilation
+  - Là một kỹ thuật tối ưu trong JVM giúp tăng tốc độ thực thi của java bằng các biên dịch bytecode thành mã máy ngay khi chương trình chạy.
+  - Khi JVM chạy thì nó thông dịch từng dòng bytecode nếu JVM phát hiện 1 đoạn code chạy nhiều lần (ví vụ vòng lăp) thì nó sẽ kích hoạt JIT compiler. JIT sẽ biên dịch bytecode thành mã máy một lần và JVM sẽ tái sử dụng mã này => chương trình chạy nhanh hơn.
+  - Có thể tắt JIT compiler: java -Xint MyApp
+  - ![image](https://github.com/user-attachments/assets/820eadf8-dab4-4669-8402-c6d235ecd4c8)
+  - Chỉ định số lần 1 phương thức cần được gọi trước khi JIT biên dịch nó: java -XX:CompileThreshold=10000 MyApp (MyApp là tên lớp chứa hàm main)
+  - Bật chế độ tối ưu hiệu suất cao. Có 2 loại chính : C1 (Client Compiler) và C2 (Server Compiler). Nếu không chọn gì thì JVM sẽ tự chọn
+    + C1 (Client Compiler): Tối ưu hóa nhanh nhưng không quá sâu (dùng cho ứng dụng nhỏ): java -server MyApp
+    + C2 (Server Compiler): Tối ưu hóa mạnh hơn (dùng cho ứng dụng lớn, server): java -client MyApp
+  - Kích hoạt chế độ tối ưu nâng cao: java -XX:+TieredCompilation MyApp
+    + JVM sẽ kết hợp cả C1 và C2 để tăng hiệu suất.
+    + Ban đầu: Sử dụng C1 để khởi động nhanh.
+    + Sau đó: Chuyển sang C2 để tối ưu mạnh hơn.
+  - Tắt tính năng tối ưu hóa của JIT: java -XX:-DoEscapeAnalysis MyApp 
+
 ### 3.7 JVM Performance Tuning
 ### 3.8 ClassLoader & Dynamic Class Loading
 
