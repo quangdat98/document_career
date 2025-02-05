@@ -74,6 +74,9 @@
   - Đầu vào của JRE thường là file jar.
     
 ### 3.3 JVM - máy ảo
+===> Tài liệu tham khảo <===
+  - https://viblo.asia/p/jvm-memory-structure-amoG84j6Gz8P
+  - ![image](https://github.com/user-attachments/assets/2405758f-5d0c-48b2-8f44-90d25f1bfe91)
   - JVM (Java Virtual Machine) là một máy ảo giúp chạy các ứng dụng Java bằng cách chuyển đổi bytecode thành mã máy phù hợp với hệ điều hành.
   - Chức năng chính:
     + Biên dịch & thực thi mã Java (từ .class → mã máy)
@@ -81,9 +84,12 @@
     + Tối ưu hiệu suất (JIT, Caching)
     + Đảm bảo tính độc lập nền tảng (Write Once, Run Anywhere - WORA)
     + Gồm 3 phần chính: Class Loader (Bộ nạp lớp), Runtime Data Area (Vùng dữ liệu thời gian chạy), Execution Engine (Bộ thực thi)
-  - ![Uploading image.png…]()
   - Class Loader (Bộ nạp lớp)
+    + Nạp bytecode .class vào bộ nhớ (Bootstrap ClassLoader (nạp các thư viện chuẩn của Java), Extension ClassLoader (nạp các thư viện mở rộng), Application ClassLoader (nạp các class do lập trình viên viết))
+    + Kiểm tra và xác minh tính hợp lệ của mã
   - Runtime Data Area (Vùng dữ liệu thời gian chạy)
+    + Runtime data areas chính là Memory được phân khi máy ảo Java chạy trên hệ điều hành
+    + Memory của JVM được chia làm 5 phân vùng khác nhau, đó là PC Registers, Java stacks, Native method stacks, Heap, và Method area
   - Execution Engine (Bộ thực thi)
 
   
