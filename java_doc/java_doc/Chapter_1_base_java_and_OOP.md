@@ -154,6 +154,15 @@
     + Để tạo Custom ClassLoader, bạn cần kế thừa lớp ClassLoader và override phương thức findClass().
 
 ## *** 4. Cú pháp ***
+### 4.1 Cấu trúc cơ bản của một chương trình Java
+### 4.2 Biến và kiểu dữ liệu
+### 4.3 String
+### 4.4 Vòng lặp (Loops)
+### 4.5 Phương thức (Methods)
+### 4.6 Câu lệnh điều kiện (if-else)
+### 4.7 Mảng (Arrays)
+### 4.8 Từ khóa (this, super, final)
+### 4.9 Java Packages
 
 
 
