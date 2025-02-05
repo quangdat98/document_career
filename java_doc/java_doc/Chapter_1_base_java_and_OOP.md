@@ -86,7 +86,7 @@
     + Đảm bảo tính độc lập nền tảng (Write Once, Run Anywhere - WORA)
     + Gồm 3 phần chính: Class Loader (Bộ nạp lớp), Runtime Data Area (Vùng dữ liệu thời gian chạy), Execution Engine (Bộ thực thi)
   - Class Loader (Bộ nạp lớp)
-    + Nạp bytecode .class vào bộ nhớ (Bootstrap ClassLoader (nạp các thư viện chuẩn của Java), Extension ClassLoader (nạp các thư viện mở rộng), Application ClassLoader (nạp các class do lập trình viên viết))
+    + Nạp bytecode .class vào bộ nhớ (Bootstrap ClassLoader (nạp các thư viện chuẩn của Java java.lang.String, java.util.ArrayList, v.v.), Extension ClassLoader (tải các thư viện mở rộng của Java từ thư mục lib/ext.), Application ClassLoader (nạp các class do lập trình viên viết)), System ClassLoader (tải các lớp của ứng dụng bạn từ classpath (nơi bạn đặt các file .class hoặc .jar).)
     + Kiểm tra và xác minh tính hợp lệ của mã
   - Runtime Data Area (Vùng dữ liệu thời gian chạy)
     + Runtime data areas chính là Memory được phân khi máy ảo Java chạy trên hệ điều hành
@@ -120,7 +120,7 @@
   - Khi JVM chạy thì nó thông dịch từng dòng bytecode nếu JVM phát hiện 1 đoạn code chạy nhiều lần (ví vụ vòng lăp) thì nó sẽ kích hoạt JIT compiler. JIT sẽ biên dịch bytecode thành mã máy một lần và JVM sẽ tái sử dụng mã này => chương trình chạy nhanh hơn.
   - Có thể tắt JIT compiler: java -Xint MyApp
   - ![image](https://github.com/user-attachments/assets/820eadf8-dab4-4669-8402-c6d235ecd4c8)
-  - Chỉ định số lần 1 phương thức cần được gọi trước khi JIT biên dịch nó: java -XX:CompileThreshold=10000 MyApp (MyApp là tên lớp chứa hàm main)
+  - Chỉ định số lần 1 phương thức cần được gọi trước khi JIT biên dịch nó: java -XX:CompileThreshold=10000 MyApp (MyApp là tên lớp chứa hàm main, hoặc có thể thêm vào câu lện build file jar: java -XX:-DoEscapeAnalysis -jar MyApp.jar)
   - Bật chế độ tối ưu hiệu suất cao. Có 2 loại chính : C1 (Client Compiler) và C2 (Server Compiler). Nếu không chọn gì thì JVM sẽ tự chọn
     + C1 (Client Compiler): Tối ưu hóa nhanh nhưng không quá sâu (dùng cho ứng dụng nhỏ): java -server MyApp
     + C2 (Server Compiler): Tối ưu hóa mạnh hơn (dùng cho ứng dụng lớn, server): java -client MyApp
@@ -131,8 +131,29 @@
   - Tắt tính năng tối ưu hóa của JIT: java -XX:-DoEscapeAnalysis MyApp 
 
 ### 3.7 JVM Performance Tuning
-### 3.8 ClassLoader & Dynamic Class Loading
+  - Là quá trình tinh chỉnh các thông số của JVM để cải thiện hiệu suất ứng dụng java
+  - Tối ưu Just-In-Time Compiler (mục 3.6)
+  - Tối ưu Garbage Collection (Chapter 4)
+  - Tối ưu bộ nhớ JVM (Heap Size)
+    + ![image](https://github.com/user-attachments/assets/f8d0848b-3869-4dc9-be12-4afbbef430cb)
+  - Tối ưu Thread và CPU Usage
+    + ![image](https://github.com/user-attachments/assets/c6446124-245a-431c-a80e-cb0ef7213a23)
 
+### 3.8 ClassLoader & Dynamic Class Loading
+  - ClassLoader chịu trách nhiệm tải các lớp vào bộ nhớ khi JVM cần.
+    + Khi bạn chạy ứng dụng Java, JVM sẽ không tự động biết lớp nào cần được sử dụng ngay lập tức. Vì vậy, khi JVM gặp một lớp mới (ví dụ bạn gọi một lớp MyClass trong mã), ClassLoader sẽ chịu trách nhiệm đi tìm và nạp lớp này vào bộ nhớ.
+    + ClassLoader sẽ tìm lớp này trong classpath (nơi chứa các file .class hoặc file .jar).
+    + Nếu lớp không có trong classpath, ClassLoader sẽ không thể tải và JVM sẽ báo lỗi (ClassNotFoundException).
+  - Dynamic Class Loading giúp ứng dụng tải lớp khi cần thiết, tối ưu hóa bộ nhớ và hiệu suất.
+    + Java hỗ trợ phương thức Class.forName() để thực hiện việc tải lớp động, khi bạn biết tên lớp trong thời gian chạy.
+    + ![image](https://github.com/user-attachments/assets/575dde89-a5be-47ee-be8b-5423f37fafdd)
+    + Bình thường khi run thì nếu để là new Dog() thì sau khi run lớp đó sẽ đk tải, còn dùng forName thì chạy đến mới tải (tải ở đây là ClassLoader tải vào JVM)
+  - Custom ClassLoader cho phép bạn tự định nghĩa cách tải lớp từ các nguồn khác nhau (file, mạng, cơ sở dữ liệu).
+    + Ngoài các loại mặc định ra (Bootstrap ClassLoader, Extension ClassLoader, System ClassLoader) thì cũng có thể tạo riêng 1 classloader
+    + Phục vụ cho tính bảo mậ, muốn kiểm soat quá trình tải lớp và ngăn không cho lớp không mong  uốn được tải
+    + Để tạo Custom ClassLoader, bạn cần kế thừa lớp ClassLoader và override phương thức findClass().
+
+## *** 4. Cú pháp ***
 
 
 
