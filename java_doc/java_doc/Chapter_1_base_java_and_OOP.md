@@ -1,4 +1,4 @@
-# ** Tóm Tắt **
+# ** ------ Tóm Tắt ------ **
 
 1. Tài liệu tham khảo
 2. Các đặc điểm
@@ -10,9 +10,9 @@
 8. Exception handling
 
 
-# ** Nội dung chi tiết **
+# **  ------ Nội dung chi tiết ------ **
 
-## ** 1. Tài liệu tham khảo **
+## *** 1. Tài liệu tham khảo ***
 ### 1.1 Link khóa học online
   - Link all: https://www.codecademy.com/catalog/language/java
   - Link advanced: https://www.codecademy.com/learn/learn-advanced-java
@@ -32,7 +32,7 @@
   - Hiệu suất cao: JIT Compiler (Just-In-Time Compiler) giúp biên dịch bytecode thành mã máy ngay lúc chạy, tăng tốc độ thực thi. Java hỗ trợ NIO (New Input/Output), Streams API, Lambda Expressions, giúp tối ưu xử lý dữ liệu.
   - Bảo mật: Java không sử dụng con trỏ, giúp tránh lỗi truy cập bộ nhớ trái phép. Cơ chế Garbage Collection giúp tránh lỗi rò rỉ bộ nhớ. (Con trỏ là một biến chứa địa chỉ bộ nhớ của một biến khác. Trong nhiều ngôn ngữ lập trình như C/C++, con trỏ có thể được sử dụng để thao tác trực tiếp với bộ nhớ, điều này có thể dẫn đến các lỗ hổng bảo mật như tràn bộ đệm (buffer overflow). Java không hỗ trợ con trỏ tường minh, nghĩa là lập trình viên không thể trực tiếp truy cập và thao tác địa chỉ bộ nhớ. Thay vào đó, Java sử dụng các tham chiếu để truy cập các đối tượng, giúp giảm thiểu nguy cơ bảo mật liên quan đến con trỏ.)
 
-## ** 3. Các Thành phần của JDK **
+## *** 3. Các Thành phần của JDK ***
 ===> Tài liệu tham khảo <===
   - https://niithanoi.edu.vn/hieu-ngay-may-ao-java-jvm-va-kien-truc-cua-may-ao-java.html
   - Link setup: https://www.geeksforgeeks.org/download-and-install-java-development-kit-jdk-on-windows-mac-and-linux/
@@ -114,6 +114,9 @@
   - Thay vào đó, nó biên dịch thành bytecode (.class), chạy trên JVM.
   - JVM trên Windows, Linux, macOS khác nhau, nhưng tất cả đều hiểu bytecode chung.
 => Nhờ đó, chương trình Java có thể chạy trên mọi hệ điều hành mà không cần biên dịch lại. 🚀
+### 3.6 Just-In-Time (JIT) Compilation
+### 3.7 JVM Performance Tuning
+### 3.8 ClassLoader & Dynamic Class Loading
 
 
 
