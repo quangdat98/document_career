@@ -152,14 +152,17 @@
     + Ngoài các loại mặc định ra (Bootstrap ClassLoader, Extension ClassLoader, System ClassLoader) thì cũng có thể tạo riêng 1 classloader
     + Phục vụ cho tính bảo mậ, muốn kiểm soat quá trình tải lớp và ngăn không cho lớp không mong  uốn được tải
     + Để tạo Custom ClassLoader, bạn cần kế thừa lớp ClassLoader và override phương thức findClass().
+### 3.9 Tìm hiểu thêm
+  - Máy ảo GraaIvm: https://www.oracle.com/hk/java/graalvm/what-is-graalvm/
+  - Lý do phải cài các biến môi trường (java home)
 
 ## *** 4. Cú pháp ***
 ### 4.1 Cấu trúc cơ bản của một chương trình Java
 ### 4.2 Biến và kiểu dữ liệu
-### 4.3 String
+### 4.3 String && Toán Tử
 ### 4.4 Vòng lặp (Loops)
 ### 4.5 Phương thức (Methods)
-### 4.6 Câu lệnh điều kiện (if-else)
+### 4.6 Câu lệnh điều kiện (if-else / switch-case)
 ### 4.7 Mảng (Arrays)
 ### 4.8 Từ khóa (this, super, final)
 ### 4.9 Java Packages
