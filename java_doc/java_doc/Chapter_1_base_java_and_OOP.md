@@ -13,11 +13,11 @@
 # ** Nội dung chi tiết **
 
 ## ** 1. Tài liệu tham khảo **
-1.1 Link khóa học online
+### 1.1 Link khóa học online
   - Link all: https://www.codecademy.com/catalog/language/java
   - Link advanced: https://www.codecademy.com/learn/learn-advanced-java
   - Sơ đồ master java: https://coggle.it/diagram/X-dDo1Qdf7DCP2zg/t/how-to-master-java/a3c8bede6822097b7f3c6340b82eabd7986c57af4d42f11c122d5065479d5928
-1.2 Link doc
+### 1.2 Link doc
   - https://www.geeksforgeeks.org/java/?ref=lbp
   - https://www.tutorialspoint.com/java_technology_tutorials.htm
   - https://itguru.vn/blog/cac-cong-nghe-lap-trinh-vien-java-nen-hoc/
@@ -25,7 +25,7 @@
 ## ** 2. Các đặc điểm **
 ===> Tài liệu tham khảo <===
   - [Chưa có]
-2.1 Các tính năng
+### 2.1 Các tính năng
   - Độc lập nền tảng (platform independence): java có thể chạy trên nhiều hệ điều hành khác nhau (windows, macos, linux) nhờ JVM
   - Hướng đối tượng: Luân tuân theo nguyên tắc OOP. Mọi thứ trong java đều là object (trừ các kiểu nguyên thủy)
   - Đơn giản và dễ học: Khá giống với C++ nhưng loại bỏ các phần phức tạm VD như con trỏ. Có thư viện phong phú giúp giảm bớt việc coding (lombok)
@@ -38,7 +38,7 @@
   - Link setup: https://www.geeksforgeeks.org/download-and-install-java-development-kit-jdk-on-windows-mac-and-linux/
   - ![image](https://github.com/user-attachments/assets/6f3c024f-5cb6-4655-98bd-f9ed47774c05)
 
-3.1 JDK
+### 3.1 JDK
   - JDK (Java Development Kit) là bộ công cụ giúp lập trình viên phát triển, biên dịch và chạy ứng dụng Java. Nó bao gồm JRE, trình biên dịch (javac), thư viện, công cụ gỡ lỗi, và các công cụ khác.
   - ![image](https://github.com/user-attachments/assets/b290f0e4-9fa4-431e-a349-741b549fae24)
   - JDK được triển khai trên các nền tảng java khác nhau do oracle corporation phát hành: ![Uploading image.png…]()
@@ -63,7 +63,7 @@
     + java.security – Bảo mật, mã hóa dữ liệu.
     + ...
       
-3.2 JRE (Java Runtime Environment) - Môi trường chạy Java
+### 3.2 JRE (Java Runtime Environment) - Môi trường chạy Java
   - JRE giúp chạy các ứng dụng Java, bao gồm:
     + JVM (Java Virtual Machine): Máy ảo Java, thực thi bytecode.
     + Core Libraries (Thư viện cốt lõi): Chứa các class cần thiết như java.lang, java.util, java.io,...
@@ -71,10 +71,10 @@
     + (chú ý: nếu muốn chạy ứng dụng java chỉ cần JRE mà không cần JDK, Không có JRE riêng có thể tùy trỉnh bằng jlink - chưa tìm hiểu được)
   - Đầu vào của JRE thường là file jar.
     
-3.3 JVM - máy ảo
+### 3.3 JVM - máy ảo
   - 
   
-3.4 Quá trình JRE làm việc như thế nào???
+### 3.4 Quá trình JRE làm việc như thế nào???
   - Load mã bytecode vào bộ nhớ:
     + JRE nhận file .class hoặc .jar (chứa bytecode) và tải chúng vào bộ nhớ RAM.
     + Class Loader đọc các .class từ file hệ thống, JAR, hoặc mạng. (Class Loader làm việc theo 3 giai đoạn chính: Loading: Tải bytecode của class vào JVM => Linking: Kiểm tra và chuẩn bị class để chạy => Initialization: Chạy các khối static (static {}) và cấp phát bộ nhớ.) 
@@ -88,7 +88,7 @@
   - Giao tiếp với hệ điều hành:
     + JVM sử dụng Java Native Interface (JNI) để gọi các hàm hệ thống như đọc/ghi file, quản lý luồng (thread), kết nối mạng.
     + VD: Khi chương trình cần in ra màn hình hoặc ghi vào file: VM gọi thư viện Java (System.out.println() → java.io.*). JVM dùng JNI để gọi API hệ điều hành (printf() trên Linux, WriteConsole() trên Windows).
-3.5 JRE và Java Platform Independence
+### 3.5 JRE và Java Platform Independence
   - JRE giúp Java chạy trên nhiều nền tảng khác nhau nhờ JVM.
   - Java không biên dịch thành mã máy (Machine Code) trực tiếp như C/C++.
   - Thay vào đó, nó biên dịch thành bytecode (.class), chạy trên JVM.
