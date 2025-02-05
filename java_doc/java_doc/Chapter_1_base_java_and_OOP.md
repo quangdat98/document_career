@@ -48,7 +48,7 @@
     + Java Card: Là một phiên bản được thiết kế cho các thiết bị bảo mật như thẻ thông minh và các thiết bị mạng.
     + JavaFX: Là phiên bản để phát triển các ứng dụng đồ họa trên nền tảng Java
   - JDK cung cấp các công cụ quan trọng để lập trình Java:
-    + ==javac – Trình biên dịch Java, chuyển mã nguồn .java thành .class (bytecode).==
+    + `javac – Trình biên dịch Java, chuyển mã nguồn .java thành .class (bytecode).`
     + java – Chạy chương trình Java từ bytecode .class.
     + jar – Công cụ đóng gói file .class thành file .jar để phân phối.
     + javadoc – Sinh tài liệu API từ comment trong code (/** ... */).
