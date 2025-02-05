@@ -37,11 +37,13 @@
   - https://niithanoi.edu.vn/hieu-ngay-may-ao-java-jvm-va-kien-truc-cua-may-ao-java.html
   - Link setup: https://www.geeksforgeeks.org/download-and-install-java-development-kit-jdk-on-windows-mac-and-linux/
   - ![image](https://github.com/user-attachments/assets/6f3c024f-5cb6-4655-98bd-f9ed47774c05)
+  - ![image](https://github.com/user-attachments/assets/87fb9c18-f8c5-41ac-afc8-2973843292b5)
+
 
 ### 3.1 JDK
   - JDK (Java Development Kit) là bộ công cụ giúp lập trình viên phát triển, biên dịch và chạy ứng dụng Java. Nó bao gồm JRE, trình biên dịch (javac), thư viện, công cụ gỡ lỗi, và các công cụ khác.
   - ![image](https://github.com/user-attachments/assets/b290f0e4-9fa4-431e-a349-741b549fae24)
-  - JDK được triển khai trên các nền tảng java khác nhau do oracle corporation phát hành: ![Uploading image.png…]()
+  - JDK được triển khai trên các nền tảng java khác nhau do oracle corporation phát hành: ![image](https://github.com/user-attachments/assets/0d1f0158-7e11-4442-bf7d-7cb658fcd4c0)
     + Java SE (Java Standard Edition): Là phiên bản cơ bản của Java Platform, chạy các ứng dụng Java trên các máy tính và máy chủ thông thường.
     + Java EE (Java Enterprise Edition): Là phiên bản được tối ưu hóa cho việc phát triển các ứng dụng doanh nghiệp lớn, có khả năng mở rộng và có tính sẵn dùng cao như ứng dụng web, ứng dụng phân tán hay các ứng dụng doanh nghiệp…
     + Java ME (Java Micro Edition): Được tối ưu hóa cho việc phát triển các ứng dụng di động và nhúng
@@ -72,7 +74,18 @@
   - Đầu vào của JRE thường là file jar.
     
 ### 3.3 JVM - máy ảo
-  - 
+  - JVM (Java Virtual Machine) là một máy ảo giúp chạy các ứng dụng Java bằng cách chuyển đổi bytecode thành mã máy phù hợp với hệ điều hành.
+  - Chức năng chính:
+    + Biên dịch & thực thi mã Java (từ .class → mã máy)
+    + Quản lý bộ nhớ (cấp phát & thu hồi bộ nhớ)
+    + Tối ưu hiệu suất (JIT, Caching)
+    + Đảm bảo tính độc lập nền tảng (Write Once, Run Anywhere - WORA)
+    + Gồm 3 phần chính: Class Loader (Bộ nạp lớp), Runtime Data Area (Vùng dữ liệu thời gian chạy), Execution Engine (Bộ thực thi)
+  - ![Uploading image.png…]()
+  - Class Loader (Bộ nạp lớp)
+  - Runtime Data Area (Vùng dữ liệu thời gian chạy)
+  - Execution Engine (Bộ thực thi)
+
   
 ### 3.4 Quá trình JRE làm việc như thế nào???
   - Load mã bytecode vào bộ nhớ:
