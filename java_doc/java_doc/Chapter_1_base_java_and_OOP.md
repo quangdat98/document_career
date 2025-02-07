@@ -158,7 +158,32 @@
 
 ## *** 4. Cú pháp ***
 ### 4.1 Cấu trúc cơ bản của một chương trình Java
+  - Vì sao hàm main() phải là public static void:
+    + public: Để JVM có thể gọi phương thức từ bên ngoài lớp.
+    + static: Cho phép JVM gọi main() mà không cần tạo đối tượng của lớp chứa main()
+    + void: Vì main() không trả về giá trị nào cho JVM.
+    + String[] args: Để truyền tham số dòng lệnh vào chương trình.
+  - Nếu không có main() thì chương trình java không chạy được
+  - Lớp chứa main() có thể là final, nhưng điều này không ảnh hưởng đến hoạt động của chương trình.
+  - String[] args (String... args) bắt buộc có để JVM nhận diện phương thức main(). Nếu không tìm thấy phương thức này, JVM sẽ không biết bắt đầu chạy chương trình từ đâu và sẽ báo lỗi. Bên cạnh đó thì nó còn để truyền biến vào chương trình, kiểu strinh dễ dàng ép kiểu sang kiểu khác.
 ### 4.2 Biến và kiểu dữ liệu
+  - Biến trong Java là một vùng nhớ được đặt tên, dùng để lưu trữ dữ liệu. Giá trị của biến có thể thay đổi trong suốt thời gian chạy chương trình.
+  - ![image](https://github.com/user-attachments/assets/2356abe6-00d7-4649-b5cc-9f70d3634c70)
+  - Biến local (biến cục bộ)
+    + Biến local được tạo bên trong các phương thức, contructor, block và sẽ bị phá hủy khi kết thúc các phương thức, contructor và block.
+    + Không được sử dụng "access modifier" khi khai báo biến local, các biến local được lưu trên vùng nhớ stack của bộ nhớ.
+    + Cần khởi tạo giá trị mặc định cho biến local trước khi có thể sử dụng.
+  - Biến instance (biến toàn cục)
+    + Được khai báo bên trong lớp nhưng bên ngoài phương thức, biến instance được lưu trong bộ nhớ heap. Bộ nhớ được cấp phát riêng cho từng đối tượng
+    + Biến instance có giá trị mặc định phụ thuộc vào kiểu dữ liệu của nó. Ví dụ nếu là kiểu int, short, byte thì giá trị mặc định là 0, kiểu double thì là 0.0d, ... Vì vậy, bạn sẽ không cần khởi tạo giá trị cho biến instance trước khi sử dụng.
+  - Biến static (biến tĩnh)
+    + Biến static được khai báo trong một class với từ khóa "static", phía bên ngoài các phương thức, constructor và block
+    + Sẽ chỉ có duy nhất một bản sao của các biến static được tạo ra, dù bạn tạo bao nhiêu đối tượng từ lớp tương ứng
+    + Biến static được lưu trữ trong bộ nhớ static riêng. Biến static được tạo khi chương trình bắt đầu chạy và chỉ bị phá hủy khi chương trình dừng.
+  - Biến volatile: volatile đảm bảo biến luôn đọc từ bộ nhớ chính, tránh cache trong CPU.
+    + ![image](https://github.com/user-attachments/assets/4f909473-63e9-4951-adc5-28443f569b22)
+
+
 ### 4.3 String && Toán Tử
 ### 4.4 Vòng lặp (Loops)
 ### 4.5 Phương thức (Methods)
