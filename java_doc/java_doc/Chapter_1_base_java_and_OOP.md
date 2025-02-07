@@ -182,6 +182,8 @@
     + Biến static được lưu trữ trong bộ nhớ static riêng. Biến static được tạo khi chương trình bắt đầu chạy và chỉ bị phá hủy khi chương trình dừng.
   - Biến volatile: volatile đảm bảo biến luôn đọc từ bộ nhớ chính, tránh cache trong CPU.
     + ![image](https://github.com/user-attachments/assets/4f909473-63e9-4951-adc5-28443f569b22)
+  - Biến transient: transient dùng trong Serializable để bỏ qua biến khi ghi đối tượng vào file.
+  - Biến final: là hằng số, sau khi gán giá trị lần đầu tiên thì không thể thay đổi nữa. (không thế kế thừa và ghi đè phương thức final)
 
 
 ### 4.3 String && Toán Tử
