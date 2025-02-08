@@ -166,7 +166,7 @@
   - Nếu không có main() thì chương trình java không chạy được
   - Lớp chứa main() có thể là final, nhưng điều này không ảnh hưởng đến hoạt động của chương trình.
   - String[] args (String... args) bắt buộc có để JVM nhận diện phương thức main(). Nếu không tìm thấy phương thức này, JVM sẽ không biết bắt đầu chạy chương trình từ đâu và sẽ báo lỗi. Bên cạnh đó thì nó còn để truyền biến vào chương trình, kiểu strinh dễ dàng ép kiểu sang kiểu khác.
-### 4.2 Biến và kiểu dữ liệu
+### 4.2 Biến
   - Biến trong Java là một vùng nhớ được đặt tên, dùng để lưu trữ dữ liệu. Giá trị của biến có thể thay đổi trong suốt thời gian chạy chương trình.
   - ![image](https://github.com/user-attachments/assets/2356abe6-00d7-4649-b5cc-9f70d3634c70)
   - Biến local (biến cục bộ)
@@ -185,14 +185,27 @@
   - Biến transient: transient dùng trong Serializable để bỏ qua biến khi ghi đối tượng vào file.
   - Biến final: là hằng số, sau khi gán giá trị lần đầu tiên thì không thể thay đổi nữa. (không thế kế thừa và ghi đè phương thức final)
 
+### 4.3 Kiểu dữ liệu
+  - Java chia kiểu dữ liệu thành 2 nhóm chính là **Kiểu dữ liệu nguyên thủy (Primitive Data Types) ** và ** Kiểu dữ liệu tham chiếu  (Reference Data Types) **
+  - Kiểu dữ liệu nguyên thủy:
+    + Có 8 kiểu dữ liệu nguyên thủy: boolean, byte, char, short, int, long, float, double.
+    + ![image](https://github.com/user-attachments/assets/dfcef19b-f77b-405c-aa74-3783c49f5c7f)
+    + 1 byte = 8 bit
+    + ![image](https://github.com/user-attachments/assets/f5f5e60f-d3cb-488e-af4b-2d4587e359ad)
+  - VD tính phạm vi: short là số nguyên 16 bit (2 byte). Máy tính lưu trữ số nguyên bằng hệ bù 2, nghĩa là : Nếu bit đầu tiên (MSB) = 0, số đó là dương.Nếu bit đầu tiên (MSB) = 1, số đó là âm.
+    + với số dương 5 trong hệ nhị phân 16-bit sẽ là: 0000 0000 0000 0101
+    + 
 
-### 4.3 String && Toán Tử
-### 4.4 Vòng lặp (Loops)
-### 4.5 Phương thức (Methods)
-### 4.6 Câu lệnh điều kiện (if-else / switch-case)
-### 4.7 Mảng (Arrays)
-### 4.8 Từ khóa (this, super, final)
-### 4.9 Java Packages
+
+
+### 4.4 String && Toán Tử
+  - 
+### 4.5 Vòng lặp (Loops)
+### 4.6 Phương thức (Methods)
+### 4.7 Câu lệnh điều kiện (if-else / switch-case)
+### 4.8 Mảng (Arrays)
+### 4.9 Từ khóa (this, super, final)
+### 4.10 Java Packages
 
 
 
