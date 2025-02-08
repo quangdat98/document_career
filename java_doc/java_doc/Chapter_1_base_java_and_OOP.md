@@ -217,7 +217,48 @@
   - boxing và Unboxing
     + Boxing(autoboxing) là kiểu nguyên thủy -> wrapper 1 cách tự động ![image](https://github.com/user-attachments/assets/d090f749-8ea3-448d-8eca-571753a107cd)
     + Unboxing chuyển đổi một đối tượng của lớp bao (wrapper class) thành giá trị kiểu dữ liệu nguyên thủy (primitive type) cần chú ý giá trị null có thể bị lỗi ![image](https://github.com/user-attachments/assets/0cca9ff5-a031-4ec9-98a1-0f629d3b11b1)
-    + 
+### 4.5 String && Toán Tử
+  - String là một class trong Java nằm trong java.lang. Là Immutable (bất biến - nếu gán bằng giá trị khác thì giá trị cũ vẫn còn trong bộ nhớ -> rất an toàn với đa luồng), nghĩa là một khi tạo, giá trị của nó không thể thay đổi. Được lưu trong String Pool để tiếp kiệm bộ nhớ.
+  - ![image](https://github.com/user-attachments/assets/089f5db6-816b-46da-a0b2-187aae935560)
+  - String là một lớp đối tượng (object) thuộc gói java.lang, nhưng nó được thiết kế đặc biệt để có thể hoạt động như một kiểu dữ liệu nguyên thủy trong một số tình huống.(String str = "Hello"; -> ko dùng từ khóa new).
+  - StringBuilder
+    + Có thể thay đổi. append -> ko tạo object mới mà chỉ thay đổi nội dung
+    + Không đồng bộ (not Thread-Safe)
+    + Nhanh hơn StringBuffer và ko đồng bộ
+    + Được sử dụng khi ko cần đa luồng và hiệu suất cao
+  - StringBuffer: giống với build nhưng khác ở chỗ là đồng bộ cho đa luồng.
+  - ![image](https://github.com/user-attachments/assets/c8e03900-e813-4e2f-b029-1786d6c0947c)
+### 4.6 Toán tử
+  - Toán tử (tập trung vào toán tử bit): ![image](https://github.com/user-attachments/assets/1127ae87-992e-4302-ab74-f888af84da2d)
+  - Toán tử AND (&) bitwise:
+    + So sánh từ bit của 2 số,** nếu cùng là 2 cùng là 1 thì kết quả là 1 **, ngược lại là 0: ![image](https://github.com/user-attachments/assets/a471dabe-61c6-49ed-b0c8-97ed798d7e74)
+    + ** ứng dụng trong tình số chắn lẻ **:![image](https://github.com/user-attachments/assets/6fab6c92-6351-4233-ad28-dea395ec27f3)
+    + Giải thích: số chắn là số chia hết cho 2 cho nên trong hệ nhị phân thì bit cuối luôn là 0 => Dựa theo quy tắc and bit thì 0 với 1 luôn là 0 => số 0 là chẵn còn số 1 là lẻ.
+  - Toán tử OR (|)
+    + ** Nếu ít nhất một bit là 1 thì kết quả là 1 **: ![image](https://github.com/user-attachments/assets/38573003-130b-4592-9921-447f7d1fb05d)
+    + ứng dụng: ![image](https://github.com/user-attachments/assets/678677bd-3255-46ac-985b-e49562fa8210)
+    + Giải thích: khi dùng or thì mọi bit số 1 của role write đã được thêm vào permission1, và khi dùng and lại với write thì (1 với 1 thành 1) => luông sẽ khác 0
+  - Toán tử XOR (^)
+    + ** Nếu 2 bit khác nhau thì kết quả là 1 **: ![image](https://github.com/user-attachments/assets/c6b2a289-c5b2-471b-97ba-12419f4a5c82)
+    + Dùng làm mã hóa: ![image](https://github.com/user-attachments/assets/305d8992-d8f8-4378-b197-6888c7a90455)
+    + Giait hích: giả mã là ngược lại của quá trình mã hóa ![image](https://github.com/user-attachments/assets/769f4917-6271-4f64-8e48-cdb791367150)
+    + Tìm phần tử khác nhau trong 2 mảng -> ít dùng: ![image](https://github.com/user-attachments/assets/91848957-453c-41b6-b366-848cc2497fb1)
+    + Kiểm tra chẵn lẻ: ![image](https://github.com/user-attachments/assets/d38797b8-f031-4a90-a31d-e836e7094d65)
+    + Giải thích là vì XOR với 1 cũng giống như là +1 đổi với các số chắn do số chắn đuôi cuối bằng 0
+  - Toán tử NOT Bitwise (~) : đảo ngược số bit -> tính số bù 2
+  - Toán Tử Dịch Bit Trái (<<)
+    + ** x << n dịch các bit sang trái n lần, điền 0 vào bên phải.**
+    + ![image](https://github.com/user-attachments/assets/6d4517c8-b752-4df6-a8a0-b07d2f3371ae)
+    + ** Mỗi lần dịch trái tương đương nhân 2^n. ** ứng dụng cho phép nhân: a * 2 == a << 1.
+    + ![image](https://github.com/user-attachments/assets/ba40baf8-87cb-4e4c-9f59-a0e8ef50cf07)
+  - Toán tử Dịch bít phải (>>) ** ngược lại với dịch trái **
+  - Toán tử dịch bit phải không đấu
+    + x >>> n dịch phải n lần, luôn chèn 0 vào bên trái.Không giữ nguyên dấu, nên số âm thành số rất lớn.
+    + ![image](https://github.com/user-attachments/assets/2ff51ab0-d66f-4eca-ac6b-0e2e8c65728c)
+  - Hệ 8 và 16: ![image](https://github.com/user-attachments/assets/08723ffa-da1e-4988-8a15-ef416f3676c8)
+  - ![image](https://github.com/user-attachments/assets/7592c126-fb31-4f30-817d-2e69fd06f77b)
+  - Hệ cơ số 32 (base32)
+  - Hệ cơ số 64 (base64)
 
 
 
@@ -226,14 +267,18 @@
 
 
 
-### 4.4 String && Toán Tử
-  - 
-### 4.5 Vòng lặp (Loops)
-### 4.6 Phương thức (Methods)
-### 4.7 Câu lệnh điều kiện (if-else / switch-case)
-### 4.8 Mảng (Arrays)
-### 4.9 Từ khóa (this, super, final)
-### 4.10 Java Packages
+
+
+
+
+
+
+### 4.6 Vòng lặp (Loops)
+### 4.7 Phương thức (Methods)
+### 4.8 Câu lệnh điều kiện (if-else / switch-case)
+### 4.9 Mảng (Arrays)
+### 4.10 Từ khóa (this, super, final)
+### 4.11 Java Packages
 
 
 
