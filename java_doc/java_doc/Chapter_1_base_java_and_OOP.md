@@ -187,14 +187,42 @@
 
 ### 4.3 Kiểu dữ liệu
   - Java chia kiểu dữ liệu thành 2 nhóm chính là **Kiểu dữ liệu nguyên thủy (Primitive Data Types) ** và ** Kiểu dữ liệu tham chiếu  (Reference Data Types) **
-  - Kiểu dữ liệu nguyên thủy:
+  - ** Kiểu dữ liệu nguyên thủy **:
     + Có 8 kiểu dữ liệu nguyên thủy: boolean, byte, char, short, int, long, float, double.
+    + bộ nhớ stack (ngăn xếp), lưu trữ giá trị thực thế -> truy xuất nhanh hơn
     + ![image](https://github.com/user-attachments/assets/dfcef19b-f77b-405c-aa74-3783c49f5c7f)
     + 1 byte = 8 bit
     + ![image](https://github.com/user-attachments/assets/f5f5e60f-d3cb-488e-af4b-2d4587e359ad)
+    + Mỗi kiểu dữ liệu nguyên thủy đều có 1 lớp bao - wrapper class tương ứng cho phép bạn làm việc với các giá trị nguyên thủy như thể chúng là các đối tượng (ví dụ có thể null).
   - VD tính phạm vi: short là số nguyên 16 bit (2 byte). Máy tính lưu trữ số nguyên bằng hệ bù 2, nghĩa là : Nếu bit đầu tiên (MSB) = 0, số đó là dương.Nếu bit đầu tiên (MSB) = 1, số đó là âm.
-    + với số dương 5 trong hệ nhị phân 16-bit sẽ là: 0000 0000 0000 0101
+    + Số lớn nhất, Khi tất cả 15 bit còn lại đều là 1, ta có: 0111 1111 1111 1111  (15 bit 1, MSB = 0) -> tính ra là 32767 (2^14+2^13+...2^0)
+    + Số nhở nhất tính théo hệ bù 2(16 bit): 1000 0000 0000 0000. Đảo bit (bù 1) 0111 1111 1111 1111 cộng thêm 1 (bù 2) 1000 0000 0000 0000. => -32768
+  -  ** Kiểu dữ liệu tham chiếu ** : các đối tượng, string, mảng, lớp trừu tượng và giao điện interface
+    + Kiểu tham chiếu lưu trữ địa chỉ của đối tượng thay vì giá trị trực tiếp
+    + ![image](https://github.com/user-attachments/assets/05b6b924-b785-4c9f-a161-89fa15a577b8)
+    + == trong tham chiếu là so sánh địa chỉ bộ nhớ chứ ko phải nội dung, chúng ta phải dùng equals
+    + Nếu tạo string bằng "" thì có thể dùng == vì giá trị "" mà giống nhau thì được lưu cùng địa chỉ, còn lại thì đều ko được. Vì dùng new là tạo đối tượng mới trên heap.
+    + Nếu 2 object trỏ cùng 1 đại chỉ trên heap thì cả == và equals đều true: ![image](https://github.com/user-attachments/assets/037fba34-d027-4499-bae8-e0023bb512b8)
+    + Với các class thì equals có kiểm tra cả địa chỉ lên nếu muốn dùng equals trong so sánh 2 object class thì nhớ override lại nha.
+    + Cẩn thận với từ hóa new sẽ làm tốn nhiều bộ nhớ. Hãy tận dụng string pool.
+  - Nếu chuyền tham chiếu và tham trị vào 1 hàm void có biến đổi thì chỉ có tham chiếu là thay đổi nội dung còng lại là ko đổi gì cả. (đây gọi là pass by value)
+### 4.4 Ép kiểu
+  - Với kiểu nguyên thủy: Ép kiểu tự động (widening casting): từ kích thước nhỏ sang to - không phải làm gì. Và Ép kiểu tường minh (Narrowing casting) là từ kích thước lớn sang nhỏ - có sai lệch.
+    + ![image](https://github.com/user-attachments/assets/ff86d60b-bc6e-4dc7-a8db-80142219fbd9)
+  - Với kiểu tham chiếu: Ép kiểu ngầm định - upcasting và ép kiểu tường minh - downcasting: 
+    + upcasting - từ thằng con sang cha (kiểu là từ kích thứoc bé sang lowns0 -> luôn an toàn.
+        + ![image](https://github.com/user-attachments/assets/ee447d9e-dd08-429f-8750-4bb6086be7e2)
+    + downcasting - từ kiểu cha về con, yêu cầu cú pháp rõ ràng và cần kiểm tra instanceof nếu ko sẽ lỗi ClassCastException
+        + ![image](https://github.com/user-attachments/assets/c49c19a1-6d0a-4195-9f59-0ca34c2e6b68)
+  - boxing và Unboxing
+    + Boxing(autoboxing) là kiểu nguyên thủy -> wrapper 1 cách tự động ![image](https://github.com/user-attachments/assets/d090f749-8ea3-448d-8eca-571753a107cd)
+    + Unboxing chuyển đổi một đối tượng của lớp bao (wrapper class) thành giá trị kiểu dữ liệu nguyên thủy (primitive type) cần chú ý giá trị null có thể bị lỗi ![image](https://github.com/user-attachments/assets/0cca9ff5-a031-4ec9-98a1-0f629d3b11b1)
     + 
+
+
+
+
+
 
 
 
