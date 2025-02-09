@@ -258,27 +258,42 @@
   - Hệ 8 và 16: ![image](https://github.com/user-attachments/assets/08723ffa-da1e-4988-8a15-ef416f3676c8)
   - ![image](https://github.com/user-attachments/assets/7592c126-fb31-4f30-817d-2e69fd06f77b)
   - Hệ cơ số 32 (base32)
+    + Quy tắc mã hóa: Chuyển đổi sang mã ASCII-> chuyển sang dạng nhị phân -> chia thành nhóm 5 bit (nhóm cuối ko đủ thì thêm 0 vào) -> tra bảng Base32 (tự search) để lấy ký tự tương  ứng -> Nếu không đủ nhóm 5bit thì thêm dấu = để padding tương ứng với số 0 mà thêm vào nhóm 5 bit
+    + Base32 có được dùng trong mã hóa dữ liệu, OTP, không khuyến khích với ảnh thì ko tối ưu bằng base64 do dài hơn nhiều, và không phải trình duyệt nào cũng hỗ trợ Base32 Data URI (data:image/png;base32,...).
+    + NguyễnQ123!@#
+       + chuyển sang mã ASCII/UTF-8 (do chữ ễ cần chuyển UTF8): N → 78,ễ → C4 83 (bảng mã UTF-8 tự cha) ...
+       + chuyển sang hệ nhị phân:78 → 01001110, C4 → 11000100, 83 → 10000011, .... (C4 -> chuyển C trongg hệ lục phân(Hexadecimal) là 12 : 1100 + số bit trong hệ nhị phân: 0100 )
+       + nhóm theo thứ tự 5 bit một: 01001, 11001, 10011,... (nhóm cuối ko đủ thì thêm số 0)
+       + Dựa bảng Base32: 01001 → J, 11001 → C... (thêm dấu = nếu chúng ta đã thêm 1 bit 0 vào )
+       + Kết quả là: JCLVOHCBPMVMDMMNJGEGEMIAED=
+       + Base32 là ký tự in hoa + '=' (32 ký tự (A-Z, 2-7))
   - Hệ cơ số 64 (base64)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### 4.6 Vòng lặp (Loops)
-### 4.7 Phương thức (Methods)
-### 4.8 Câu lệnh điều kiện (if-else / switch-case)
-### 4.9 Mảng (Arrays)
-### 4.10 Từ khóa (this, super, final)
-### 4.11 Java Packages
+    +  Về cơ chế giống với base32 nhưng khác là chia thành nhóm 6 bit (-> ít nhóm -> ngắn hơn base32) -> dùng bảng mã base64.(64 ký tự (A-Z, a-z, 0-9, +, /))
+    +  Có thể dùng base64 hiện thị ảnh nhưng kích thước ảnh lớn sẽ làm chậm tốc độ tải (base32 nhiều trình duyệt ko hỗ trợ) <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA==" alt="Image">
+### 4.7 Vòng lặp (Loops)
+  - Vòng lặp for – Duyệt dữ liệu có giới hạn
+    + for không điều kiện (chạy mãi mãi) ![image](https://github.com/user-attachments/assets/55138d77-5d5a-4a51-8228-634bfda7279e)
+    + Vòng lặp for nhiều biến ![image](https://github.com/user-attachments/assets/77f7cb55-4b41-4c25-b714-b6c69b31ee7e)
+  - Vòng lặp while – Khi không biết trước số lần lặp
+  - Vòng lặp do-while – Chạy ít nhất 1 lần
+  - Vòng lặp foreach (Enhanced for) – Duyệt Collection tối ưu
+  - Vòng lặp stream().forEach() – Cách hiện đại
+  - Từ khóa break: thoát khỏi vòng lặp ngay lập tức
+  - Từ khóa continue: Bỏ Qua Lần Lặp Hiện Tại, Chạy Tiếp Lần Kế Tiếp
+  - Nhãn - label: là một tên được đặt trước một vòng lặp, giúp chúng ta điều khiển việc thoát (break) hoặc bỏ qua (continue) vòng lặp cụ thể.
+    + ![image](https://github.com/user-attachments/assets/35b8f517-92ff-4244-9b2c-05413f2ae7b0)
+    + ![image](https://github.com/user-attachments/assets/e27e8c5c-7cc6-4a12-9143-b9f5f14bae06)
+### 4.8 Phương thức (Methods)
+  - Dùng varargs (...) khi cần truyền số lượng tham số không xác định. ![image](https://github.com/user-attachments/assets/ec0c082f-2460-4104-ad80-0d2ab7ec3838)
+  - ![image](https://github.com/user-attachments/assets/36bb1ef5-378d-4a32-9490-9f8582a5f3d2)
+### 4.9 Câu lệnh điều kiện (if-else / switch-case)
+  - Toán tử ba ngôi (? :) 
+  - Dùng thay thế if-else if-else khi có nhiều điều kiện với cùng một biến.
+  - Chỉ hỗ trợ kiểu số nguyên (int), char, String, enum. (Không hỗ trợ kiểu double, float, boolean.)
+  - switch - case trong java14: ![image](https://github.com/user-attachments/assets/0dc59102-f68d-46f3-bca2-2f4723a9bcca)
+### 4.10 Mảng (Arrays)
+### 4.11 Từ khóa (this, super, final)
+### 4.12 Java Packages
 
 
 
