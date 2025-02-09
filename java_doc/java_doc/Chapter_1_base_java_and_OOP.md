@@ -292,8 +292,53 @@
   - Chỉ hỗ trợ kiểu số nguyên (int), char, String, enum. (Không hỗ trợ kiểu double, float, boolean.)
   - switch - case trong java14: ![image](https://github.com/user-attachments/assets/0dc59102-f68d-46f3-bca2-2f4723a9bcca)
 ### 4.10 Mảng (Arrays)
+  - mảng có kích thước cố định khi được khởi tạo
+  - Mảng trong Java là một đối tượng trên Heap. Khi bạn khởi tạo một mảng, Java cấp phát một vùng nhớ cố định để chứa tất cả các phần tử của mảng.
+  - Không thể thay đổi kích thước vì vùng nhớ cấp phát liên tiếp. Nếu muốn có thêm phần tử, bạn cần tạo một mảng mới với kích thước lớn hơn và sao chép dữ liệu cũ. (System.arraycopy)
+  - Sau dùng để linh hoạt khi làm việc: ArrayList. Mạng thì hiệu suất cao(vì dùng chỉ mục index để truy cập phần tử trực tiếp) nhưng lại ít phương thức thao tác.
+  - Mảng 2 chiều int[][] matrix = new int[3][3]; ![image](https://github.com/user-attachments/assets/3cbfdda9-fe8e-4b5e-af1c-6219fee4f476)
 ### 4.11 Từ khóa (this, super, final)
+  - Từ khóa this có thể được dùng để tham chiếu tới biến instance (toàn cục) của lớp hiện tại.
+  - Dùng để gọi constructor trong cùng class
+  - Trả về chính đối tượng hiện tại (return this) để hỗ trợ chaining method ![image](https://github.com/user-attachments/assets/3f6f5382-a0e7-4371-b4fc-77b433454d5b)
+  - Super: Dùng để gọi constructor của lớp cha,Gọi phương thức bị override trong lớp cha (super.method()),Truy cập biến của lớp cha nếu bị che khuất (super.variable) ![image](https://github.com/user-attachments/assets/3744eb34-1322-4515-8ca1-65a71383a8c0)
+  - final: Ngăn chặn thay đổi: Dùng với biến: Biến chỉ được gán giá trị một lần (constant),  Dùng với method: Ngăn chặn override (final method), Dùng với class: Ngăn chặn kế thừa (final class) ![image](https://github.com/user-attachments/assets/00b365ef-f5d2-4092-9d56-c195f98e0771)
+
 ### 4.12 Java Packages
+  - Package là một nhóm các class, interface, sub-package liên quan được tổ chức theo một thư mục logic.
+  - Dùng để tránh xung đột tên, bảo mật, dễ dàng bảo trì.
+  - có 2 loại: Built-in Package - Các package có sẵn trong Java (e.g. java.util, java.io, java.net). User-defined Package - dev tự định nghĩa.
+  - fully qualified name(không cần import): ![image](https://github.com/user-attachments/assets/176d312e-3bd2-4dee-947b-0f98ef6b07f3)
+  - Java 5+ có Import trực tiếp method & biến static: ![image](https://github.com/user-attachments/assets/9c8e5cd8-0192-4484-aae6-11111972398d)
+
+## *** 5. Các tính chất OOP ***
+### 5.1 Encapsulation - Đóng gói
+  - Ẩn chi tiết bên trong và chỉ cho phép truy cập thông qua phương thức cụ thể. (Vì vậy, nó còn được gọi là data hiding (nghĩa là che giấu dữ liệu).)
+  - Dùng private cho biến và Dùng public getter/setter để truy cập.
+### 5.2 Inheritance – Kế thừa
+  - Class con có thể sử dụng lại code của class cha. Giảm trùng lặp code, giúp hệ thống mở rộng dễ dàng.
+  - Trong Java, chúng ta có 3 dạng kế thừa chính đó là: kế thừa từ Class, kế thừa từ lớp trừu tượng (Abstract class) và kế thừa từ Interface.
+  - Trong java không có đa kế thừa (1 con kết thừa 2 cha) : ![image](https://github.com/user-attachments/assets/58fccb9e-122e-4125-9a7c-57373d8f3c2a)
+  - Nhưng ta có kế thừa phân cấp, 1 classs cha có nhiều class con kế thừa
+  - Kế thừa đa cấp: Một class kế thừa từ một class khác, và class đó lại kế thừa từ một class khác nữa: ![image](https://github.com/user-attachments/assets/b19c378f-c76d-4e45-af00-200221610b36)
+  - Kế thừa Abstract:
+    + Khi một class kế thừa (extends) một abstract class, thì bắt buộc phải override tất cả các phương thức trừu tượng của class cha.![image](https://github.com/user-attachments/assets/dc380bf9-576c-4795-baf0-072b615c11ca)
+  - Kế thừa Interface:
+    + Interface là một hợp đồng (contract) chỉ định rằng một class nào đó phải triển khai các phương thức cụ thể.
+    + Hỗ trợ đa kế thừa (một class có thể implements nhiều interface).
+    + ![image](https://github.com/user-attachments/assets/97a58f19-34cb-4f23-8d92-87059b4de2e0)
+    + Khi implement một interface (implements), phải override tất cả các phương thức, trừ khi có default method hoặc class con là abstract.![image](https://github.com/user-attachments/assets/2ebe8696-049c-4cf2-ac2b-1bf92734825e)
+    + Khi nào nên dùng default method? Khi muốn thêm hành vi mặc định mà không làm ảnh hưởng đến các class cũ.
+### 5.3 Polymorphism – Đa hình
+### 5.4 Abstraction – Trừu tượng
+
+## *** 6. Các khái niện OOPs ***
+## *** 7. Interface & abstract class ***
+## *** 8. Exception handling ***
+
+
+
+
 
 
 
