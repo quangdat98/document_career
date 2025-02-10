@@ -1,4 +1,4 @@
-# ** ------ Tóm Tắt ------ **
+![image](https://github.com/user-attachments/assets/772989d1-b8aa-4f48-a64c-2416169efa89)# ** ------ Tóm Tắt ------ **
 
 1. Tài liệu tham khảo
 2. Các đặc điểm
@@ -331,20 +331,92 @@
     + Khi nào nên dùng default method? Khi muốn thêm hành vi mặc định mà không làm ảnh hưởng đến các class cũ.
 ### 5.3 Polymorphism – Đa hình
   - Polymorphism là khả năng của một biến, phương thức hoặc đối tượng có thể có nhiều hình thái khác nhau.
-  - Đa hình lúc biên dịch (Compile-time Polymorphism) → Method Overloading
-  - Đa hình lúc chạy (Runtime Polymorphism) → Method Overriding
+  - Đa hình lúc biên dịch (Compile-time Polymorphism) → Method Overloading: nạp chồng phương thức,Overloading chỉ dựa vào số lượng hoặc kiểu dữ liệu tham số chứ không dựa vào kiểu trả về
+  - Đa hình lúc chạy (Runtime Polymorphism) → Method Overriding: Ghi đè phương thức,Dựa vào kế thừa và interface.
   - ![image](https://github.com/user-attachments/assets/97722c8a-7aab-42c8-aeac-d36e2e482476)
   - Tính Đa Hình Với Interface
   - Kế Thừa Abstract Class vs. Interface Trong Đa Hình
   - Upcasting - Ép Kiểu Lên. (an toàn)
-    + 
+    + Upcasting là quá trình ép kiểu một đối tượng của lớp con thành kiểu của lớp cha.
+    + ![image](https://github.com/user-attachments/assets/9bc55ca8-3354-4f7e-9418-0ac645a8793c)
+    + Mặc dù myAnimal có kiểu Animal, nhưng khi gọi makeSound(), nó vẫn chạy phương thức của Dog do Overriding.
+    + Viết code linh hoạt, sao thêm nhiều class con thì chỉ cần thay đổi cách khởi tạo mà không cần sửa toàn bộ chương trình
   - Downcasting - Ép Kiểu Xuống
-    + 
+    + Downcasting là quá trình ép kiểu một đối tượng của lớp cha thành lớp con.
+    + ![image](https://github.com/user-attachments/assets/3c73b99b-ff86-454f-9711-96fa42492dcd)
+    + Dùng instanceof trước khi ép kiểu để tránh lỗi.
+    + ![image](https://github.com/user-attachments/assets/f8818a27-deae-41f4-a23e-f8ed866b10ed)
+    + Upcasting trước Downcasting là bắt buộc, nếu không sẽ gây lỗi.
 ### 5.4 Abstraction – Trừu tượng
-
+  - Abstraction giúp che giấu chi tiết triển khai và chỉ hiển thị chức năng cần thiết.
+    + Nếu một lớp con không override tất cả phương thức trừu tượng của lớp cha, thì lớp con đó cũng phải là abstract.
+    + abstract class: Có thể chứa cả phương thức trừu tượng (không có phần thân) và phương thức bình thường (có phần thân).
+    + Không thể khỏi tạo trức tiếp lớp trừu tượng ![image](https://github.com/user-attachments/assets/632e1d65-be39-48a2-bbd6-74ea04131d62)
+    + Nếu không cần lưu trữ trạng thái (biến), dùng interface sẽ linh hoạt hơn.
+    + ![image](https://github.com/user-attachments/assets/6dc8a98f-1d2f-495b-ab89-7b3cc24773b2)
+  - interface: Chỉ chứa các phương thức trừu tượng (từ Java 8 có default và static methods).
+    + ![image](https://github.com/user-attachments/assets/89342228-a17c-4c75-9332-08348a599db7)
+    + Không có hàm khởi tạo
+    + Marker interface
+    + interface reference
+  - ![image](https://github.com/user-attachments/assets/9ab0dbe4-b3a4-4095-83f4-b2626e0fa987)
+  - Lý do dùng interface và abstraction
+    + interface thì khi implements thì bạn chỉ override lại 1 phương thức nhưng với abstract thì khi kết thừa thì bạn có thể dùng theeo cả cá phương thức khác chứ ko chỉ là override lại.
 ## *** 6. Các khái niện OOPs ***
-## *** 7. Interface & abstract class ***
-## *** 8. Exception handling ***
+  - Constructor
+    + Có thể có Overloading (nhiều constructor khác nhau trong cùng class).
+    + Nếu không khai báo constructor, Java sẽ tự tạo constructor mặc định (không tham số).
+  - Lớp Object, Object cloning
+    + Mọi class trong Java đều ngầm kế thừa java.lang.Object.
+    + Object cung cấp nhiều phương thức hữu ích như: toString(),equals(),hashCode(), clone()
+    + Java hỗ trợ sao chép object bằng cách implements Cloneable và override clone(): Có hai cách: Shallow Copy (sao chép tham chiếu) và Deep Copy (sao chép toàn bộ dữ liệu).
+    + ![image](https://github.com/user-attachments/assets/9333a2a6-08b7-401f-a7ae-40369871ac85)
+    + ![image](https://github.com/user-attachments/assets/e74fb17e-f2ab-469c-8837-9a317242a2e6)
+  - Equals(), hashCode()
+    + Equals() So sánh nội dung của object, thay vì so sánh địa chỉ.
+    + Mặc định, equals() dùng so sánh địa chỉ (==), nhưng có thể override lại.![image](https://github.com/user-attachments/assets/4d210fed-763e-49ad-9335-1eabe8cf98d6)
+    + Phương thức hashCode() trả về một giá trị băm (hash value) của đối tượng, được sử dụng chủ yếu trong các cấu trúc dữ liệu như HashMap, HashSet, hoặc Hashtable để xác định vị trí lưu trữ của đối tượng.
+    + Mặc định, hashCode() trong Object trả về một số nguyên duy nhất dựa trên địa chỉ bộ nhớ của đối tượng (không liên quan đến nội dung của đối tượng)
+    + Khi bạn ghi đè phương thức equals(), bạn bắt buộc phải ghi đè phương thức hashCode(): Nếu hai đối tượng bằng nhau (equals() trả về true), thì hashCode() của chúng phải giống nhau.và ngược lại.
+    + Nếu hai đối tượng có cùng giá trị băm (do ghi đè hashCode()), nhưng không ghi đè equals(), chúng sẽ không được nhận diện là bằng nhau khi so sánh nội dung.
+  - Đệ quy
+    + Một phương thức gọi lại chính nó.
+    + Dùng để giải bài toán đệ quy như: Tính giai thừa, dãy Fibonacci, tìm kiếm đệ quy...![image](https://github.com/user-attachments/assets/28f3412e-9fd2-43da-83a6-43acb6c840a2)
+  - Toán tử instanceof: là một toán tử được sử dụng để kiểm tra xem một đối tượng có phải là thể hiện (instance) của một lớp cụ thể hoặc một lớp con của nó (bao gồm cả interface) hay không. Nó trả về giá trị true hoặc false. ![image](https://github.com/user-attachments/assets/34f4cd43-8eaf-4c28-b625-cf3c5a125cbd)
+
+  - SOLID: nguyên tắc SOLID: là bộ 5 nguyên tắc giúp code dễ bảo trì và mở rộng
+    + ![image](https://github.com/user-attachments/assets/95a85579-2227-49f3-b018-9c57b7657d0d)
+    + L – Liskov Substitution
+       +
+    + D – Dependency Inversion
+       +
+## *** 7. Exception handling ***
+  - Exception (Ngoại lệ) là lỗi xảy ra khi chương trình đang chạy (Runtime) làm chương trình dừng đột ngột.
+  - Phân cấp exception: ![image](https://github.com/user-attachments/assets/07b6be2d-5212-4951-9adb-9fdadec678b9)
+
+  - Có 2 loại chính:Checked Exception (Compile-time Exception) và Unchecked Exception (Runtime Exception)
+  - Checked Exception - lỗi trong quá trình biên dịch
+    + Lỗi bắt buộc phải xử lý khi compile code.
+  - Unchecked Exception - lỗi trong quá trình chạy
+    + Không bắt buộc phải xử lý, nhưng nếu không xử lý thì chương trình sẽ dừng đột ngột.
+  - Throw
+    + Tự ném ra một exception
+  - Throws
+    + Khai báo exception mà method có thể ném ra
+  - try-catch-finally 
+    + try: Chứa code có thể gây ra exception
+    + catch: Bắt lỗi và xử lý exception. Chú ý phân cấp exception nếu ko là bỏ sót thằng cha.
+    + finally: Luôn thực thi, dù có exception hay không
+    + Multi-catch (Bắt nhiều exception) ![image](https://github.com/user-attachments/assets/fac7c8a6-5971-4dcf-a2e0-428da3a7ded6)
+  - Try/catch resource
+    + là một cấu trúc trong Java được giới thiệu từ Java 7 để tự động đóng các tài nguyên (resources) như tệp, luồng (streams), hoặc kết nối (connections) khi chúng không còn được sử dụng. Điều này giúp giảm thiểu lỗi và rò rỉ tài nguyên.
+    + ![image](https://github.com/user-attachments/assets/a8f01112-db00-4889-9682-83a215403fff)
+  - Custom Exception:
+    + là các ngoại lệ do lập trình viên tự định nghĩa bằng cách tạo ra một lớp kế thừa từ Exception hoặc RuntimeException.
+    + ![image](https://github.com/user-attachments/assets/415fdf6c-2df2-4ab4-ab01-12ec68451fe1)
+    + ![image](https://github.com/user-attachments/assets/c35de3ab-ebff-47ea-8cd2-b0917a89e4bd) ![image](https://github.com/user-attachments/assets/e36bf09f-0d66-4c0b-b619-0a5b57d21a6f)
+    + ![image](https://github.com/user-attachments/assets/0845cbd4-85ad-4799-8721-461bc9f481ea) ![image](https://github.com/user-attachments/assets/c0068ba2-fb5a-418d-ba5f-1f2e4a14a384)
+## *** 8. Generics ***
 
 
 
