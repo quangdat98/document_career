@@ -330,6 +330,16 @@
     + Khi implement một interface (implements), phải override tất cả các phương thức, trừ khi có default method hoặc class con là abstract.![image](https://github.com/user-attachments/assets/2ebe8696-049c-4cf2-ac2b-1bf92734825e)
     + Khi nào nên dùng default method? Khi muốn thêm hành vi mặc định mà không làm ảnh hưởng đến các class cũ.
 ### 5.3 Polymorphism – Đa hình
+  - Polymorphism là khả năng của một biến, phương thức hoặc đối tượng có thể có nhiều hình thái khác nhau.
+  - Đa hình lúc biên dịch (Compile-time Polymorphism) → Method Overloading
+  - Đa hình lúc chạy (Runtime Polymorphism) → Method Overriding
+  - ![image](https://github.com/user-attachments/assets/97722c8a-7aab-42c8-aeac-d36e2e482476)
+  - Tính Đa Hình Với Interface
+  - Kế Thừa Abstract Class vs. Interface Trong Đa Hình
+  - Upcasting - Ép Kiểu Lên. (an toàn)
+    + 
+  - Downcasting - Ép Kiểu Xuống
+    + 
 ### 5.4 Abstraction – Trừu tượng
 
 ## *** 6. Các khái niện OOPs ***
