@@ -6,8 +6,8 @@
 4. Cú pháp (biến, kiểu dữ liệu, vòng lặp, điều kiện, java string)
 5. Các tính chất OOP
 6. Các khái niện OOPs
-7. Interface & abstract class
-8. Exception handling
+7. Exception handling
+8. Generics
 
 
 # **  ------ Nội dung chi tiết ------ **
@@ -476,7 +476,11 @@
   - self-referential generics <===== cần tìm hiểu kỹ
     + Cho phép một lớp tham chiếu đến chính nó bằng một kiểu generic. Điều này thường được sử dụng trong các pattern như Builder Pattern hoặc Fluent API để đảm bảo kiểu dữ liệu chính xác khi gọi các phương thức kế thừa.
     + ![image](https://github.com/user-attachments/assets/e5a21af6-2df6-404e-8574-be81937e89d3)
-    + 
+    + nếu viết ![image](https://github.com/user-attachments/assets/fca26430-4fc2-4026-ac79-76bc8f54dac0) Do T có thể là bất kì lớp con nào của parent, nhưng nó không giữ được kiểu chính xác.
+    + ![image](https://github.com/user-attachments/assets/6fb2b178-966c-4631-8551-18ab81bdb9b6) self() trả về Child, có thể gọi doChildThing()
+    + ...
+
+
 
 
 
