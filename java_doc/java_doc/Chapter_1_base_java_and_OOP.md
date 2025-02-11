@@ -92,7 +92,9 @@
     + Runtime data areas chính là Memory được phân khi máy ảo Java chạy trên hệ điều hành
     + Memory của JVM được chia làm 5 phân vùng khác nhau, đó là PC Registers, Java stacks, Native method stacks, Heap, và Method area
   - Execution Engine (Bộ thực thi)
-
+  - Java có 2 giai đoạn chính: 
+    + Biên dịch (Compile-time): Khi chạy javac MyProgram.java hoặc khi IDE build được Java Compiler (javac) thực hiện
+    + Chạy chương trình (Runtime): Khi chạy java MyProgram được JVM (Java Virtual Machine) thực hiện
   
 ### 3.4 Quá trình JRE làm việc như thế nào???
   - ![image](https://github.com/user-attachments/assets/0d1f0158-7e11-4442-bf7d-7cb658fcd4c0)
@@ -356,9 +358,16 @@
     + ![image](https://github.com/user-attachments/assets/6dc8a98f-1d2f-495b-ab89-7b3cc24773b2)
   - interface: Chỉ chứa các phương thức trừu tượng (từ Java 8 có default và static methods).
     + ![image](https://github.com/user-attachments/assets/89342228-a17c-4c75-9332-08348a599db7)
-    + Không có hàm khởi tạo
-    + Marker interface
-    + interface reference
+    + Không có hàm khởi tạo ==> không thể tạo một thể hiện (instance) trực tiếp của một interface bằng từ khóa new, vì interface không thể có thân (body) cho các phương thức. Thay vào đó, bạn phải triển khai interface đó trong một lớp cụ thể. ![image](https://github.com/user-attachments/assets/40771102-ee31-4f93-abbb-545a9e2f7f26)
+    + Marker interface:  là một kiểu interface trong Java mà không chứa bất kỳ phương thức nào. Mục đích chính của nó là để đánh dấu hoặc chỉ định một hành vi đặc biệt cho các lớp triển khai. Khi một lớp implements một marker interface, nó cho biết rằng lớp đó có một đặc tính hay hành vi nào đó. Một ví dụ nổi tiếng về marker interface trong Java là Serializable. Khi một lớp implements Serializable, nó cho biết rằng đối tượng của lớp đó có thể được tuần tự hóa (serialized).
+    + interface reference: bạn có thể gọi các phương thức được định nghĩa trong interface đó mà không cần phải biết rõ về lớp cụ thể đang được sử dụng.
+       + Trừu tượng hóa: Interface reference cho phép bạn làm việc với các đối tượng một cách trừu tượng, mà không cần biết rõ chi tiết của lớp cụ thể.
+       + Tính đa hình: Bạn có thể thay đổi đối tượng mà tham chiếu này trỏ đến mà không cần thay đổi mã gọi phương thức.
+       + ![image](https://github.com/user-attachments/assets/d9d0c3a1-d042-4ce1-ba82-afaf43cca87c) ![image](https://github.com/user-attachments/assets/fb299454-e46f-4bf3-b88f-95ddd514b3bd)
+       + Sử dụng: ![image](https://github.com/user-attachments/assets/77239839-1071-4aea-9818-acb251b2cae6)
+       + Tính linh hoạt: Bạn có thể thay đổi loại động vật mà không cần thay đổi mã trong phần gọi.
+       + Dễ dàng mở rộng: Nếu bạn thêm một lớp mới (ví dụ: Bird), bạn chỉ cần triển khai Animal mà không cần thay đổi mã hiện có.
+       + Hỗ trợ đa hình: Bạn có thể sử dụng các phương thức của interface mà không cần biết chi tiết về lớp cụ thể.
   - ![image](https://github.com/user-attachments/assets/9ab0dbe4-b3a4-4095-83f4-b2626e0fa987)
   - Lý do dùng interface và abstraction
     + interface thì khi implements thì bạn chỉ override lại 1 phương thức nhưng với abstract thì khi kết thừa thì bạn có thể dùng theeo cả cá phương thức khác chứ ko chỉ là override lại.
@@ -387,17 +396,28 @@
   - SOLID: nguyên tắc SOLID: là bộ 5 nguyên tắc giúp code dễ bảo trì và mở rộng
     + ![image](https://github.com/user-attachments/assets/95a85579-2227-49f3-b018-9c57b7657d0d)
     + L – Liskov Substitution
-       +
+       + Nếu lớp cha có các phương thức mà một số lớp con không sử dụng hoặc không thực hiện được, thì bạn nên:
+       + Tạo một interface cho các hành vi cụ thể (ví dụ: bay, bơi, v.v.).
+       + Lớp cha (ví dụ: Bird) sẽ không chứa các phương thức không cần thiết.
+       + Các lớp con sẽ kế thừa từ lớp cha và thực hiện các interface cần thiết.
+       + ![image](https://github.com/user-attachments/assets/c2279269-1443-4d17-9d67-047574bb26f2)
+       + Giải thích: Interface: Flyable cho các loài có khả năng bay. Lớp cha: Bird không cần chứa phương thức fly(). Lớp con: Sparrow implements Flyable, còn Penguin thì không.
     + D – Dependency Inversion
-       +
+       + Các module cấp cao không nên phụ thuộc vào các module cấp thấp
+       + 1 ví dụ thanh toán: ![image](https://github.com/user-attachments/assets/d9aed8e5-66d4-4b30-bdaf-4921b44ced55)
+       + Vấn đề: PaymentProcessor phụ thuộc trực tiếp vào CreditCardPayment. Nếu bạn muốn thêm một phương thức thanh toán mới (như PayPal), bạn sẽ phải thay đổi PaymentProcessor.
+       + Nhận thấy CreditCardPayment là module cấp thấp thực hiện thanh toán, còn PaymentProcessor cấp cao xử lý logic và gọi CreditCardPayment. => ko để CreditCardPayment trong PaymentProcessor.
+       + Tạo lớp trừu tượng thanh toán: ![image](https://github.com/user-attachments/assets/3bb84271-3ad0-4f5e-96f8-b290f87e2c1d)
+       + PaymentProcessor sẽ phụ thuộc vào lớp trừu tượng chứ ko phải lớp cụ thể: ![image](https://github.com/user-attachments/assets/272330a8-68a3-4a0a-81a1-f6edfba0bdaf)
+       + Thực hiện: ![image](https://github.com/user-attachments/assets/7ab5e8bc-2cd0-4b9a-8e22-8689895fdca4)
 ## *** 7. Exception handling ***
   - Exception (Ngoại lệ) là lỗi xảy ra khi chương trình đang chạy (Runtime) làm chương trình dừng đột ngột.
   - Phân cấp exception: ![image](https://github.com/user-attachments/assets/07b6be2d-5212-4951-9adb-9fdadec678b9)
 
   - Có 2 loại chính:Checked Exception (Compile-time Exception) và Unchecked Exception (Runtime Exception)
-  - Checked Exception - lỗi trong quá trình biên dịch
+  - Checked Exception - lỗi trong quá trình biên dịch (lúc run code)
     + Lỗi bắt buộc phải xử lý khi compile code.
-  - Unchecked Exception - lỗi trong quá trình chạy
+  - Unchecked Exception - lỗi trong quá trình run time (lúc call 1 api..)
     + Không bắt buộc phải xử lý, nhưng nếu không xử lý thì chương trình sẽ dừng đột ngột.
   - Throw
     + Tự ném ra một exception
@@ -417,6 +437,48 @@
     + ![image](https://github.com/user-attachments/assets/c35de3ab-ebff-47ea-8cd2-b0917a89e4bd) ![image](https://github.com/user-attachments/assets/e36bf09f-0d66-4c0b-b619-0a5b57d21a6f)
     + ![image](https://github.com/user-attachments/assets/0845cbd4-85ad-4799-8721-461bc9f481ea) ![image](https://github.com/user-attachments/assets/c0068ba2-fb5a-418d-ba5f-1f2e4a14a384)
 ## *** 8. Generics ***
+  - Generics là một tính năng mạnh mẽ trong Java, giúp tăng tính an toàn kiểu dữ liệu (type safety) và tái sử dụng code mà không cần ép kiểu thủ công. Bắt đầu từ java 5.
+    + Trước khi có generics: ![image](https://github.com/user-attachments/assets/165df43e-6eb4-4d84-9eb6-f785d2170d24)
+    + ![image](https://github.com/user-attachments/assets/bc186879-6ae0-44c6-99ae-31435f312caf)
+    + Kiểm tra dữ liệu ngay tại compile-time
+    + Loại bỏ ép kiểu thủ công
+  - Generics trong Class
+    + cho phép bạn định nghĩa các lớp, giao diện và phương thức với tham số kiểu, giúp tăng tính linh hoạt và tái sử dụng mã
+    + ![image](https://github.com/user-attachments/assets/8e29a59c-eccc-42fb-8fc7-d42226ee6e2b)
+    + ![image](https://github.com/user-attachments/assets/0d317a3c-f50d-4a98-a857-99712804efa2)
+    + An toàn, Tái sử dụng mã, Giảm thiểu ép kiểu.
+  - Generics trong Interface
+    + cho phép bạn định nghĩa các giao diện với tham số kiểu. Điều này mang lại tính linh hoạt và khả năng tái sử dụng mã cao hơn.
+    + ![image](https://github.com/user-attachments/assets/6cdcfd3f-7796-429e-aa3d-ed1faa184a26) ![image](https://github.com/user-attachments/assets/6afb6f17-a02b-428d-9eb5-23ddb643c457)
+    + ![image](https://github.com/user-attachments/assets/742a84fa-af0d-4fff-9976-fa6ec1051f23)
+    + Pair<K, V>: K và V là các tham số kiểu. Bạn có thể thay đổi tên chúng tùy ý. có thể là Pair<k>, getKey(): Phương thức này trả về một đối tượng kiểu K, getValue(): Phương thức này trả về một đối tượng kiểu V.
+  - Generics trong Method
+    + cho phép bạn định nghĩa các phương thức với tham số kiểu, giúp tăng tính linh hoạt và tái sử dụng mã.
+    + Bạn có thể định nghĩa một phương thức generic bằng cách sử dụng dấu ngoặc nhọn (<>) trước kiểu trả về của phương thức
+    + ![image](https://github.com/user-attachments/assets/22ba2071-e419-41b4-937e-11f6ae92e0c0) or ![image](https://github.com/user-attachments/assets/b50aeb6d-d308-4833-a4a8-2a90533d4455)
+    + ![image](https://github.com/user-attachments/assets/238755d1-a552-4188-a6d0-e33f8db61597)
+  - Bounded Type Parameters (Giới hạn kiểu dữ liệu)
+    + Mặc định, T có thể là bất kỳ kiểu nào. Nhưng đôi khi, bạn muốn giới hạn T chỉ được là một loại cụ thể.
+    + ![image](https://github.com/user-attachments/assets/dff803d0-4b21-407d-a531-0ea09a3587e8)
+  - Wildcards (?)  Generics
+    + dấu ? được gọi là Wildcard, dùng khi bạn muốn tạo một kiểu linh hoạt mà không cần chỉ rõ một kiểu cụ thể.
+    + Khi bạn cần viết một phương thức làm việc với nhiều loại generics khác nhau mà không cần quan tâm chính xác kiểu dữ liệu.
+    + Khi bạn không cần tạo một đối tượng mới với một kiểu cụ thể.
+    + Không thể thêm phần tử vào danh sách, vì ta không biết kiểu chính xác của danh sách.
+    + Upper Bounded Wildcard: (<? extends T>) – Chỉ nhận lớp T hoặc lớp con của T ![image](https://github.com/user-attachments/assets/e88edd92-3b57-45b5-bcb1-1344f822cc82)
+    + Lower Bounded Wildcard:  (<? super T>) – Chỉ nhận T hoặc lớp cha của T ![image](https://github.com/user-attachments/assets/a021140d-8de8-4cc8-9f56-f27533a28edb)
+    + ![image](https://github.com/user-attachments/assets/7adc1e22-deed-4f68-b89a-306940761a12)
+  - Sự khác nhau <T> và <?>
+    + ![image](https://github.com/user-attachments/assets/529eb252-3f92-4f83-9e43-3eb7ae06c5ca)
+    + Khác biệt lớn nhất à ? ko biết danh sách đó chứa loại nào, còn T thì biết.
+    + Tạo sao T biết: ![image](https://github.com/user-attachments/assets/27c24b33-d11f-4811-adda-3fa27f8beecb)
+    +  Chính vì ? không biết kiểu dữ liệu lên là nó ko thể thêm phần tử ngoại trừ là null.
+  - self-referential generics <===== cần tìm hiểu kỹ
+    + Cho phép một lớp tham chiếu đến chính nó bằng một kiểu generic. Điều này thường được sử dụng trong các pattern như Builder Pattern hoặc Fluent API để đảm bảo kiểu dữ liệu chính xác khi gọi các phương thức kế thừa.
+    + ![image](https://github.com/user-attachments/assets/e5a21af6-2df6-404e-8574-be81937e89d3)
+    + 
+
+
 
 
 
