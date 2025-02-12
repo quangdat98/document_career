@@ -1,20 +1,45 @@
 # ** ------ Tóm Tắt ------ **
 
-1. Cấu trúc dữ liệu (Data Structures) trong Java. 
-1.1 Array (Mảng). 
-1.2 Linked List. 
-1.3 Stack (Ngăn xếp). 
-1.4 Queue (Hàng đợi). 
-1.5 Deque (Double-ended Queue). 
-1.6 Hash Table (Bảng băm). 
-1.7 Heap. 
-1.8 Tree (Cây). 
-1.9 Graph (Đồ thị). 
-1.10 Binary Tree (cây nhị phân). 
-3. Java Collections Framework (JCF)
-
-
+## I. Cấu trúc dữ liệu.
+1. Array (Mảng).
+2. Linked List.
+3. Stack (Ngăn xếp). 
+4. Queue (Hàng đợi). 
+5. Priority Queue
+6. Hash Table (Bảng băm). 
+7. Heap. 
+8. Tree (Cây). 
+9. Graph (Đồ thị).
+10. Binary Tree (cây nhị phân). 
+## II. Java Collections Framework (JCF)
+1. Iterable interface
+2. Cursors
+3. Collections Utility
+4. Collection interface
+5. List interface
+6. Set interface
+7. SortedSet interface
+8. Map interface
+9. SortedMap interface
+10. Queue interface
+11. Class ArrayList
+12. Class LinkedList
+13. Class HashSet
+14. Lớp LinkedHashSet
+15. Lớp TreeSet
+16. Lớp EnumSet
+17. Lớp HashMap
+18. Lớp TreeMap
+19. Lớp EnumMap
+20. Lớp HashTable
+21. Lớp Vector
+22. Comparable
+23. Comparator
+24. Lớp properties
+25. NavigableMap
+26. NavigableSet
+27. WeakHashMap
 
 # **  ------ Nội dung chi tiết ------ **
 
-## *** 1. Tài liệu tham khảo ***
+## ***Tài liệu tham khảo***
