@@ -1,5 +1,4 @@
-![image](https://github.com/user-attachments/assets/772989d1-b8aa-4f48-a64c-2416169efa89)# ** ------ Tóm Tắt ------ **
-
+# **------ Tóm Tắt ------**
 1. Tài liệu tham khảo
 2. Các đặc điểm
 3. Các thành phần của JDK 
@@ -10,7 +9,7 @@
 8. Generics
 
 
-# **  ------ Nội dung chi tiết ------ **
+# **------ Nội dung chi tiết ------**
 
 ## *** 1. Tài liệu tham khảo ***
 ### 1.1 Link khóa học online
@@ -189,7 +188,7 @@
 
 ### 4.3 Kiểu dữ liệu
   - Java chia kiểu dữ liệu thành 2 nhóm chính là **Kiểu dữ liệu nguyên thủy (Primitive Data Types) ** và ** Kiểu dữ liệu tham chiếu  (Reference Data Types) **
-  - ** Kiểu dữ liệu nguyên thủy **:
+  - **Kiểu dữ liệu nguyên thủy**:
     + Có 8 kiểu dữ liệu nguyên thủy: boolean, byte, char, short, int, long, float, double.
     + bộ nhớ stack (ngăn xếp), lưu trữ giá trị thực thế -> truy xuất nhanh hơn
     + ![image](https://github.com/user-attachments/assets/dfcef19b-f77b-405c-aa74-3783c49f5c7f)
@@ -199,7 +198,7 @@
   - VD tính phạm vi: short là số nguyên 16 bit (2 byte). Máy tính lưu trữ số nguyên bằng hệ bù 2, nghĩa là : Nếu bit đầu tiên (MSB) = 0, số đó là dương.Nếu bit đầu tiên (MSB) = 1, số đó là âm.
     + Số lớn nhất, Khi tất cả 15 bit còn lại đều là 1, ta có: 0111 1111 1111 1111  (15 bit 1, MSB = 0) -> tính ra là 32767 (2^14+2^13+...2^0)
     + Số nhở nhất tính théo hệ bù 2(16 bit): 1000 0000 0000 0000. Đảo bit (bù 1) 0111 1111 1111 1111 cộng thêm 1 (bù 2) 1000 0000 0000 0000. => -32768
-  -  ** Kiểu dữ liệu tham chiếu ** : các đối tượng, string, mảng, lớp trừu tượng và giao điện interface
+  -  **Kiểu dữ liệu tham chiếu** : các đối tượng, string, mảng, lớp trừu tượng và giao điện interface
     + Kiểu tham chiếu lưu trữ địa chỉ của đối tượng thay vì giá trị trực tiếp
     + ![image](https://github.com/user-attachments/assets/05b6b924-b785-4c9f-a161-89fa15a577b8)
     + == trong tham chiếu là so sánh địa chỉ bộ nhớ chứ ko phải nội dung, chúng ta phải dùng equals
@@ -234,14 +233,14 @@
   - Toán tử (tập trung vào toán tử bit): ![image](https://github.com/user-attachments/assets/1127ae87-992e-4302-ab74-f888af84da2d)
   - Toán tử AND (&) bitwise:
     + So sánh từ bit của 2 số,** nếu cùng là 2 cùng là 1 thì kết quả là 1 **, ngược lại là 0: ![image](https://github.com/user-attachments/assets/a471dabe-61c6-49ed-b0c8-97ed798d7e74)
-    + ** ứng dụng trong tình số chắn lẻ **:![image](https://github.com/user-attachments/assets/6fab6c92-6351-4233-ad28-dea395ec27f3)
+    + **ứng dụng trong tình số chắn lẻ**:![image](https://github.com/user-attachments/assets/6fab6c92-6351-4233-ad28-dea395ec27f3)
     + Giải thích: số chắn là số chia hết cho 2 cho nên trong hệ nhị phân thì bit cuối luôn là 0 => Dựa theo quy tắc and bit thì 0 với 1 luôn là 0 => số 0 là chẵn còn số 1 là lẻ.
   - Toán tử OR (|)
-    + ** Nếu ít nhất một bit là 1 thì kết quả là 1 **: ![image](https://github.com/user-attachments/assets/38573003-130b-4592-9921-447f7d1fb05d)
+    + **Nếu ít nhất một bit là 1 thì kết quả là 1**: ![image](https://github.com/user-attachments/assets/38573003-130b-4592-9921-447f7d1fb05d)
     + ứng dụng: ![image](https://github.com/user-attachments/assets/678677bd-3255-46ac-985b-e49562fa8210)
     + Giải thích: khi dùng or thì mọi bit số 1 của role write đã được thêm vào permission1, và khi dùng and lại với write thì (1 với 1 thành 1) => luông sẽ khác 0
   - Toán tử XOR (^)
-    + ** Nếu 2 bit khác nhau thì kết quả là 1 **: ![image](https://github.com/user-attachments/assets/c6b2a289-c5b2-471b-97ba-12419f4a5c82)
+    + **Nếu 2 bit khác nhau thì kết quả là 1**: ![image](https://github.com/user-attachments/assets/c6b2a289-c5b2-471b-97ba-12419f4a5c82)
     + Dùng làm mã hóa: ![image](https://github.com/user-attachments/assets/305d8992-d8f8-4378-b197-6888c7a90455)
     + Giait hích: giả mã là ngược lại của quá trình mã hóa ![image](https://github.com/user-attachments/assets/769f4917-6271-4f64-8e48-cdb791367150)
     + Tìm phần tử khác nhau trong 2 mảng -> ít dùng: ![image](https://github.com/user-attachments/assets/91848957-453c-41b6-b366-848cc2497fb1)
@@ -249,7 +248,7 @@
     + Giải thích là vì XOR với 1 cũng giống như là +1 đổi với các số chắn do số chắn đuôi cuối bằng 0
   - Toán tử NOT Bitwise (~) : đảo ngược số bit -> tính số bù 2
   - Toán Tử Dịch Bit Trái (<<)
-    + ** x << n dịch các bit sang trái n lần, điền 0 vào bên phải.**
+    + **x << n dịch các bit sang trái n lần, điền 0 vào bên phải.**
     + ![image](https://github.com/user-attachments/assets/6d4517c8-b752-4df6-a8a0-b07d2f3371ae)
     + ** Mỗi lần dịch trái tương đương nhân 2^n. ** ứng dụng cho phép nhân: a * 2 == a << 1.
     + ![image](https://github.com/user-attachments/assets/ba40baf8-87cb-4e4c-9f59-a0e8ef50cf07)
