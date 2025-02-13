@@ -63,6 +63,22 @@
 - Singly Linked List (Danh sách liên kết đơn)
 - Doubly Linked List (Danh sách liên kết đôi)
 - Circular Linked List (Danh sách liên kết vòng)
+**Doubly Linked List (Danh sách liên kết đôi)**
+- Đây là cấu trúc mà java đang dùng
+- ![image](https://github.com/user-attachments/assets/c341c982-b4c1-438d-b77a-64ac9bebd0be)
+- ![image](https://github.com/user-attachments/assets/8b17b77e-9129-45d6-84d4-d54d95888208)
+- Node mở đầu gọi là head - nhận biết vị trí bắt đầu của dãy. Mỗi node có 2 con trỏ, **Prev: Trỏ đến node trước đó. Next: Trỏ đến node kế tiếp.Data: Dữ liệu của node.**
+- Với head ( phần tử đầu tiên) prev trỏ đến null.
+**2.2 Triển khai Doubly Linked List với code**
+- Tạo class node -> chứa thông tin node ![image](https://github.com/user-attachments/assets/623eb824-18da-473e-818c-8370ca966b26)
+- Tạo lớp DoublyLinkedList. Chứa head -> phần từ đầu. tail phần tử cuối.
+- Hàm append để thêm phần tử vào cuối list, hàm prepend thêm phần tử vào đầu list.
+- ![image](https://github.com/user-attachments/assets/cf861982-89e7-452a-a3be-3b0bec6a9904)
+- ![image](https://github.com/user-attachments/assets/092f05b1-5c50-4be3-a7ae-7ca54a46e59d)
+- Như ta thấy là linked có nhiều tài nguyên để lư trữ => **nếu dùng để lưu phần tử thì ko dùng linked list, chỉ dùng linked list để thao tác với dữ liệu**
+- Còn khi muốn chèn phần tử bất kỳ: ![image](https://github.com/user-attachments/assets/f4b8bf34-eade-44a2-84d0-76cb33a0c156)
+- Với array thường thì khi chèn phần tử đồng nghĩa phải thay đổi index của các phần tử sau đó => hiệu suất ko bằng linked list.
+- java.util.LinkedList cũng dùng cơ chế gần tương tự trên.
 ### 3. Stack (Ngăn xếp)
 ### 4. Queue (Hàng đợi)
 ### 5. Priority Queue
