@@ -43,8 +43,8 @@
 # **  ------ Nội dung chi tiết ------ **
 
 ## ***Tài liệu tham khảo***
-  - https://tek4.vn/top/10-cau-truc-du-lieu-ma-moi-lap-trinh-vien-java-nhat-dinh-phai-biet
-  - https://www.geeksforgeeks.org/data-structures/
+- https://tek4.vn/top/10-cau-truc-du-lieu-ma-moi-lap-trinh-vien-java-nhat-dinh-phai-biet
+- https://www.geeksforgeeks.org/data-structures/
 ## I. Cấu trúc dữ liệu.
 - Cấu trúc dữ liệu là bộ nhớ được sử dụng để lưu trữ và sắp xếp dữ liệu. Đây là cách sắp xếp dữ liệu trên máy tính để có thể truy cập và cập nhật hiệu quả.
 - ![image](https://github.com/user-attachments/assets/ac9b5cc8-3488-41fe-88b7-a2eda1b419ca)
@@ -54,7 +54,15 @@
 - ![image](https://github.com/user-attachments/assets/79bbf8d7-1aba-48a4-b156-cce8a2b87c60)
 - **Non-Linear Data Structure**:(Cấu trúc dữ liệu phi tuyến tính) là loại cấu trúc dữ liệu trong đó các phần tử không được sắp xếp theo một trình tự tuyến tính. Một phần tử có thể liên kết với nhiều phần tử khác, tạo thành các cấu trúc như cây (Tree) hoặc đồ thị (Graph).
 ### 1. Array
+- 
 ### 2. Linked List
+- https://howkteam.vn/course/cau-truc-du-lieu-va-giai-thuat/linked-list-4273
+- https://uet.vnu.edu.vn/~tqlong/2018ltnc/Support-Lec9&10-LinkedLists.pdf
+- Linked List là một cấu trúc dữ liệu dạng danh sách liên kết gồm các Node, mỗi Node chứa: Dữ liệu (Data) và Con trỏ (Pointer) trỏ đến Node tiếp theo (hoặc cả Node trước đó trong danh sách đôi)
+**2.1 Cấu trúc của Linked List**
+- Singly Linked List (Danh sách liên kết đơn)
+- Doubly Linked List (Danh sách liên kết đôi)
+- Circular Linked List (Danh sách liên kết vòng)
 ### 3. Stack (Ngăn xếp)
 ### 4. Queue (Hàng đợi)
 ### 5. Priority Queue
