@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/ec568f0d-67c4-45b8-9b2f-02ce70700d42)# ** ------ Tóm Tắt ------ **
+# ** ------ Tóm Tắt ------ **
 
 ## I. Cấu trúc dữ liệu.
 1. Array (Mảng).
@@ -16,34 +16,6 @@
 13. Segment Tree (Cây đoạn) – Dùng để xử lý truy vấn khoảng liên tục trong mảng.
 14. Fenwick Tree (Binary Indexed Tree - BIT) – Dùng để cập nhật và truy vấn tổng khoảng nhanh hơn mảng thông thường.
 15. Skip List – Danh sách liên kết mở rộng để hỗ trợ tìm kiếm nhanh hơn O(log n).
-## II. Java Collections Framework (JCF)
-1. Iterable interface
-2. Cursors
-3. Collections Utility
-4. Collection interface
-5. List interface
-6. Set interface
-7. SortedSet interface
-8. Map interface
-9. SortedMap interface
-10. Queue interface
-11. Class ArrayList
-12. Class LinkedList
-13. Class HashSet
-14. Lớp LinkedHashSet
-15. Lớp TreeSet
-16. Lớp EnumSet
-17. Lớp HashMap
-18. Lớp TreeMap
-19. Lớp EnumMap
-20. Lớp HashTable
-21. Lớp Vector
-22. Comparable
-23. Comparator
-24. Lớp properties
-25. NavigableMap
-26. NavigableSet
-27. WeakHashMap
 
 # **  ------ Nội dung chi tiết ------ **
 
@@ -145,21 +117,12 @@
 - Tạo 1 class entry để lưu dữ liệu key-value. Và mỗi 1 bucket là 1 list các entry này. ![image](https://github.com/user-attachments/assets/320f823b-5518-4abc-826f-9f2a1cd4f80a)
 - Hàm tạo mã hash ![image](https://github.com/user-attachments/assets/275de70a-7412-44e5-9cba-ff0883a7bef0). Mã hash này luôn nằm trong phạp vi size (0-9) do phần dư (%10) luôn nằm trong khoảng đó.
 - Hàm Thêm hoặc cập nhật giá trị: ![image](https://github.com/user-attachments/assets/4c52576a-052a-4725-ae9c-cf9335780f5e).
-  + index chính bằng giá trị lấy từ hash đã tính. Trường hợp value ko trùng thì thêm mới giá trị. Với các vị trí index mà ko có mã băm nào trùng thì sẽ là null.
+  + index chính bằng giá trị lấy từ hash đã tính. Trường hợp value ko trùng thì thêm mới giá trị. Với các vị trí index mà ko có mã băm nào thì sẽ là null.
   + ![image](https://github.com/user-attachments/assets/ace5d227-e73c-4587-be36-45aa956a2762)
 - Hàm lấy giá trị theo key: ![image](https://github.com/user-attachments/assets/b03c7587-075b-4fb4-aecc-dd548237441e) . Dựa bào key thay vào hàm băm lấy ra giá trị index. Từ mã băm ta lấy được list linked list. => for và equals tìm đúng giá trị
 - Hàm xóa: ![image](https://github.com/user-attachments/assets/77a24e79-5806-4a54-bc53-df317f42d710)
 - Hiển thị: ![image](https://github.com/user-attachments/assets/602fdf08-b1e6-41e1-8fa3-21239b254b2b)
 - Hàm main: ![image](https://github.com/user-attachments/assets/446b42be-d6d5-40e3-850e-fb17943ceac4)
-
-
-
-
-
-
-
-
-
 
 ### 7. Tree (Cây)
 - Cây cơ bản
@@ -171,14 +134,43 @@
 
 ### 8. Binary Tree (cây nhị phân)
 - https://viblo.asia/p/chuong-6-trees-1-tree-la-gi-ly-thuyet-ve-binary-tree-obA46PM9LKv
+
 **8.1 Cấu trúc cây nhị phân**
 - Cây nhị phân (Binary Tree) là một cấu trúc dữ liệu dạng cây, trong đó mỗi node có tối đa hai node con: Node trái (Left Child) và Node phải (Right Child).
+- Mọi thao tác với cây nhị phân thì luôn nhớ dùng đệ quy.
 - Một số loại cây nhị phân:
   + Cây Nhị Phân Đầy Đủ (Full Binary Tree) ![image](https://github.com/user-attachments/assets/54a37bd3-488c-475c-a6c0-3848a55df63c)
   + Cây Nhị Phân Hoàn Chỉnh (Complete Binary Tree)
   + Cây Nhị Phân Cân Bằng (Balanced Binary Tree)
   + Cây Nhị Phân Tìm Kiếm (Binary Search Tree - BST) ![image](https://github.com/user-attachments/assets/adebdce5-ffd2-4677-b66a-8824cb2b464e)
+  
 **8.2 Cấu trúc cây nhị phân tìm kiếm BST**
+- Cây Nhị Phân Tìm Kiếm là một cây nhị phân thỏa mãn điều kiện:
+  + **Mỗi nút có tối đa 2 con (trái & phải).**
+  + **Giá trị nút con trái luôn nhỏ hơn giá trị của nút gốc.**
+  + **Giá trị nút con phải luôn lớn hơn giá trị của nút gốc.**
+- ![image](https://github.com/user-attachments/assets/9423027b-3821-4ba6-909c-c2c1dda37acd)
+- Tìm kiếm: So sánh key cần tìm với giá trị của root -> Nếu bằng → ✅ Tìm thấy. | Nếu nhỏ hơn → 🔄 Tìm tiếp trong cây con trái. | Nếu lớn hơn → 🔄 Tìm tiếp trong cây con phải.
+- ![image](https://github.com/user-attachments/assets/b230f369-42fc-4d69-bc5d-1afd51b79651)
+
+**8.3 Triển khai tìm kiếm trong code java**
+- Trong java ta dựa vào cấu trúc linked list, có Node left và right.
+  + Nếu root bằng null => tree trống
+  + Nếu key == root thì tìm được luôn
+  + trường hợp key < hoặc > root thì ta sẽ đệ quy tiếp và lúc đó. node left/right lại thành root tiếp.
+- Tạo 1 class node chứ value và biến 2 node left, right: ![image](https://github.com/user-attachments/assets/a3021e3d-64c9-444f-94de-97ab738bac5e)
+- Dùng đệ quy để insert và tìm kiếm ![image](https://github.com/user-attachments/assets/1a8e9795-21aa-4950-9ba4-e130eb672b2f)
+- ![image](https://github.com/user-attachments/assets/21319859-307e-446d-bdb3-fbb101a43880)
+
+**8.4 Sắp xếp cây nhị phân**
+- Duyệt cây theo thứ tự trung thứ tự (LNR: left-node-right) để lấy danh sách đã sắp xếp tăng dần.
+  + L (Left) - Duyệt cây con trái trước.
+  + N (Node) - Xử lý giá trị của nút gốc.
+  + R (Right) - Duyệt cây con phải sau.
+_ ![image](https://github.com/user-attachments/assets/a4e314a2-7b24-4c1a-be73-a426491e4453)
+
+**8.5 Triển khai sắp xếp cây nhị phân**
+- ![image](https://github.com/user-attachments/assets/997162cf-4f4d-4b62-95b5-ca5726682411)
 
 ### 9. Heap
 ### 10. Graph (Đồ thị)
