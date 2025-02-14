@@ -6,11 +6,16 @@
 3. Stack (Ngăn xếp). 
 4. Queue (Hàng đợi). 
 5. Priority Queue
-6. Hash Table (Bảng băm). 
-7. Heap. 
-8. Tree (Cây). 
-9. Graph (Đồ thị).
-10. Binary Tree (cây nhị phân). 
+6. Hash Table (Bảng băm).
+7. Tree (Cây).
+8. Cây nhị phân
+9. Heap. 
+10. Graph (Đồ thị).
+11. Trie (Prefix Tree) – Cây tiền tố, dùng trong tìm kiếm chuỗi nhanh.
+12. Disjoint Set (Union-Find) – Dùng để quản lý các tập hợp rời rạc, ứng dụng trong Kruskal’s Algorithm.
+13. Segment Tree (Cây đoạn) – Dùng để xử lý truy vấn khoảng liên tục trong mảng.
+14. Fenwick Tree (Binary Indexed Tree - BIT) – Dùng để cập nhật và truy vấn tổng khoảng nhanh hơn mảng thông thường.
+15. Skip List – Danh sách liên kết mở rộng để hỗ trợ tìm kiếm nhanh hơn O(log n).
 ## II. Java Collections Framework (JCF)
 1. Iterable interface
 2. Cursors
@@ -110,7 +115,45 @@
 ### 5. Priority Queue
 - Là hàng đợi ưu tiên
 ### 6. Hash Table (Bảng băm)
-### 7. Heap
-### 8. Tree (Cây)
-### 9. Graph (Đồ thị)
-### 10. Binary Tree (cây nhị phân)
+- https://www.geeksforgeeks.org/hashing-data-structure/
+- Hashing là một kỹ thuật chuyển đổi dữ liệu đầu vào (key) thành một giá trị băm (hash value) thông qua một hàm băm (hash function).
+- Hashing giúp tìm kiếm và lưu trữ dữ liệu nhanh hơn trong các cấu trúc như Hash Table, HashMap, HashSet,... 🚀.
+- Ví dụ Nhập vào "apple", hàm băm trả về 12345. 
+**6.1 Cấu trúc hasing**
+- Component of hashing:
+  + **Key**: Dữ liệu đầu vào cần lưu trữ hoặc tìm kiếm. Khi 2 key có trùng giá trị băm thì đó là **va chạm collision**. Java dùng Chaining (Danh sách liên kết) hoặc Open Addressing (Linear Probing).
+  + **Hàm băm**: chuyển đổi key thành một số giá trị cố định (hash code / hash value). Giá trị này xác định vị trí index trong bảng băm nơi dữ liệu sẽ được lưu trữ. Có nhiều cách để tính mã băm.
+     + Hàm băm đơn giản: Sử dụng các phép toán cơ bản như cộng, nhân, hoặc phép mod với một số nguyên.
+     + Hàm băm tốt: Sử dụng các thuật toán phức tạp hơn để giảm thiểu xung đột (collision - trùng giá trị băm) và phân bố đều các giá trị băm.
+  + **Bảng băm**: Một mảng hoặc danh sách liên kết, nơi lưu trữ giá trị dựa trên hash value.
+     + ![image](https://github.com/user-attachments/assets/4eeb5d8a-6075-4f53-aa77-b6ab012fb10d)
+**6.2 Va chạm collision**
+- Collision (xung đột) xảy ra khi nhiều key có cùng hash value và trỏ đến cùng một vị trí trong bảng băm. Có nhiều cách để xử lý.
+- Chaining (Danh sách liên kết): Mỗi ô trong bảng chứa một danh sách liên kết để lưu nhiều giá trị cùng hash. Khi collision xảy ra, dữ liệu mới được thêm vào danh sách tại ô đó.:  ![image](https://github.com/user-attachments/assets/f2170e01-7a76-46a4-ad9b-116ea999c04e)
+- Tree-based Collision Handling (Từ Java 8+):  Nếu số lượng phần tử trong một bucket > 8 (Bucket là một vị trí trong bảng băm (Hash Table), Java sẽ chuyển từ danh sách liên kết sang cây đỏ đen (Red-Black Tree).
+  + Khi chèn 8 phần tử, bucket sẽ như sau: ![image](https://github.com/user-attachments/assets/563e53d0-8d37-422e-b174-e53b4c3f34df)
+  + ![image](https://github.com/user-attachments/assets/40d49b51-5333-46d5-a3d5-a50d898b42b8)
+  + HashMap dùng hashCode() của key để làm key trong TreeMap. ![image](https://github.com/user-attachments/assets/d64a2565-dc12-4f9d-8504-d551aba900be)
+- Open Addressing (Tìm vị trí khác trong bảng)
+**6.3 Triểu khai 1 cấu trúc hasing trong java**
+### 7. Tree (Cây)
+- Cây cơ bản
+- Cây nhị phân
+- Cây nhị phân tìm kiếm
+- Đống (Heap)
+- Cây AVL
+- Cây đỏ đen
+### 8. Binary Tree (cây nhị phân)
+- https://viblo.asia/p/chuong-6-trees-1-tree-la-gi-ly-thuyet-ve-binary-tree-obA46PM9LKv
+**8.1 Cấu trúc cây nhị phân**
+- Cây nhị phân (Binary Tree) là một cấu trúc dữ liệu dạng cây, trong đó mỗi node có tối đa hai node con: Node trái (Left Child) và Node phải (Right Child).
+- Một số loại cây nhị phân:
+  + Cây Nhị Phân Đầy Đủ (Full Binary Tree) ![image](https://github.com/user-attachments/assets/54a37bd3-488c-475c-a6c0-3848a55df63c)
+  + Cây Nhị Phân Hoàn Chỉnh (Complete Binary Tree)
+  + Cây Nhị Phân Cân Bằng (Balanced Binary Tree)
+  + Cây Nhị Phân Tìm Kiếm (Binary Search Tree - BST) ![image](https://github.com/user-attachments/assets/adebdce5-ffd2-4677-b66a-8824cb2b464e)
+**8.2 Cấu trúc cây nhị phân tìm kiếm BST**
+
+### 9. Heap
+### 10. Graph (Đồ thị)
+
