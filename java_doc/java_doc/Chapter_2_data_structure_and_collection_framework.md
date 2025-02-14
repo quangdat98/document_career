@@ -1,4 +1,4 @@
-# ** ------ Tóm Tắt ------ **
+![image](https://github.com/user-attachments/assets/ec568f0d-67c4-45b8-9b2f-02ce70700d42)# ** ------ Tóm Tắt ------ **
 
 ## I. Cấu trúc dữ liệu.
 1. Array (Mảng).
@@ -98,7 +98,7 @@
 - Ta có thể sử dụng stack trong hệ thống call back.. 
 - Trong java chúng ta có thể sử dụng java.util.Stack. Lớp java.util.Stack trong Java thực chất là một lớp con của Vector<E>, tức là nó dựa trên mảng động (Array) để quản lý dữ liệu.
 
-### 4. Queue (Hàng đợi), Deque
+### 4. Queue (Hàng đợi), Deque (Hàng đợi 2 đầu)
 - https://www.geeksforgeeks.org/queue-data-structure/
 
 **4.1 Cấu trúc queue**
@@ -107,6 +107,7 @@
 - quene có 2 đầu: **front: phần tử đầu tiên - sẽ bị lấy ra trước** và **Rear: phần tử cuối cùng- phần tử mới thêm**
 - Các Thao tác chính của quene: ![image](https://github.com/user-attachments/assets/86b03ec5-487c-4d26-ab00-fe7e765d9f71)
 - Nếu bạn bảo nếu duyệt lấy vào xóa phần tử đk thêm đâu tiên thì dùng list cũng dk. Nhưng list ko tối ưu, khi xóa trong list cần dịch chuyển toàn bộ phần tử còn lại.
+
 **4.2 Cấu trúc deque**
 - Deque (Double-ended queue - Hàng đợi hai đầu) là một hàng đợi mở rộng, cho phép thêm/xóa phần tử từ cả hai đầu (đầu và cuối).
 - Các thao tác chính: ![image](https://github.com/user-attachments/assets/aa527d6d-e9f1-48d4-8ce1-a0dfbe971bec)
@@ -118,7 +119,8 @@
 - https://www.geeksforgeeks.org/hashing-data-structure/
 - Hashing là một kỹ thuật chuyển đổi dữ liệu đầu vào (key) thành một giá trị băm (hash value) thông qua một hàm băm (hash function).
 - Hashing giúp tìm kiếm và lưu trữ dữ liệu nhanh hơn trong các cấu trúc như Hash Table, HashMap, HashSet,... 🚀.
-- Ví dụ Nhập vào "apple", hàm băm trả về 12345. 
+- Ví dụ Nhập vào "apple", hàm băm trả về 12345.
+  
 **6.1 Cấu trúc hasing**
 - Component of hashing:
   + **Key**: Dữ liệu đầu vào cần lưu trữ hoặc tìm kiếm. Khi 2 key có trùng giá trị băm thì đó là **va chạm collision**. Java dùng Chaining (Danh sách liên kết) hoặc Open Addressing (Linear Probing).
@@ -127,6 +129,7 @@
      + Hàm băm tốt: Sử dụng các thuật toán phức tạp hơn để giảm thiểu xung đột (collision - trùng giá trị băm) và phân bố đều các giá trị băm.
   + **Bảng băm**: Một mảng hoặc danh sách liên kết, nơi lưu trữ giá trị dựa trên hash value.
      + ![image](https://github.com/user-attachments/assets/4eeb5d8a-6075-4f53-aa77-b6ab012fb10d)
+  
 **6.2 Va chạm collision**
 - Collision (xung đột) xảy ra khi nhiều key có cùng hash value và trỏ đến cùng một vị trí trong bảng băm. Có nhiều cách để xử lý.
 - Chaining (Danh sách liên kết): Mỗi ô trong bảng chứa một danh sách liên kết để lưu nhiều giá trị cùng hash. Khi collision xảy ra, dữ liệu mới được thêm vào danh sách tại ô đó.:  ![image](https://github.com/user-attachments/assets/f2170e01-7a76-46a4-ad9b-116ea999c04e)
@@ -135,7 +138,29 @@
   + ![image](https://github.com/user-attachments/assets/40d49b51-5333-46d5-a3d5-a50d898b42b8)
   + HashMap dùng hashCode() của key để làm key trong TreeMap. ![image](https://github.com/user-attachments/assets/d64a2565-dc12-4f9d-8504-d551aba900be)
 - Open Addressing (Tìm vị trí khác trong bảng)
+
 **6.3 Triểu khai 1 cấu trúc hasing trong java**
+- Tạo 1 class đại diện cho bảng băm (mọi xử lý chỉ trong  class này). Có 2 biến là Size(kích thước bảng băm) và 1 mảng LinkedList chứa dữ liệu Key và value ![image](https://github.com/user-attachments/assets/79c753c2-2579-4bac-8b98-9f7412cb2e51)
+- Khởi tạo kích thươc của bảng băm, cụ thể là số lượng bucket: ![image](https://github.com/user-attachments/assets/324b5b26-ccb0-4c88-91cd-e15a784e3709). Đến bước này ta đã tạo 1 bảng băm (chưa có dữ liệu) : ![image](https://github.com/user-attachments/assets/6d7e3858-3aa5-4776-bf73-008753325a20)
+- Tạo 1 class entry để lưu dữ liệu key-value. Và mỗi 1 bucket là 1 list các entry này. ![image](https://github.com/user-attachments/assets/320f823b-5518-4abc-826f-9f2a1cd4f80a)
+- Hàm tạo mã hash ![image](https://github.com/user-attachments/assets/275de70a-7412-44e5-9cba-ff0883a7bef0). Mã hash này luôn nằm trong phạp vi size (0-9) do phần dư (%10) luôn nằm trong khoảng đó.
+- Hàm Thêm hoặc cập nhật giá trị: ![image](https://github.com/user-attachments/assets/4c52576a-052a-4725-ae9c-cf9335780f5e).
+  + index chính bằng giá trị lấy từ hash đã tính. Trường hợp value ko trùng thì thêm mới giá trị. Với các vị trí index mà ko có mã băm nào trùng thì sẽ là null.
+  + ![image](https://github.com/user-attachments/assets/ace5d227-e73c-4587-be36-45aa956a2762)
+- Hàm lấy giá trị theo key: ![image](https://github.com/user-attachments/assets/b03c7587-075b-4fb4-aecc-dd548237441e) . Dựa bào key thay vào hàm băm lấy ra giá trị index. Từ mã băm ta lấy được list linked list. => for và equals tìm đúng giá trị
+- Hàm xóa: ![image](https://github.com/user-attachments/assets/77a24e79-5806-4a54-bc53-df317f42d710)
+- Hiển thị: ![image](https://github.com/user-attachments/assets/602fdf08-b1e6-41e1-8fa3-21239b254b2b)
+- Hàm main: ![image](https://github.com/user-attachments/assets/446b42be-d6d5-40e3-850e-fb17943ceac4)
+
+
+
+
+
+
+
+
+
+
 ### 7. Tree (Cây)
 - Cây cơ bản
 - Cây nhị phân
@@ -143,6 +168,7 @@
 - Đống (Heap)
 - Cây AVL
 - Cây đỏ đen
+
 ### 8. Binary Tree (cây nhị phân)
 - https://viblo.asia/p/chuong-6-trees-1-tree-la-gi-ly-thuyet-ve-binary-tree-obA46PM9LKv
 **8.1 Cấu trúc cây nhị phân**
