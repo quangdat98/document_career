@@ -1,14 +1,15 @@
 # ** ------ Tóm Tắt ------ **
 1. Đa luồng (multithreading)
 2. Tạo và Quản lý Thread
-3. Synchronization và Thread Safety
-4. Concurrent Programming Utilities
-5. I/O-bound vs. CPU-bound
-6. Shutdown Hook
-7. Performance Tuning and Optimization
-8. Best Practices and Design Patterns
-9. Functional Programming with Concurrency
-10. Các vấn đề trong Multithreading
+4. Synchronization và Thread Safety
+5. CompletableFuture -lập trình bất đồng bộ
+6. Concurrent Programming Utilities
+7. I/O-bound vs. CPU-bound
+8. Shutdown Hook
+9. Performance Tuning and Optimization
+10. Best Practices and Design Patterns
+11. Functional Programming with Concurrency
+12. Các vấn đề trong Multithreading
 
 # **------ Nội dung chi tiết ------**
 
@@ -75,17 +76,51 @@
   + Xử lý kết quả (Future<V>, Callable<V>)
 - Sử dụng ExecutorService giúp tránh quản lý thread thủ công, giúp chương trình ổn định hơn, dễ mở rộng hơn.
 - Các tạo dùng Executors : ![image](https://github.com/user-attachments/assets/8d3cd5b9-9869-47b7-a7ea-d089d544218f) hoặc ThreadPoolExecutor ![image](https://github.com/user-attachments/assets/46dc42ed-2906-4f1d-9e80-ef21bc44daaf)
-- Hàm execute(Runnable task) - Không có giá trị trả về
-- submit(Callable<T> task) - Có giá trị trả về (Future<T>) ![image](https://github.com/user-attachments/assets/020e550d-8c23-4d89-8498-68ed8c7a0d9d)
-- invokeAll(Collection<Callable<T>> tasks) - Chạy nhiều task và đợi tất cả hoàn thành ![image](https://github.com/user-attachments/assets/1c883ce4-0db4-415e-a476-52051e54c3b9)
-
-
-
+  + Hàm execute(Runnable task) - Không có giá trị trả về
+  + submit(Callable<T> task) - Có giá trị trả về (Future<T>) ![image](https://github.com/user-attachments/assets/020e550d-8c23-4d89-8498-68ed8c7a0d9d)
+  + invokeAll(Collection<Callable<T>> tasks) - Chạy nhiều task và đợi tất cả hoàn thành ![image](https://github.com/user-attachments/assets/1c883ce4-0db4-415e-a476-52051e54c3b9)
+- Quán lý vòng đời của ExecutorService
+  + shutdown() - Đóng Executor một cách "mềm" : các task tiếp tục nhưng ko nhận thêm task mới
+  + shutdownNow() - Đóng Executor ngay lập tức.
+  + awaitTermination(timeout, unit) - Chờ Executor tắt hoàn toàn ![image](https://github.com/user-attachments/assets/0b741d56-6fbd-4ddd-93f2-fae2f148a913)
 
 
 #### 2.4.4 ThreadPoolExecutor - Cấu hình chi tiết
-#### 2.4.5 ForkJoinPool - Xử lý song song
-#### 2.4.6 Shutdown ExecutorService đúng cách
+- Khi cần kiểm soát số lượng thread hoạt động trong pool.
+- Khi muốn tinh chỉnh kích thước pool, thời gian chờ, và các chính sách quản lý thread.
+- Các tham số quan trọng:
+  + corePoolSize: số thread chạy luôn tồn tại trong pool.
+  + maximumPoolSize: số thread tối đa pool có thể tạo ra
+  + keepAliveTime: nếu số thread vượt quá corePoolSize và không có task mới, thread dư sẽ bị hủy sau thời gian này.
+  + Queue (BlockingQueue): nếu tất cả thread bận, task sẽ được đưa vào hàng đợi.
+- ![image](https://github.com/user-attachments/assets/e532839e-ce3b-49c8-a6d8-5857ad2cbe89)
+- ![image](https://github.com/user-attachments/assets/ae4dc1ec-dfda-4bea-a3ba-25af3a7dbc5d)
+
+
+#### 2.4.5 ScheduledExecutorService
+- Khi cần lên lịch chạy task sau một khoảng thời gian.
+- Khi muốn thực hiện task theo chu kỳ (vd: chạy mỗi 5 giây).
+- Các method quan trọng:
+  + schedule(Runnable, delay, unit): chạy task sau delay thời gian. unit là đơn vị thời gian
+  + scheduleAtFixedRate(Runnable, initialDelay, period, unit): chạy task đầu tiên sau initialDelay, rồi lặp lại sau mỗi period.
+  + scheduleWithFixedDelay(Runnable, initialDelay, delay, unit): giống scheduleAtFixedRate, nhưng đợi đến khi task trước hoàn thành mới đếm delay.
+- ![image](https://github.com/user-attachments/assets/a682de36-42e4-45de-8597-96ab034cc93b)
+- ![image](https://github.com/user-attachments/assets/3e4ec2fc-fca5-4f08-9ccc-12f2db82303b)
+- Đầu tiên sau 2 giây thì chu kỳ 2 chạy, sau đó 1s (tức giây thứ 3) chạy chu kỳ 1. Cuối cùng thì chu kỳ 2 cứ 5s chạy 1lần.
+
+
+#### 2.4.6 ForkJoinPool - chia nhỏ tiến trình để thực hiện song song.
+- Khi cần xử lý đệ quy song song, ví dụ như chia nhỏ công việc.
+- Khi cần tối ưu xử lý CPU-bound (chia nhỏ công việc cho nhiều core).
+- Trong thực tế, bước đầu tiên framework Fork/ Join thực hiện là chia nhỏ task (fork/ split), đệ quy chia nhỏ nhiệm vụ thành các nhiệm vụ phụ nhỏ hơn cho đến khi chúng đơn giản đủ để được thực hiện xử lý không đồng bộ.
+- **Fork/Join**: Đây là mô hình trong đó một tác vụ được chia thành các tác vụ con (fork) và sau đó gộp kết quả lại khi các tác vụ con hoàn thành (join).
+- **ForkJoinPool**: Đây là thread pool đặc biệt được tối ưu hóa để làm việc với mô hình fork/join này. Nó sử dụng một cơ chế gọi là work-stealing (cướp công việc), trong đó các thread không bận có thể cướp công việc từ các thread khác để đảm bảo tài nguyên được sử dụng hiệu quả.
+- **ForkJoinTask**: Là lớp cơ bản mà các tác vụ song song trong ForkJoinPool sẽ kế thừa. ForkJoinTask có hai subclass chính:
+  + **RecursiveTask: Sử dụng khi tác vụ có giá trị trả về** (có thể là một giá trị kết quả).
+  + **RecursiveAction: Sử dụng khi tác vụ không trả về giá trị nào** (chỉ thực thi các tác vụ mà không cần trả kết quả).
+- **Work-Stealing**: Khi một thread hoàn thành công việc của mình, nếu nó nhận thấy rằng có các thread khác đang bận, nó có thể "cướp" công việc từ các queue của các thread khác để đảm bảo tài nguyên hệ thống được sử dụng hiệu quả.
+- 
+#### 2.4.7 Shutdown ExecutorService đúng cách
 
 
 
