@@ -1,15 +1,13 @@
 # ** ------ Tóm Tắt ------ **
 1. Đa luồng (multithreading)
 2. Tạo và Quản lý Thread
-4. Synchronization và Thread Safety
-5. CompletableFuture -lập trình bất đồng bộ
-6. Concurrent Programming Utilities
-7. I/O-bound vs. CPU-bound
-8. Shutdown Hook
-9. Performance Tuning and Optimization
-10. Best Practices and Design Patterns
-11. Functional Programming with Concurrency
-12. Các vấn đề trong Multithreading
+3. Synchronization và Thread Safety
+4. CompletableFuture -lập trình bất đồng bộ
+5. Concurrent Programming Utilities
+6. I/O-bound vs. CPU-bound
+7. Shutdown Hook
+8. Performance Tuning and Optimization
+9. Các vấn đề trong Multithreading
 
 # **------ Nội dung chi tiết ------**
 
@@ -119,8 +117,77 @@
   + **RecursiveTask: Sử dụng khi tác vụ có giá trị trả về** (có thể là một giá trị kết quả).
   + **RecursiveAction: Sử dụng khi tác vụ không trả về giá trị nào** (chỉ thực thi các tác vụ mà không cần trả kết quả).
 - **Work-Stealing**: Khi một thread hoàn thành công việc của mình, nếu nó nhận thấy rằng có các thread khác đang bận, nó có thể "cướp" công việc từ các queue của các thread khác để đảm bảo tài nguyên hệ thống được sử dụng hiệu quả.
-- 
+- **compute()** Thực thi công việc (phải override trong lớp con).
+- invoke() Thực thi tác vụ và trả về kết quả ngay lập tức.
+- isCompletedNormally() Kiểm tra xem tác vụ có hoàn thành mà không bị lỗi không.
+- **fork() Chạy tác vụ trên một luồng khác**.
+- join() Chờ kết quả từ tác vụ con.
+- ![image](https://github.com/user-attachments/assets/42240dd0-dbd8-40c4-b065-c459d7d18bf6)
+- ![image](https://github.com/user-attachments/assets/b44ac617-9746-4d31-8a6e-af90230ebb76)
+- **ForkJoinPool hoạt động giống như một vòng lặp đệ quy chia nhỏ công việc liên tục cho đến khi đạt đến một ngưỡng nhất định (THRESHOLD)**, sau đó thực hiện tính toán và ghép kết quả lại.
+- Ví dụ Tính tổng:
+  + ![image](https://github.com/user-attachments/assets/8e4de3e1-9546-4566-ab03-21df9d32eabc)
+
 #### 2.4.7 Shutdown ExecutorService đúng cách
+- ![image](https://github.com/user-attachments/assets/c1062f47-e0a7-4f0d-9d4e-b927ad13e0b9)
+
+## 3. Synchronization (Đồng bộ hóa) và Thread Safety (luồng an toàn)
+- https://gpcoder.com/3514-dong-bo-hoa-cac-luong-trong-java/
+### 3.1 Synchronization
+- Synchronization đảm bảo rằng chỉ một thread có thể truy cập tài nguyên chung tại một thời điểm, giúp tránh lỗi khi nhiều thread chạy đồng thời.
+- **Java Monitor** là một cơ chế đồng bộ hóa giúp kiểm soát quyền truy cập vào tài nguyên dùng chung bằng cách chỉ cho phép một thread thực thi bên trong một khối đồng bộ hóa (synchronized block/method) tại một thời điểm. Nguyên tắc hoặt động của monitor
+  + Khi một thread vào vùng synchronized, nó chiếm Monitor của đối tượng.
+  + Nếu một thread khác muốn vào vùng synchronized của cùng một đối tượng, nó phải chờ.
+  + Khi thread hiện tại rời khỏi vùng synchronized, Monitor được giải phóng và thread khác có thể tiếp tục.
+- Khi bạn có 2 luồng cùng tác động vào 1 biến mà ko có đồng bộ thì có thể sảy ra sự sai lệch kết quả.
+- Chúng ta có 3 cách để đồng bộ trong java:
+  + synchronized methods: Phương thức synchronized đảm bảo rằng chỉ một thread có thể truy cập phương thức đó tại một thời điểm. ![image](https://github.com/user-attachments/assets/1b891481-4f2c-4863-aae2-c4b5b330d913)
+  + synchronized statements: Nếu chỉ cần đồng bộ một phần của phương thức, ta dùng synchronized block để tối ưu hiệu suất.![image](https://github.com/user-attachments/assets/ae39dedf-bfca-4273-ab66-5c37b8dadedc)
+  + static synchronized method: Khi có biến tĩnh (static), ta dùng synchronized static method để bảo vệ tài nguyên dùng chung cho tất cả các thread.![image](https://github.com/user-attachments/assets/41f82570-a6c7-4a51-9f6c-eab9aeb02798)
+
+### 3.2 Thread Safety
+
+## 4. CompletableFuture -lập trình bất đồng bộ
+### 4.1 Lý thuyết
+- Nếu muốn tạo 1 chương trình chạy ngầm.
+- CompletableFuture là một class trong Java thuộc gói java.util.concurrent, được giới thiệu từ Java 8. Nó đại diện cho một tương lai (future) có thể được hoàn thành thủ công và có thể lập lịch các tác vụ bất đồng bộ. CompletableFuture cung cấp API mạnh mẽ cho lập trình bất đồng bộ, giúp dễ dàng thực hiện các tác vụ song song và xử lý kết quả khi các tác vụ hoàn thành.
+- Hỗ trợ xử lý bất đồng bộ
+  + Bạn có thể thực thi các tác vụ ở nền mà không chặn luồng chính.
+  + Hỗ trợ chaining (xâu chuỗi) các bước xử lý sau khi kết quả sẵn sàng
+  + Hỗ trợ chaining (xâu chuỗi) các bước xử lý sau khi kết quả sẵn sàng
+- Hỗ trợ xử lý song song (Parallel Execution)
+  + Kết hợp nhiều tác vụ bất đồng bộ, ví dụ: thực hiện hai hoặc nhiều công việc đồng thời.
+- Sử dụng các phương thức static tiện lợi: ![image](https://github.com/user-attachments/assets/d6b1816a-2e26-4085-b179-d35c5c0a3bfa)
+  + supplyAsync: Thực hiện một tác vụ trả về kết quả.
+  + runAsync: Thực hiện một tác vụ không trả về kết quả.
+- Chaining (thenApply -xâu chuỗi các tác vụ)
+  + ![image](https://github.com/user-attachments/assets/3397568d-dcc9-4f17-b686-b620b8123af1)
+- thenCompose: Thực hiện tác vụ thứ hai dựa trên kết quả tác vụ thứ nhất: ![image](https://github.com/user-attachments/assets/890bd0b9-3ceb-41c5-af8b-565ec571667e)
+- Tạo CompletableFuture với Executor: Thực thi một tác vụ bất đồng bộ trên một Executor cụ thể.
+  + ![image](https://github.com/user-attachments/assets/82e9526f-dfe9-4863-abbd-c21289551192)
+- get(): Chờ kết quả của CompletableFuture và trả về giá trị.
+  + join(): Tương tự get(), nhưng không ném ngoại lệ mà thay vào đó ném CompletionException nếu có lỗi.
+- ![image](https://github.com/user-attachments/assets/bb65bd0d-d629-4f48-8ace-e6a50a648912)
+- ExecutorService và CompletableFuture
+  + ![image](https://github.com/user-attachments/assets/1e8c74be-cbd3-4205-8300-11067cedb81e)
+
+### 4.2 Executor để điều khiển luồng ngầm
+- CompletableFuture mặc định sử dụng một ThreadPool để thực thi các tác vụ bất đồng bộ
+- Bạn có thể cung cấp một Executor để điều khiển chính xác cách các tác vụ được thực thi trong các luồng ngầm.
+- ![image](https://github.com/user-attachments/assets/0ce093d4-8b22-4a10-99fa-43e4fa3f4c03)
+
+## 5. Concurrent Programming Utilities
+## 6. I/O-bound vs. CPU-bound
+## 7. Shutdown Hook
+## 8. Performance Tuning and Optimization
+## 9. Các vấn đề trong Multithreading
+
+
+
+
+
+
+
 
 
 
