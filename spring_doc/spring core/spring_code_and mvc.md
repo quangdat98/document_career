@@ -1,8 +1,8 @@
 # **------ Tóm Tắt ------**
 1. Tài liệu tham khảo
 2. Khái quát spring
-3. Dependency Injection (DI)
-4. Inversion of Control (IoC)
+3. Inversion of Control (IoC)
+4. Dependency Injection (DI)
 5. ApplicationContext & Bean Factory
 6. Event & Listener
 7. AOP (Aspect-Oriented Programming)
@@ -38,6 +38,34 @@
 - Spring MVC: Xây dựng ứng dụng web
 - Spring Boot: Spring Boot giúp đơn giản hóa cấu hình ứng dụng bằng cách cung cấp starter dependencies, auto-configuration, và embedded server.
 
-## *** 3. Dependency Injection (DI) ***
+## *** 3. Inversion of Control (IoC) ***
 **3.1 Khái niệm**
--
+- Là một nguyên tắc trong lập trình giúp đảo ngược quyền kiểm soát của chương trình. Thay vì một class tự quản lý sự khởi tạo và vòng đời của dependencies, nó sẽ được cung cấp từ bên ngoài (thông qua Dependency Injection hoặc các IoC Container như Spring).
+- Các cách thực hiện IOC:
+  + Dependency Injection (DI) – Inject dependencies thông qua Constructor, Setter hoặc Field.
+  + Service Locator – Một đối tượng trung tâm cung cấp dependencies.
+  + Factory Pattern – Một factory tạo đối tượng thay vì tự khởi tạo.
+  + Event-driven Architecture – Xử lý sự kiện thay vì gọi trực tiếp các phương thức.
+
+**3.2 Dependency Injection (DI)**
+- ![image](https://github.com/user-attachments/assets/c561a850-793d-479d-8d8f-f0c050e33430)
+- ![image](https://github.com/user-attachments/assets/da312854-f379-4276-a831-637d69f4b1b1)
+- ![image](https://github.com/user-attachments/assets/889350ed-58e4-4330-be61-704416a4e917)
+- =>> Điều quan trọng là khi đổi từ Old sang New chúng ta không phải sửa code
+
+**3.3 IoC Container trong Spring**
+- **IoC Container trong Spring chính là lõi của Spring Framework. IoC Container sẽ tạo ra các đối tượng, nối chúng lại với nhau, cấu hình chúng, và quản lý vòng đời của chúng từ khi tạo ra đến khi bị hủy. IoC Container sử dụng DI (Dependency Injection) để quản lý các thành phần tạo nên một ứng dụng. Những đối tượng này được gọi là Spring Bean**
+- **Bean là 1 object dk khởi tạo lắp ráp và sử dụng bởi một Spring IoC container**
+- IoC Container giúp:
+  + Tạo (Instantiate) Bean.
+  + Quản lý dependencies giữa các Bean.
+  + Cung cấp Bean khi cần mà không cần lập trình viên tự khởi tạo.
+- Các loại Ioc container trong spring:
+  + BeanFactory (Cơ bản, nhẹ, ít dùng)
+  + ApplicationContext (Mạnh mẽ, hay dùng nhất)
+
+## *** 4. Dependency Injection (DI) ***
+
+
+
+
