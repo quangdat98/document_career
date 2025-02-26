@@ -65,6 +65,12 @@
   + ApplicationContext (Mạnh mẽ, hay dùng nhất)
 
 ## *** 4. Dependency Injection (DI) ***
+**4.1 Khái niện**
+- Dependency Injection (DI) là một mẫu thiết kế (design pattern) thuộc nhóm Inversion of Control (IoC), giúp giảm sự phụ thuộc giữa các thành phần trong ứng dụng bằng cách cung cấp dependencies từ bên ngoài, thay vì để một lớp tự khởi tạo chúng.
+**4.2 Các cách thực hiện DI trong java**
+- Constructor Injection (Khuyến khích)
+- Setter Injection
+- Field Injection (Không khuyến khích)
 
 
 
