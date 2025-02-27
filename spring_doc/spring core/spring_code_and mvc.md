@@ -1,4 +1,4 @@
-# **------ Tóm Tắt ------**
+![image](https://github.com/user-attachments/assets/347858f9-d46a-4d7a-9283-d84d734ca7b1)# **------ Tóm Tắt ------**
 1. Tài liệu tham khảo
 2. Khái quát spring
 3. Inversion of Control (IoC)
@@ -15,11 +15,11 @@
 
 # **------ Nội dung chi tiết ------**
 
-## *** 1. Tài liệu tham khảo ***
+## ***1. Tài liệu tham khảo***
 - https://docs.spring.io/spring-framework/reference/core.html
 - https://www.digitalocean.com/community/tutorials/spring-tutorial-spring-core-tutorial
 
-## *** 2. Khái quát spring ***
+## ***2. Khái quát spring***
 **2.1 Các thành phần chính**
 - Spring Core (Spring IoC): Cung cấp Dependency Injection (DI) và Inversion of Control (IoC).
 - Spring AOP: Hỗ trợ lập trình hướng khía cạnh (Aspect-Oriented Programming).
@@ -38,7 +38,7 @@
 - Spring MVC: Xây dựng ứng dụng web
 - Spring Boot: Spring Boot giúp đơn giản hóa cấu hình ứng dụng bằng cách cung cấp starter dependencies, auto-configuration, và embedded server.
 
-## *** 3. Inversion of Control (IoC) ***
+## ***3. Inversion of Control (IoC)***
 **3.1 Khái niệm**
 - Là một nguyên tắc trong lập trình giúp đảo ngược quyền kiểm soát của chương trình. Thay vì một class tự quản lý sự khởi tạo và vòng đời của dependencies, nó sẽ được cung cấp từ bên ngoài (thông qua Dependency Injection hoặc các IoC Container như Spring).
 - Các cách thực hiện IOC:
@@ -64,13 +64,47 @@
   + BeanFactory (Cơ bản, nhẹ, ít dùng)
   + ApplicationContext (Mạnh mẽ, hay dùng nhất)
 
-## *** 4. Dependency Injection (DI) ***
+## ***4. Dependency Injection (DI)***
 **4.1 Khái niện**
 - Dependency Injection (DI) là một mẫu thiết kế (design pattern) thuộc nhóm Inversion of Control (IoC), giúp giảm sự phụ thuộc giữa các thành phần trong ứng dụng bằng cách cung cấp dependencies từ bên ngoài, thay vì để một lớp tự khởi tạo chúng.
 **4.2 Các cách thực hiện DI trong java**
 - Constructor Injection (Khuyến khích)
 - Setter Injection
 - Field Injection (Không khuyến khích)
+**4.3 Constructor Injection**
+- inject dependency thông qua constructor. spring sẽ tự động khởi tạo và inject dependency khi tạo instance.![image](https://github.com/user-attachments/assets/6ff520ed-b507-41cb-9031-1241e012113b)
+
+- ưu điểm:
+  + Bất biến (Immutability): Dependency được inject ngay từ đầu và không thể thay đổi.
+  + Dễ kiểm tra (Testability): Hỗ trợ Unit Test tốt hơn.
+  + Phù hợp với Spring Boot @RequiredArgsConstructor.
+  + Tránh NullPointerException: Không cần kiểm tra null.
+- Nhược điểm:
+  + Vấn đề với nhiều dependency: Nếu class có quá nhiều dependency, constructor có thể trở nên quá tải.
+**4.4 Setter Injection**
+- Inject dependency thông qua phương thức setter. ![image](https://github.com/user-attachments/assets/bb64fe80-0969-4b0f-ab2d-f49fa25bd7d9)
+- ![image](https://github.com/user-attachments/assets/46407d49-91e5-4a97-895c-3dc746718965)
+- Khi dùng spring thì chúng ta có @Autowired đây là chú thích đánh dấu cần được inject để spring biết và thực hiện mà chúng ta không cần gọi hàm set ![image](https://github.com/user-attachments/assets/31813420-0d06-43ee-b14c-e327d970cd83)
+**4.5 Field Injection**
+- Đây là cách phổ biến nhất nhưng không khuyến khích vì:
+  + Không thể làm bất biến (Immutable).
+  + Khó debug khi có nhiều dependency.
+  + Vi phạm nguyên tắc SOLID: Class phụ thuộc trực tiếp vào framework.
+**4.6 so sánh giữa các kiểu**
+- ![image](https://github.com/user-attachments/assets/17dd3ddc-7b07-4199-b57c-9080886313dc)
+**4.7 DI trong spring**
+- Spring quản lý DI thông qua IoC Container (thường là ApplicationContext), chịu trách nhiệm:
+  + Tạo và lưu trữ bean: Các đối tượng (bean) được Spring quản lý thay vì bạn tự tạo bằng new.
+  + Inject dependency: Tự động cung cấp dependency cho các bean dựa trên cấu hình.
+  + Quản lý vòng đời: Điều khiển từ lúc khởi tạo, inject, sử dụng, đến khi bean bị hủy.
+- **Định nghĩa bean**: Bạn khai báo bean bằng annotation (@Component, @Service, @Repository, @Bean, v.v.) hoặc cấu hình XML/Java Config.
+- **Quét và đăng ký**: Khi ứng dụng khởi động, Spring quét các class (thường trong các package được chỉ định) để tìm bean. Các bean này được đăng ký vào IoC Container.
+- **Inject dependency**: Spring phân tích các điểm cần inject (constructor, setter, hoặc field có @Autowired).Nó tìm bean phù hợp trong container (dựa trên type hoặc @Qualifier) và inject vào.
+- **Quản lý vòng đời:**: Spring đảm bảo bean được khởi tạo đúng thứ tự (dependency trước, dependent sau).Nếu bean không còn cần thiết (scope phù hợp), Spring sẽ hủy nó.
+
+## ***5. ApplicationContext & Bean Factory***
+
+
 
 
 
