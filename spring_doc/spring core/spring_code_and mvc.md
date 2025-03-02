@@ -3,14 +3,15 @@
 2. Khái quát spring
 3. Inversion of Control (IoC)
 4. Dependency Injection (DI)
-5. ApplicationContext & Bean Factory
-6. Event & Listener
-7. AOP (Aspect-Oriented Programming)
-8. Spring Transactions
-9. Spring Profiles & Configuration
-10. Spring Bean Customization
-11. Spring Context Refresh & Lazy Initialization
-12. Spring mvc.
+5. Bean
+6. ApplicationContext & Bean Factory
+7. Event & Listener
+8. AOP (Aspect-Oriented Programming)
+9. Spring Transactions
+10. Spring Profiles & Configuration
+11. Spring Bean Customization
+12. Spring Context Refresh & Lazy Initialization
+13. Spring mvc.
 
 
 # **------ Nội dung chi tiết ------**
@@ -102,7 +103,57 @@
 - **Inject dependency**: Spring phân tích các điểm cần inject (constructor, setter, hoặc field có @Autowired).Nó tìm bean phù hợp trong container (dựa trên type hoặc @Qualifier) và inject vào.
 - **Quản lý vòng đời:**: Spring đảm bảo bean được khởi tạo đúng thứ tự (dependency trước, dependent sau).Nếu bean không còn cần thiết (scope phù hợp), Spring sẽ hủy nó.
 
-## ***5. ApplicationContext & Bean Factory***
+## ***5. Bean***
+**5.1. Định nghĩa bean**
+- **là một đối tượng (object) được quản lý bởi Spring IoC (Inversion of Control) container. Đây thường là các instance của các class được cấu hình để Spring khởi tạo, quản lý vòng đời, và tiêm phụ thuộc (dependency injection).**
+- Bean là đơn vị cơ bản trong ứng dụng Spring, đại diện cho các thành phần như services, repositories, controllers, hoặc bất kỳ đối tượng nào cần được quản lý.
+- Các ỹ nghĩa của bean:
+  + Quản Lý Vòng Đời Đối Tượng Tự Động (khởi tạo (@PostConstruct) và dọn dẹp (@PreDestroy))
+  + Tăng Tính Tái Sử Dụng (Reusability): bean có thể được sử dụng nhiều nơi thay vì tạo nhiều instance mới
+  + Giảm Bớt Sự Phụ Thuộc Chặt Chẽ: do có hỗ trợ Dependency Injection (DI) thay vì new Object().
+  + Quản lý phạm vi(scope) của bean
+**5.2 Khởi tạo bean**
+- Có ba phương pháp quan trọng để cung cấp siêu dữ liệu cấu hình cho Spring IoC Container:
+  + Tệp tin cấu hình dựa trên XML. ![image](https://github.com/user-attachments/assets/719b6c8f-d9af-447c-8a12-7a0da6f40ddf)
+  + Định nghĩa Bean bằng Java Configuration (@Configuration) ![image](https://github.com/user-attachments/assets/a838eeeb-d843-4e01-b041-2973d5b5a898)
+  + Định nghĩa Bean bằng Annotation Configuration: @Component, @Service, @Repository, @Controller
+  
+**5.3 scope**
+- singleton (default) : Một bean duy nhất được tạo trong toàn bộ spring container - Dùng cho Service, Repository, Component dùng chung, Ví dụ: Kết nối Database, Logger, Cache Manager
+  + ![image](https://github.com/user-attachments/assets/3db36ad1-77b0-43bd-a953-3c21ac1c303b)
+  + ![image](https://github.com/user-attachments/assets/23d33faa-e879-4270-a756-bac43be045b2)
+
+- prototype: mỗi lần request sẽ tạo 1 instance mới -Khi bạn cần một bean chỉ sử dụng một lần rồi bỏ đi, không cần tái sử dụng, chẳng hạn trong các tác vụ xử lý dữ liệu tạm thời hoặc tạo các đối tượng kết quả (result objects).
+  + ![image](https://github.com/user-attachments/assets/401ab4f9-5a7d-42e7-99b1-d01befa09071)
+  + ![image](https://github.com/user-attachments/assets/f210fb4f-6906-4dc5-a75a-62857b508d1c)
+
+- Request: Tạo một instance mới cho mỗi HTTP reques - Dùng cho Controller hoặc Service cần xử lý dữ liệu mỗi request khác nhau. ví dụ như cần tracker thông tin các request gửi tới
+- Session: Tạo một instance cho mỗi HTTP session (Duy trì xuyên suốt session của user) - Lưu thông tin đăng nhập, giỏ hàng của user
+- Application: Nó tương tự như scope singleton, nhưng khác ở chỗ nó được gắn với ServletContext thay vì Spring ApplicationContext. Bean này tồn tại xuyên suốt vòng đời của ứng dụng web và được chia sẻ giữa tất cả các session, request, và người dùng.
+  + ![image](https://github.com/user-attachments/assets/3a8d5942-f2fc-4ad6-a1f4-702c2ec44e09)
+
+**5.3 Lifecycle Hooks**
+
+## ***6. ApplicationContext & Bean Factory***
+- https://www.geeksforgeeks.org/spring-beanfactory/
+**6.1. BeanFactory**
+- BeanFactory là một thành phần cốt lõi trong Spring Framework, đóng vai trò như một container quản lý các đối tượng (beans) trong ứng dụng. Nó chịu trách nhiệm khởi tạo, cấu hình, và cung cấp các beans khi cần thiết.
+- BeanFactory là container cơ bản và gốc rễ trong Spring Framework. Nó cung cấp các chức năng cốt lõi để:
+  + Quản lý bean: Tạo, cấu hình, và cung cấp bean khi cần.
+  + Dependency Injection (DI): Tiêm các phụ thuộc vào bean.
+  + Quản lý vòng đời: Khởi tạo, sử dụng, và hủy bean.
+- Dùng xml(XmlBeanFactory (Đã bị deprecated)) để config beanFactory. ![image](https://github.com/user-attachments/assets/2aa451b3-4526-4242-8027-a8a24d76bc3c)
+- Trong Spring boot thì chúng ta có interface BeanFactory
+- BeanFactory chỉ cung cấp các phương thức cơ bản để quản lý bean mà không hỗ trợ các tính năng nâng cao như ApplicationContext (ví dụ như quét @Component, @Service.. để nhận biết đó là 1 bean). (chúng ta có thể xem các phương thức ở interface)
+- DefaultListableBeanFactory và DefaultListableBeanFactory đọc cấu hình từ file xml ![image](https://github.com/user-attachments/assets/274573dd-a512-4727-b92b-6511cac20fbc)
+- AutowireCapableBeanFactory là một cơ chế trong Spring giúp bạn inject dependencies vào một object mà Spring không quản lý. Chúng ta có thể dùng để inject 1 thư viện mà spring ko quảng lý
+  +  ![image](https://github.com/user-attachments/assets/f8400bd4-218a-4c57-965d-3bef27bae2aa)
+  +  ![image](https://github.com/user-attachments/assets/a95971b5-2778-4c72-8e4c-83308dd883fe)
+  +  ![image](https://github.com/user-attachments/assets/6d9a164a-323b-4486-8637-40b09ff16205)
+
+- Lifecycle của Bean trong BeanFactory
+
+
 
 
 
