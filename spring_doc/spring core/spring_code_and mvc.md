@@ -133,11 +133,24 @@
   + ![image](https://github.com/user-attachments/assets/3a8d5942-f2fc-4ad6-a1f4-702c2ec44e09)
 
 **5.3 Lifecycle Hooks**
+- Là quá trình khời tạo và phá hủy bean. Chúng cho phép thực hiện các thao tác như thiết lập tài nguyên hoặc giải phóng tài nguyên bean bị hủy
+- **@PostConstruct**: được gọi sau khi bean được khởi tạo và dependencies được inject.
+- **afterPropertiesSet()** (bean phải implement  từ interface InitializingBean)
+  + Được gọi sau khi tất cả các thuộc tính của bean được thiết lập
+  + ![image](https://github.com/user-attachments/assets/a749154e-fbe7-48e0-9f33-4cdf0cc02dc6)
+- init-method (Khai báo trong XML hoặc annotation @Bean): chỉ định một phương thức khởi tạo trong file cấu hình. ![image](https://github.com/user-attachments/assets/8eb3b47e-a591-40b3-99db-93388a0ad89f)
+- **@PreDestroy**: được gọi trước khi bean bị phá hủy giúp giải phóng tài nguyên
+- **destroy()** (Từ DisposableBean interface): Được gọi khi Bean bị hủy, tương tự @PreDestroy.![image](https://github.com/user-attachments/assets/fcfbf4b9-69fc-40ae-b3de-2b32cefc0547)
+- destroy-method (Khai báo trong XML hoặc annotation @Bean): Chỉ định một phương thức để giải phóng tài nguyên. ![image](https://github.com/user-attachments/assets/b2c1f772-0fbe-47a2-bcf4-9a824c500617)
+- Các chú ý quan trọng:
+  + Ưu tiên sử dụng @PostConstruct và @PreDestroy, vì chúng là tiêu chuẩn Java và không phụ thuộc vào Spring.
+  + InitializingBean và DisposableBean ràng buộc Bean với Spring, không linh hoạt bằng annotations.
+  + init-method và destroy-method hữu ích nếu bạn không thể sửa đổi class để thêm annotations.
 
 ## ***6. ApplicationContext & Bean Factory***
 - https://www.geeksforgeeks.org/spring-beanfactory/
 **6.1. BeanFactory**
-- BeanFactory là một thành phần cốt lõi trong Spring Framework, đóng vai trò như một container quản lý các đối tượng (beans) trong ứng dụng. Nó chịu trách nhiệm khởi tạo, cấu hình, và cung cấp các beans khi cần thiết.
+- BeanFactory là một thành phần cốt lõi trong Spring Framework, đóng vai trò như một container quản lý các đối tượng (beans) trong ứng dụng. Nó chịu trách nhiệm khởi tạo, cấu hình, và cung cấp các beans khi cần thiết (Lazy loading).
 - BeanFactory là container cơ bản và gốc rễ trong Spring Framework. Nó cung cấp các chức năng cốt lõi để:
   + Quản lý bean: Tạo, cấu hình, và cung cấp bean khi cần.
   + Dependency Injection (DI): Tiêm các phụ thuộc vào bean.
@@ -152,6 +165,31 @@
   +  ![image](https://github.com/user-attachments/assets/6d9a164a-323b-4486-8637-40b09ff16205)
 
 - Lifecycle của Bean trong BeanFactory
+  + https://www.geeksforgeeks.org/bean-life-cycle-in-java-spring/
+
+**6.2 ApplicationContext**
+- ApplicationContext là Spring's IoC container mở rộng từ BeanFactory, cung cấp nhiều tính năng bổ sung như:
+  + Quản lý lifecycle của Bean
+  + Hỗ trợ event publishing
+  + Tích hợp với AOP, Transaction, Resource Loading
+  + Hỗ trợ internationalization (i18n)
+  + ApplicationEvent & ApplicationListener
+- Eager loading (Tạo bean ngay khi context khởi động)
+- Các Implementation chính của ApplicationContext: ![image](https://github.com/user-attachments/assets/b81cb0e3-1596-4c4a-bf08-8a9c45683392)
+- Các Method Quan Trọng trong ApplicationContext: ![image](https://github.com/user-attachments/assets/90e0592d-4f7e-4d23-aea5-c1a1167edf87)
+- **Event Handling**: Spring hỗ trợ event-driven programming, giúp các component có thể giao tiếp với nhau một cách loose coupling (lỏng lẻo).
+  + Chúng ta sẽ tạo một sự kiện tùy chỉnh bằng cách kế thừa ApplicationEvent. ![image](https://github.com/user-attachments/assets/b60f9217-5f06-4a89-84a4-f5b860c0d383)
+  + Tạo một Event Listener: Lớp này sẽ lắng nghe sự kiện OrderCreatedEvent và thực hiện hành động khi sự kiện xảy ra. ![image](https://github.com/user-attachments/assets/0280b1ee-b2d2-4fda-8888-26be9af8aefb)
+  + Phát sự kiện (Publish Event): ApplicationEventPublisher giúp phát sự kiện đến tất cả các listener đã đăng ký.![image](https://github.com/user-attachments/assets/f0f64264-cc07-4997-b1d0-137e815f89b6)
+  + Main: ![image](https://github.com/user-attachments/assets/16214c42-cc44-42f9-b327-60a10331fa9c)![image](https://github.com/user-attachments/assets/6018d58c-f34f-49d9-b142-ae5ab0ffa7f5)
+  + => khi bạn chạy eventPublisher.publishEvent(new OrderCreatedEvent(this, orderId)). Spring sẽ tìm ìm kiếm tất cả các @EventListener lắng nghe OrderCreatedEvent và thực thi.
+
+- Profile và Environment
+- Refresh & Restart
+- i18n
+
+
+
 
 
 
