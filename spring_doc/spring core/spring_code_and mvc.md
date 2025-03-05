@@ -183,10 +183,35 @@
   + Phát sự kiện (Publish Event): ApplicationEventPublisher giúp phát sự kiện đến tất cả các listener đã đăng ký.![image](https://github.com/user-attachments/assets/f0f64264-cc07-4997-b1d0-137e815f89b6)
   + Main: ![image](https://github.com/user-attachments/assets/16214c42-cc44-42f9-b327-60a10331fa9c)![image](https://github.com/user-attachments/assets/6018d58c-f34f-49d9-b142-ae5ab0ffa7f5)
   + => khi bạn chạy eventPublisher.publishEvent(new OrderCreatedEvent(this, orderId)). Spring sẽ tìm ìm kiếm tất cả các @EventListener lắng nghe OrderCreatedEvent và thực thi.
-
-- Profile và Environment
+- Profile trong Spring giúp phân tách cấu hình dựa trên môi trường như dev, test, prod, v.v.
+  + Kích hoạt profile bằng file config: Dùng application.properties hoặc application.yml => spring.profiles.active=dev
+  + Dùng tham số JVM khi chạy ứng dụng: java -jar myapp.jar --spring.profiles.active=prod
+  + Dùng annotation @ActiveProfiles (cho test): ![image](https://github.com/user-attachments/assets/60d60dd3-934f-4812-a776-7aa12cb3d1ef)
+  + Dùng @Profile để chỉ định một bean chỉ được tạo khi profile tương ứng được kích hoạt ![image](https://github.com/user-attachments/assets/2687cf07-fbfd-489a-928c-05522d028a8f)
+- Environment: trong Spring giúp truy xuất thông tin cấu hình như biến môi trường hệ thống, các thuộc tích trong file application
+  + @Value để inject giá trị: ![image](https://github.com/user-attachments/assets/66e4f066-de45-4b9c-997a-9317d05edb29)
+  + Dùng Environment để truy xuất thông tin (import org.springframework.core.env.Environment;) ![image](https://github.com/user-attachments/assets/288d0064-e3be-4234-b160-8a846e90a869)
+  + @ConfigurationProperties ![image](https://github.com/user-attachments/assets/bbb8f2b8-c734-4ace-9124-78cfcac2cfea)
 - Refresh & Restart
-- i18n
+- i18n: i18n (Internationalization) giúp hỗ trợ đa ngôn ngữ và đa định dạng, phù hợp với người dùng ở các khu vực khác nhau.
+  + Spring sử dụng MessageSource để quản lý các file ngôn ngữ (.properties hoặc .yml).
+  + Tạo file ngôn ngữ (messages_*.properties)
+  + ![image](https://github.com/user-attachments/assets/bf4d061c-36c9-43fe-8f4e-2ddf3b6c2098)
+  + Cấu hình application.properties: ![image](https://github.com/user-attachments/assets/97430aab-5fdc-462c-9134-02e739c5a968)
+  + Cấu hình trong java: ![image](https://github.com/user-attachments/assets/6b3f6f22-81b6-4555-996e-4ccb246c35ba)
+  + ResourceBundleMessageSource: Là một implement của MessageSource trong Spring để quản lý i18n.Đọc message từ file .properties trong src/main/resources. Không hỗ trợ reload file khi ứng dụng đang chạy. Mặc định sử dụng ISO-8859-1 (phải chuyển sang UTF-8 nếu dùng tiếng Việt). ![image](https://github.com/user-attachments/assets/f9897e8d-93a5-4c1b-8ea8-4247089ecee8)![image](https://github.com/user-attachments/assets/cc983a8c-3563-4f6a-9bef-0385aa29232f)
+
+
+  + ReloadableResourceBundleMessageSource:  Giống ResourceBundleMessageSource nhưng có thể reload file i18n khi ứng dụng đang chạy.Cho phép cấu hình cache timeout, giúp tự động cập nhật message sau một khoảng thời gian.![image](https://github.com/user-attachments/assets/6af9d0a1-0411-4f86-99de-a03eb6f96888)
+
+  + AcceptHeaderLocaleResolver: Dùng để xác định ngôn ngữ (locale) dựa trên HTTP Accept-Language header gửi từ client. Khác với CookieLocaleResolver và SessionLocaleResolver, nó không lưu locale trong session hoặc cookie.
+    + Từ giá trị Locale locale lấy được từ controller -> sử dụng MessageSource để lấy giá trị message: messageSource.getMessage("param_1", new Object[]{name}, locale); (Nhớ phải cấu hình messageSource trước VD ![image](https://github.com/user-attachments/assets/e9ad98ea-fa42-41fb-9175-1858cc872ab7) ![image](https://github.com/user-attachments/assets/95c454b5-d103-459a-9892-854581ac0014)
+)
+    + Trường hợp ko muốn dùng locale thì chúng ta tự truyền biến &lang=vi"
+
+
+
+
 
 
 
