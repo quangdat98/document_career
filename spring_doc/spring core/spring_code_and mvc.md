@@ -5,13 +5,12 @@
 4. Dependency Injection (DI)
 5. Bean
 6. ApplicationContext & Bean Factory
-7. Event & Listener
-8. AOP (Aspect-Oriented Programming)
-9. Spring Transactions
-10. Spring Profiles & Configuration
-11. Spring Bean Customization
-12. Spring Context Refresh & Lazy Initialization
-13. Spring mvc.
+7. AOP (Aspect-Oriented Programming)
+8. Spring Transactions
+9. Spring Bean Customization && Configuration
+10. Spring Context Refresh & Lazy Initialization
+11. Spring mvc.
+12. spring cache
 
 
 # **------ Nội dung chi tiết ------**
@@ -208,11 +207,53 @@
     + Từ giá trị Locale locale lấy được từ controller -> sử dụng MessageSource để lấy giá trị message: messageSource.getMessage("param_1", new Object[]{name}, locale); (Nhớ phải cấu hình messageSource trước VD ![image](https://github.com/user-attachments/assets/e9ad98ea-fa42-41fb-9175-1858cc872ab7) ![image](https://github.com/user-attachments/assets/95c454b5-d103-459a-9892-854581ac0014)
 )
     + Trường hợp ko muốn dùng locale thì chúng ta tự truyền biến &lang=vi"
+   
+## *** 7. AOP (Aspect-Oriented Programming) ***
 
+**7.1 Khái niệm**
+- AOP là gì?: AOP là một phương pháp lập trình bổ sung cho OOP (Object-Oriented Programming), tập trung vào việc tách biệt các mối quan ngại chéo (cross-cutting concerns) như logging, security, transaction management ra khỏi logic chính của ứng dụng.
 
+**7.2 Các thuật ngữ quan trọng**
+- Aspect
+- Join Point
+- Advice
+  + Before
+  + After
+  + After Returning
+  + After Throwing
+  + Around
+- Pointcut
+- Target Object
+- Weaving
 
+**7.3 ứng dụng trong thực tế**
+- Logging: Ghi log trước/sau khi thực thi method.
+- Transaction Management: Tự động quản lý transaction (Spring đã tích hợp sẵn với @Transactional).
+- Security: Kiểm tra quyền truy cập trước khi gọi method.
+- Caching: Tích hợp với @Cacheable hoặc tự viết caching logic.
+- Exception Handling: Xử lý ngoại lệ tập trung thay vì rải rác trong code.
 
+**7.4 AspectJ**
 
+## *** 8. Spring Transactions ***
+## *** 9. Spring Bean Customization & Configuration ***
+- @Configuration
+- @ComponentScan
+- @PropertySource
+- @Import
+- @Lazy
+- Annotation khác: @Primary,@Conditional,@Profile,@DependsOn
+## *** 10. Spring Context Refresh & Lazy Initialization ***
+## *** 11. Spring mvc ***
+
+**11.1 Annotation liên quan đến Controller**
+**11.2 Annotation xử lý Request**
+**11.3 Annotation xử lý Response**
+**11.4 Annotation quản lý Model và View**
+**11.5 Annotation cấu hình và Dependency Injection**
+**11.6 Annotation xử lý Validation**
+**11.7 Annotation liên quan đến REST**
+**11.8 Annotation khác**
 
 
 
