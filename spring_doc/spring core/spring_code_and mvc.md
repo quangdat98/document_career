@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/347858f9-d46a-4d7a-9283-d84d734ca7b1)# **------ Tóm Tắt ------**
+# **------ Tóm Tắt ------**
 1. Tài liệu tham khảo
 2. Khái quát spring
 3. Inversion of Control (IoC)
