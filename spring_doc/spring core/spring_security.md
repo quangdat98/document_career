@@ -1,12 +1,22 @@
 # **------ Tóm Tắt ------**
 1. Khái niệm
-2. Cấu hình Spring Security
-3. Xác thực (Authentication)
-4. Ủy quyền (Authorization)
-5. Xác thực API với JWT
-6. Tùy chỉnh UserDetailsService
-7. OAuth2 & OpenID Connect (OIDC)
-8. Rate Limiting & API Key Authentication
+2. Use Case of Spring Security
+3. Spring Security - Core
+4. Spring Security - Registration, Login & Logout
+5. Spring Security - Authentication and Authorization
+6. Spring Security - JWT
+7. Spring Security - Method Level Security
+8. Spring Security - CSRF and CORS
+
+
+
+10. Cấu hình Spring Security
+11. Xác thực (Authentication)
+12. Ủy quyền (Authorization)
+13. Xác thực API với JWT
+14. Tùy chỉnh UserDetailsService
+15. OAuth2 & OpenID Connect (OIDC)
+16. Rate Limiting & API Key Authentication
 
 # **------ Nội dung chi tiết ------**
 - https://200lab.io/blog/co-che-hoat-dong-cua-spring-security
@@ -23,7 +33,45 @@
 - Authorization
 - Authentication Provider
 
+## 2. Use Case of Spring Security
+**2.1 Các trường hợp nào sử dụng spring security**
+- Cần xác thực và phân quyền
+- Bảo vệ các ứng dụng khỏi các mối đe dọa phổ biến như tấn cong xuyên trang (xss) hay làm giả yêu cầu trang (csrf)
+- Hỗ trợ sso, xác thực một lần truy cập nhiều ứng dụng.
+- Cho phép dev thảo thích cấu hình.
+- Auditing and Logging
+
+## 3.  Spring Security - Core
+
+**3.1 Features**
+- Authorization
+- Single sign-on: cho phép người dùng sử dụng 1 tài khoản duy nhất để truy cập nhiều ứng dụng khác nhau
+- Software Localization
+- Remember-me
+- LDAP (Lightweight Directory Access Protocol)
+- JAAS (Java Authentication and Authorization Service) LoginModule
+- Web Form Authentication
+- Digest Access Authentication
+- HTTP Authorization
+- Basic Access Authentication
+Features Added in Spring Security 6.0
+- OAuth 2.0 Login
+- Reactive Support
+- Modernized Password Encoding
+
+**3.2 spring security architecture**
+- 
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
 **1.2 SecurityFilterChain**
+
 
 
 ## 2. Authentication
