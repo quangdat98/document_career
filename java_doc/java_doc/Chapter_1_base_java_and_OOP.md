@@ -156,6 +156,12 @@
 ### 3.9 Tìm hiểu thêm
   - Máy ảo GraaIvm: https://www.oracle.com/hk/java/graalvm/what-is-graalvm/
   - Lý do phải cài các biến môi trường (java home)
+### 3.10 shutdown hook và SIGTERM
+- Shutdown Hook là một đoạn code được thực thi trước khi JVM dừng.
+- SIGTERM (Signal Termination) là một tín hiệu trong hệ điều hành Unix/Linux dùng để yêu cầu tiến trình dừng một cách "mềm".
+- => **Cơ chế này giúp ích cho bài toán cần stop 1 chương trình nhưng trước khi stop cần xử lý xóa infra hoặc update DB, trong trường hợp có nhiều instance và chúng ta không biết instance nào cần xóa**
+- ![Uploading image.png…]()
+
 
 ## *** 4. Cú pháp ***
 ### 4.1 Cấu trúc cơ bản của một chương trình Java
