@@ -52,6 +52,44 @@
 - Cú pháp:
   + ![image](https://github.com/user-attachments/assets/f772b35b-f2a1-4df2-a71f-33613828bca3)
 - Chúng chủ yếu được sử dụng với các interface có một phương thức trừu tượng duy nhất (Functional Interface).
+- **Lambda không thể thay đổi biến bên ngoài trừ khi là "effectively final".** ("Effectively final" là một thuật ngữ trong lập trình, đặc biệt trong ngữ cảnh của Java. Nó chỉ một biến mà không thể được gán giá trị mới sau khi nó đã được khởi tạo)
+- Nếu muốn thay đổi 1 biến bên ngoài thì chúng ta phải dùng Atomic hoặc reduce.
+- ![image](https://github.com/user-attachments/assets/7b5cff57-784b-446f-86af-77707f7af9e6)
+
+## 3. Stream API
+**3.1 khái niệm**
+- Stream API được giới thiệu từ Java 8 nhằm xử lý dữ liệu một cách hiệu quả và dễ đọc hơn, thay thế cho các vòng lặp for, while, hoặc Iterator.
+- Tất cả các class và interface của Stream API nằm trong gói java.util.stream
+- Có thể chạy tuần tự (stream()) hoặc song song (parallelStream()).
+- stream không  làm thay đổi dữ liệu gốc.
+- Stream gồm 3 giai đoạn chính:
+  + 1️⃣ Tạo Stream (Source) → Từ Collection, Array, File, Stream.of()
+  + 2️⃣ Xử lý dữ liệu (Intermediate Operations) → filter(), map(), sorted() =>  Chúng không thực hiện bất kỳ hành động nào ngay khi được gọi mà chỉ tạo ra một Stream mới.![image](https://github.com/user-attachments/assets/79f4bbea-ec39-400a-ac93-bba454ac971a)
+
+  + 3️⃣ Kết quả (Terminal Operations) → collect(), forEach(), reduce() => khi được gọi mới thực thi các xử lý dữ liệu gọi là **tính lazy của stream** ![image](https://github.com/user-attachments/assets/add1d7c3-dfc6-4c36-9f61-f4ddd4df9925)
+- Lợi ích tính lazy: Chỉ những phần tử cần thiết mới được xử lý, giúp tiết kiệm tài nguyên.Xử lý dữ liệu lớn: Có thể làm việc với các nguồn dữ liệu lớn mà không cần tải toàn bộ vào bộ nhớ.
+- **Không thể dùng lại sau khi gọi terminal operation.**
+- **Không Dùng @Transactional Khi Dùng Stream Trong JPA** => vì stream có cơ chế lazy xong đột với transaction bị đóng khi ra hỏi phương thức.
+**3.2 Các hàm trong stream**
+- ![image](https://github.com/user-attachments/assets/3fa5aba9-73d0-4472-ab6b-d55cc0492d39)
+- ![image](https://github.com/user-attachments/assets/7a89105e-7437-49c3-bb9b-5edc88ac503f)
+- ![image](https://github.com/user-attachments/assets/93eaecfa-5920-414b-8885-59490362869a)
+- ![image](https://github.com/user-attachments/assets/c37fdc13-6cae-4aab-aa0c-4aa7e63a2893)
+
+## 4. Method References
+**4.1 khái niệm**
+- Method Reference là cách viết ngắn gọn hơn của Lambda Expressions, giúp code rõ ràng và dễ đọc hơn.
+- ![image](https://github.com/user-attachments/assets/5bf9fe44-c6a2-440b-84a9-121693cb9daf)
+
+## 5. Default Methods
+
+
+
+
+
+
+
+
 
 
 
