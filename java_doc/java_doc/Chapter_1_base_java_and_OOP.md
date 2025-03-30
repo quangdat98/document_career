@@ -160,7 +160,7 @@
 - Shutdown Hook là một đoạn code được thực thi trước khi JVM dừng.
 - SIGTERM (Signal Termination) là một tín hiệu trong hệ điều hành Unix/Linux dùng để yêu cầu tiến trình dừng một cách "mềm".
 - => **Cơ chế này giúp ích cho bài toán cần stop 1 chương trình nhưng trước khi stop cần xử lý xóa infra hoặc update DB, trong trường hợp có nhiều instance và chúng ta không biết instance nào cần xóa**
-- ![Uploading image.png…]()
+- ![image](https://github.com/user-attachments/assets/7b1d5483-42f6-40c4-97fc-0a0bb8e8bd61)
 
 
 ## *** 4. Cú pháp ***
@@ -370,6 +370,7 @@
        + Tính đa hình: Bạn có thể thay đổi đối tượng mà tham chiếu này trỏ đến mà không cần thay đổi mã gọi phương thức.
        + ![image](https://github.com/user-attachments/assets/d9d0c3a1-d042-4ce1-ba82-afaf43cca87c) ![image](https://github.com/user-attachments/assets/fb299454-e46f-4bf3-b88f-95ddd514b3bd)
        + Sử dụng: ![image](https://github.com/user-attachments/assets/77239839-1071-4aea-9818-acb251b2cae6)
+       + Dựa vào trên thì chúng ta có thể tạo ra 1 hàm truyền vào 1 interface và từ đó chúng ta có thể tạo ra nhiều hàm khác implements interface để truyền vào hàm: ![Uploading image.png…]()
        + Tính linh hoạt: Bạn có thể thay đổi loại động vật mà không cần thay đổi mã trong phần gọi.
        + Dễ dàng mở rộng: Nếu bạn thêm một lớp mới (ví dụ: Bird), bạn chỉ cần triển khai Animal mà không cần thay đổi mã hiện có.
        + Hỗ trợ đa hình: Bạn có thể sử dụng các phương thức của interface mà không cần biết chi tiết về lớp cụ thể.
