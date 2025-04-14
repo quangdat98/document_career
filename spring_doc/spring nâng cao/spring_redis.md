@@ -50,7 +50,37 @@
 - ![image](https://github.com/user-attachments/assets/d4d818a5-8b5e-4e90-98d3-d52e67d37573)
 - ![image](https://github.com/user-attachments/assets/98045c21-0cbc-45ae-b829-06506af318bf)
 
-## 4. Redis AOF và RDB
+## 4. Redis AOF và RDB (đảm bảo dữ liệu vẫn còn sau khi Redis khởi động lại)
+**4.1 RDB – Redis Database File**
+- **RDB là snapshot (ảnh chụp) toàn bộ dữ liệu Redis tại một thời điểm cụ thể, được lưu dưới dạng file .rdb**
+- Không lưu dữ liệu realtime
+- Các thức hoạt động:
+  + Redis sao lưu toàn bộ dữ liệu định kỳ (theo thời gian và số lần ghi).
+  + File .rdb được tạo bằng các lệnh như SAVE hoặc BGSAVE.
+  + file mặc định dump.rdb
+- Cấu hình trong redis.conf:
+  + ![image](https://github.com/user-attachments/assets/f033a265-daba-4558-8739-2c267a2672ca)
+
+
+**4.2 AOF – Append-Only File**
+- **AOF ghi tất cả các lệnh ghi dữ liệu (write operations như SET, HSET, LPUSH...) vào file .aof, theo thời gian thực.**
+- Các thức hoạt động:
+  + Mỗi khi có lệnh ghi → Redis ghi thêm dòng đó vào file AOF
+  + Khi Redis khởi động → nó sẽ replay các lệnh này để khôi phục dữ liệu
+- Cấu hình trong redis.conf:
+  + ![image](https://github.com/user-attachments/assets/df3c0a81-7c1b-4311-86a0-6b9418b20ddd)
+  + ![image](https://github.com/user-attachments/assets/93c110cd-05f6-4918-bfe6-8876d60823f9)
+- An toàn hơn RDB: có thể mất dữ liệu tối đa 1 giây
+- Phù hợp với ứng dụng yêu cầu dữ liệu không được mất
+- File AOF lớn dần theo thời gian và khởi động sẽ lâu hơn do replay nhiều lệnh
+
+**4.3 so sánh and dùng cả 2**
+- ![image](https://github.com/user-attachments/assets/5cbbbaee-d25b-468a-b53d-6fbccfd9985a)
+- ![image](https://github.com/user-attachments/assets/fbac6b82-eb2d-4f0f-b4ae-137fbbb18ac8)
+
+
+
+
 
 ## 5. Các lệnh trong redis: vào redis: redis-cli
 **LỆNH CƠ BẢN (KEYS)**
