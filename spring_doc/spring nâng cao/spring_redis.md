@@ -104,9 +104,15 @@
 **AUTH (BẢO MẬT)**
 - ![image](https://github.com/user-attachments/assets/2be32984-6d04-4501-b4db-744b8c7748f9)
 
-## 6. Redis Replication
-## 7. Redis Sentinel
-## 8. Redis Cluster
+## 6 Eviction Policy and TTL 
+
+## 7. Performance & Benchmark
+## 8. Pub/Sub – Publish/Subscribe
+
+## 9. Redis Replication
+## 10. Redis Sentinel
+## 11. Redis Cluster
+## 12. Lua Script trong Redis
 
 
 
