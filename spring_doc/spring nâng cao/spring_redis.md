@@ -57,9 +57,10 @@
 - Các thức hoạt động:
   + Redis sao lưu toàn bộ dữ liệu định kỳ (theo thời gian và số lần ghi).
   + File .rdb được tạo bằng các lệnh như SAVE hoặc BGSAVE.
-  + file mặc định dump.rdb
+  + file mặc định dump.rdb => trong folder /var/lib/redis
 - Cấu hình trong redis.conf:
   + ![image](https://github.com/user-attachments/assets/f033a265-daba-4558-8739-2c267a2672ca)
+  + Command line: CONFIG SET save "900 1"
 
 
 **4.2 AOF – Append-Only File**
@@ -70,11 +71,16 @@
 - Cấu hình trong redis.conf:
   + ![image](https://github.com/user-attachments/assets/df3c0a81-7c1b-4311-86a0-6b9418b20ddd)
   + ![image](https://github.com/user-attachments/assets/93c110cd-05f6-4918-bfe6-8876d60823f9)
+  + Kiển tra AOF có bật hay ko: ![image](https://github.com/user-attachments/assets/bb42ecc8-233e-4707-a017-3a5ffbda61f5)
+  + Bật lên: CONFIG SET appendonly yes => redis tự tạo file ![image](https://github.com/user-attachments/assets/9484fa80-4878-4097-8387-6d77409ba642)
+
+
 - An toàn hơn RDB: có thể mất dữ liệu tối đa 1 giây
 - Phù hợp với ứng dụng yêu cầu dữ liệu không được mất
 - File AOF lớn dần theo thời gian và khởi động sẽ lâu hơn do replay nhiều lệnh
 
 **4.3 so sánh and dùng cả 2**
+- **Nếu bật cả AOF và RDB → Redis sẽ dùng AOF vì nó chi tiết và chính xác hơn.**
 - ![image](https://github.com/user-attachments/assets/5cbbbaee-d25b-468a-b53d-6fbccfd9985a)
 - ![image](https://github.com/user-attachments/assets/fbac6b82-eb2d-4f0f-b4ae-137fbbb18ac8)
 
@@ -89,18 +95,29 @@
 
 **STRING (CHUỖI)**
 - ![image](https://github.com/user-attachments/assets/77444dee-b68d-4b63-825c-99c735cad861)
+
 **LIST (DANH SÁCH)**
 - ![image](https://github.com/user-attachments/assets/64d5ae16-0c9e-4720-aca6-e94cbf839329)
+- ![image](https://github.com/user-attachments/assets/831a2748-933c-49a2-b99b-e5f4dca432c1)
+
+
 **SET (TẬP HỢP KHÔNG TRÙNG)**
 - ![image](https://github.com/user-attachments/assets/ac9fc4a5-0cac-43d1-8bd2-b1b5b8061856)
+
 **HASH (BẢNG HASH: GIỐNG OBJECT)**
 - ![image](https://github.com/user-attachments/assets/a83c1690-b780-43dd-bb82-73bcfe7b5a64)
+- ![image](https://github.com/user-attachments/assets/7ffff70e-eb43-4911-9665-027dde1415ae)
+- chúng ta có thể lưu nhiều thông tin cho 1 user
+
 **ZSET (SORTED SET)**
 - ![image](https://github.com/user-attachments/assets/ee5d7333-b2df-4810-a1c1-e3380c0e9abe)
+
 **PUB/SUB (GIAO TIẾP REAL-TIME)**
 - ![image](https://github.com/user-attachments/assets/4dca6443-af16-4d87-8913-23e82d9d0a0a)
+
 **AOF/RDB và QUẢN TRỊ**
 - ![image](https://github.com/user-attachments/assets/6a4c0a63-88f2-4b41-a4b0-f2b8c49f1671)
+
 **AUTH (BẢO MẬT)**
 - ![image](https://github.com/user-attachments/assets/2be32984-6d04-4501-b4db-744b8c7748f9)
 
@@ -108,11 +125,30 @@
 
 ## 7. Performance & Benchmark
 ## 8. Pub/Sub – Publish/Subscribe
+- là một mô hình giao tiếp trong hệ thống phân tán, nơi mà một "publisher" (người công bố) gửi thông điệp đến một kênh, và một "subscriber" (người đăng ký) nhận thông điệp từ kênh đó mà không cần biết ai là người gửi.
+- 3 Thành phần chính:
+  + Publisher: Người công bố thông điệp vào một kênh. Publisher có thể là bất kỳ ứng dụng nào gửi thông điệp đến kênh. ![image](https://github.com/user-attachments/assets/4a900b1f-38ca-4d53-a137-ebf74b1ff82f)
+  + Subscriber: Người đăng ký theo dõi một hoặc nhiều kênh. Khi có thông điệp mới được gửi đến các kênh này, các subscriber sẽ nhận được thông điệp. ![image](https://github.com/user-attachments/assets/4b3fce07-f9f0-4af9-983a-a8022087d4ef)
+  + Channel: Kênh là nơi thông điệp được công bố và nhận. Kênh trong Redis là một tên cho nhóm các thông điệp.
+- Ví dụ trên 1 task tôi gửi message: ![image](https://github.com/user-attachments/assets/c7ff4f3a-a575-4f21-8f96-5b406aeeee0c). => trên 1 task khác tôi đã đăng ký channel thì sẽ nhận tin nhắn đến real time: ![image](https://github.com/user-attachments/assets/95e56370-edf8-46bf-a7a2-97b2d629213c)
 
 ## 9. Redis Replication
 ## 10. Redis Sentinel
 ## 11. Redis Cluster
 ## 12. Lua Script trong Redis
+
+## Redis với spring boot
+**1. Set và get**
+- config kết nối: ![image](https://github.com/user-attachments/assets/b403ba84-2547-4dcd-8a3a-1a72b3d1aafe)
+- Tạo lớp giao diện RedisTemplate (giao tiếp với DB redis): ![image](https://github.com/user-attachments/assets/ce7dad36-8c77-42c5-bc44-d87cc0c373af)
+  + Spring Boot dùng JdkSerializationRedisSerializer cho cả key và value, tức là nó serialize tất cả đối tượng Java dưới dạng binary =>  Điều này khiến Redis CLI (hoặc bất kỳ client nào không dùng Java) không thể đọc key/value rõ ràng → giống như bạn đã gặp (\xac\xed...) => chỉ là nhưng người dùng redis cli mới ko đọc được, bảo mật.
+  + dùng StringRedisSerializer: Serialize chuỗi Java (String) thành UTF-8 byte array Và deserialize UTF-8 byte array về lại String (Giúp key và value lưu trong Redis là text thuần túy, dễ đọc)
+  + Đối với object thì sẽ phải dùng: GenericJackson2JsonRedisSerializer
+  + ![image](https://github.com/user-attachments/assets/7da51c28-6839-45e4-9052-031bd8a7307c)
+  + 
+
+
+
 
 
 
