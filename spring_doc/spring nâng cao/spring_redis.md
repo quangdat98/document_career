@@ -132,6 +132,32 @@
   + Channel: Kênh là nơi thông điệp được công bố và nhận. Kênh trong Redis là một tên cho nhóm các thông điệp.
 - Ví dụ trên 1 task tôi gửi message: ![image](https://github.com/user-attachments/assets/c7ff4f3a-a575-4f21-8f96-5b406aeeee0c). => trên 1 task khác tôi đã đăng ký channel thì sẽ nhận tin nhắn đến real time: ![image](https://github.com/user-attachments/assets/95e56370-edf8-46bf-a7a2-97b2d629213c)
 
+**ví dụ trong spring**
+- RedisMessageListenerContainer: Một container lắng nghe các channel được cấu hình.
+  + hàm addMessageListener(): Đăng ký một listener để xử lý khi có message mới từ channel.
+  + ChannelTopic("news_channel"): Là tên kênh mà Redis sẽ publish vào và bạn sẽ listen
+  + ![image](https://github.com/user-attachments/assets/25880267-b4bb-4103-b7ff-eeb2e34f66b5)
+ 
+- MessageSubscriber: là hàm xử lý message khi nhận được từ Redis Pub/Sub. 
+  + ![image](https://github.com/user-attachments/assets/34d4a00a-bd7a-4b6c-bd3d-3f952bdf8f56)
+ 
+- MessageListenerAdapter: Adapter trung gian giúp Spring gọi method onMessage() trong class bạn viết
+  + "onMessage": Tên method trong MessageSubscriber sẽ được gọi khi nhận được message
+  + ![image](https://github.com/user-attachments/assets/98bd3e88-06cf-4b17-a6d1-5207c920b07e)
+
+- MessagePublisher:
+  + redisTemplate.convertAndSend(): Gửi message tới channel (topic)
+  + ChannelTopic: Đối tượng đại diện cho một channel Redis
+  + ![image](https://github.com/user-attachments/assets/8570c922-d748-4c95-8c58-eb5e151fa3bc)
+  + ![image](https://github.com/user-attachments/assets/95bb051f-e239-47cc-af76-aa663d3b3f32)
+- Test:
+  + ![image](https://github.com/user-attachments/assets/9edc99a3-dd8b-4003-bf2b-6cf1f5c73912)
+  + Kết quả:![image](https://github.com/user-attachments/assets/2fbe6f8b-bca3-4951-b213-625763e70cfe)
+
+
+
+
+
 ## 9. Redis Replication
 ## 10. Redis Sentinel
 ## 11. Redis Cluster
