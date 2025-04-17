@@ -1,6 +1,19 @@
 # **------ Tóm Tắt ------**
 1. Tài liệu tham khảo
 2. Giới thiệu
+3. Prerequisite (Spring Core Concepts)
+4. Spring boot Annotations
+5. Spring Boot Core
+6. Spring Boot with REST API
+7. Spring Boot with Database and Data JPA
+8. Spring Boot with Microservices
+9. Spring Boot with Kafka
+10. Spring Boot with AOP
+11. Spring Boot Testing
+12. What You Can Do with Spring Boot
+13. Spring Boot Features
+14. Spring Boot Advantages
+15. Limitations of Spring Boot
 
 
 # **------ Nội dung chi tiết ------**
@@ -8,9 +21,12 @@
 ## ***1. Tài liệu tham khảo***
 - https://docs.spring.io/spring-boot/index.html
 - https://www.geeksforgeeks.org/spring-boot/?ref=ml_lbp
+- Tiếng việt: https://kungfutech.edu.vn/khoa-hoc/spring-boot
 
 ## 2. Giới thiệu
 **2.1 Spring Boot là gì?**
+- Spring Boot Architecture: ![Uploading image.png…]()
+
 - Auto-Configuration
 - Modular Architecture & Separation of Concerns
   + Modular Architecture: Mỗi module là một khối độc lập về chức năng (feature-based), có thể phát triển riêng, build riêng, thậm chí deploy riêng. ![image](https://github.com/user-attachments/assets/d405782c-74dc-4494-b440-6f00a680cc9e)
@@ -24,3 +40,5 @@
 - Microservice & Cloud-Native Readiness
   + Hiểu pattern: Service Discovery, Circuit Breaker, Rate Limiting, Retry, Timeout.
   + Tích hợp với các tool như: Spring Cloud (Eureka, Config Server, Gateway), Resilience4j, AWS/GCP integrations.
+- Embedded Tomcat Server
+- 
