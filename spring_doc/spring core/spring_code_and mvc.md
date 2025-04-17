@@ -235,7 +235,9 @@
 
 **7.4 AspectJ**
 
+
 ## *** 8. Spring Transactions ***
+
 ## *** 9. Spring Bean Customization & Configuration ***
 - @Configuration
 - @ComponentScan
@@ -243,16 +245,26 @@
 - @Import
 - @Lazy
 - Annotation khác: @Primary,@Conditional,@Profile,@DependsOn
+- 
 ## *** 10. Spring Context Refresh & Lazy Initialization ***
+
 ## *** 11. Spring mvc ***
+**11.0 DispatcherServlet**
 
 **11.1 Annotation liên quan đến Controller**
+
 **11.2 Annotation xử lý Request**
+
 **11.3 Annotation xử lý Response**
+
 **11.4 Annotation quản lý Model và View**
+
 **11.5 Annotation cấu hình và Dependency Injection**
+
 **11.6 Annotation xử lý Validation**
+
 **11.7 Annotation liên quan đến REST**
+
 **11.8 Annotation khác**
 
 
