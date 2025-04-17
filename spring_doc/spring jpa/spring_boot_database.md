@@ -15,5 +15,6 @@
 
 ## 1. Nội dung tham khảo
 - https://www.geeksforgeeks.org/spring-boot/
+- https://www.geeksforgeeks.org/spring-data-jpa-tutorial/
 
 ## 
