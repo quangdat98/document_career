@@ -23,3 +23,7 @@
 - https://www.sqltutorial.org/
 
 ## 2. Basic
+**2.1 Introduction**
+**2.2 Data Types**
+**2.3 Operators**
+**2.4 Commands**
