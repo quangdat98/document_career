@@ -95,12 +95,79 @@
   + ![image](https://github.com/user-attachments/assets/35310916-2e43-489b-b76a-aa4ff2e4d0c4) Nếu ko đặt trong 1 @Transaction thì sẽ bị lỗi ![image](https://github.com/user-attachments/assets/765b6245-2ff4-4ed9-93a8-9528fc22c35c). Khi bật spring.jpa.properties.hibernate.enable_lazy_load_no_trans=true thì chúng ta ko cần đặt trong @Transaction nữa
 
 ***6.1.2 config with java***
+- Dùng @Configuration để config
+- Chúng ta sẽ dùng các thư viện javax.sql.DataSource và javax.persistence.EntityManagerFactory.
+- Có thể config dùng 2 datasource (về mặt DB thì việc chia ra làm 2 url read và write thực tế là sử dụng 1 proxy trung gian như proxysql hay mysal router, maxscale: Tự động route query SELECT → replica, Tự động route INSERT/UPDATE/DELETE → master)
+- **EntityManagerFactory**đối tượng chính bạn dùng để tương tác với cơ sở dữ liệu: thêm mới, cập nhật, xóa...
+  + Mỗi lần làm việc với DB thì entityManagerFactory.createEntityManager() để tạo ra một phiên làm việc.
+- **PlatformTransactionManager**  rong Spring là giao diện cốt lõi để quản lý transaction (giao dịch) – tức là giúp bạn bắt đầu, commit, rollback... các giao dịch khi làm việc với database hoặc các hệ thống transactional khác.
+  + khi bạn xử lý thủ công ( không dùng @Transaction): ![image](https://github.com/user-attachments/assets/342c5710-b439-4f9d-a105-3c4604963640). Khi dùng nhiều datasource thì cần nhiều platformTracsactionManager mỗi cái gắn với 1 EntityManagerFactory để quản lý.
 
-***6.2 
+**6.2 Repository**
 
-**6. Repository**
+***6.2.1 Khái niệm***
+- Repository là một interface hoặc lớp giúp bạn tương tác với cơ sở dữ liệu một cách đơn giản mà không cần phải viết các câu truy vấn SQL thủ công.
+- Chúng ta có một số loại repository sau: JpaRepository, CrudRepository,PagingAndSortingRepository, custom
+
+***6.2.2 CrudRepository***
+- là một trong những interface cơ bản nhất trong Spring Data JPA, cung cấp các phương thức cơ bản để thực hiện các thao tác CRUD (Create, Read, Update, Delete) với cơ sở dữ liệu.
+- Hạn chế: Không hỗ trợ các tính năng nâng cao như phân trang, sắp xếp, hay các truy vấn phức tạp.
+
+***6.2.3 JpaRepository***
+- JpaRepository kế thừa từ CrudRepository và PagingAndSortingRepository, vì vậy nó có tất cả các phương thức của CrudRepository cộng thêm một số tính năng nâng cao như phân trang và sắp xếp.
+- Các tính năng nâng cao: Có thể sử dụng các phương thức như flush(), saveAndFlush(), giúp bạn tối ưu hóa khi làm việc với dữ liệu lớn hoặc các thao tác cần được commit ngay lập tức.
+
+***6.2.2 PagingAndSortingRepository***
 
 **6. Entity Relationships**
+- mô tả cách các entity (đối tượng trong cơ sở dữ liệu) liên kết với nhau.
+- @OneToOne: Mối quan hệ một-một giữa hai entity, có nghĩa là mỗi đối tượng của entity A chỉ liên kết với một đối tượng duy nhất của entity B, và ngược lại.
+  + ![image](https://github.com/user-attachments/assets/cf87ddd4-49c1-4e2d-bb14-22744b63aa1a)
+  + Khi cúng ta đã khai báo các mối quan hệ giữa 2 entity thì trong query có thể join trực tiếp ntn: ![image](https://github.com/user-attachments/assets/fdde46d3-0f94-4fa4-b44c-7a98eeca25ed) ![image](https://github.com/user-attachments/assets/578df7c2-6cc0-4fd0-9791-3a2595ca84a9)
+
+- @OneToMany và @ManyToOne
+  + ![image](https://github.com/user-attachments/assets/6ddcd34f-5c00-42c6-bd74-ed7ba713a5af)
+  + ![image](https://github.com/user-attachments/assets/a2bc7d84-e9d4-4087-b859-f8a509c076d6)
+  + ![image](https://github.com/user-attachments/assets/d3f1d133-7997-4aec-bdc1-9612d7b7b8ff)
+
+
+
+- @ManyToMany
+  + Là mối quan hệ nhiều – nhiều giữa hai entity.
+  + JPA sẽ tự tạo bảng trung gian với 2 khóa ngoại.
+  + ![image](https://github.com/user-attachments/assets/ec76fa80-8885-4b6b-9c53-1922dbceb3e6)
+  + Chỉ 1 bên là chủ sở hữu: là bên không có mappedBy.![image](https://github.com/user-attachments/assets/c5b9a326-2164-4089-ac4c-5ac7e9fe613c)
+
+- Cascade Operations
+  + là tập các hành vi tự động truyền tác động từ entity cha sang entity con. Nó giúp bạn đơn giản hóa logic xử lý entity liên kết, đặc biệt khi tạo, cập nhật, hoặc xóa dữ liệu liên quan.
+  + **Cascade thường được đặt ở phía chủ sở hữu (owning side) của mối quan hệ trong JPA.**
+  + ![image](https://github.com/user-attachments/assets/89afe405-cf12-4513-8724-f4825280709c)
+  + ![image](https://github.com/user-attachments/assets/e9c760e2-7719-48e3-9d41-7d0d93921735)
+  + PERSIST: Lưu cả entity cha và con vào cơ sở dữ liệu.
+  + MERGE: Cập nhật cả entity cha và con.
+  + REMOVE: Xóa cả entity cha và con.
+  + REFRESH: Tải lại cả entity cha và con.
+  + ALL: Tất cả các hành động trên cha cũng áp dụng cho con.
+  + DETACH: Ngừng quản lý đối tượng, không tự động lưu thay đổi nữa.
+ 
+- Fetch Types:
+  + EAGER: Mặc định sẽ tải dữ liệu liên kết ngay lập tức khi truy vấn entity chính.
+  + LAZY: Chỉ tải dữ liệu liên kết khi cần thiết (khi truy xuất các thuộc tính liên quan).![image](https://github.com/user-attachments/assets/1bc899c4-436e-45b4-8551-59bb4391a18c). Khi chúng ta thực hiện List<Child> children = parent.getChildren();  thì lúc đó sẽ có 1 truy vấn thực hiện để lấy thằng con.
+
+
+- OrphanRemoval: dùng để tự động xóa các entity con không còn liên kết với entity cha
+ + Khi có @OrphanRemoval = true: Nếu bạn gỡ bỏ một Child khỏi danh sách children của Parent (ví dụ, trong phương thức removeChildFromParent), Child đó sẽ tự động bị xóa khỏi cơ sở dữ liệu.
+ + Khi không có @OrphanRemoval: Nếu bạn gỡ bỏ một Child khỏi danh sách children của Parent, Child vẫn sẽ tồn tại trong cơ sở dữ liệu và bạn cần gọi remove thủ công để xóa nó.
+
+- Lỗi N+1
+  + Giả sử bạn có 2 bảng Parent và Child, và mối quan hệ giữa chúng là OneToMany. Mỗi Parent có nhiều Child.
+  + Ở đây, truy vấn đầu tiên lấy danh sách tất cả các Parent. Sau đó, đối với mỗi Parent, một truy vấn riêng biệt được thực hiện để lấy các Child của Parent đó.
+  + Nếu có 100 Parent, sẽ có 1 truy vấn đầu tiên để lấy tất cả các Parent, và 100 truy vấn phụ để lấy các Child cho từng Parent, tức là tổng cộng 101 truy vấn.
+  +  => Hiệu suất thấp, Giao tiếp nhiều lần với cơ sở dữ liệu
+  +  Các fix: dùng FetchType.LAZY,JOIN FETCH, @EntityGraph
+  +  JOIN FETCH JOIN FETCH kết hợp các bảng trong cơ sở dữ liệu và tải dữ liệu liên kết trong một truy vấn duy nhất. Điều này có nghĩa là các đối tượng con sẽ được tải kèm với đối tượng cha mà không phải thực hiện truy vấn bổ sung cho mỗi đối tượng con.![image](https://github.com/user-attachments/assets/9bf2742c-c17f-46bd-a526-a92cd38157d7)
+  +  @EntityGraph: @EntityGraph là một tính năng trong JPA cho phép bạn chỉ định các thuộc tính hoặc mối quan hệ nào của entity sẽ được tải khi truy vấn, giúp tối ưu hóa truy vấn dữ liệu liên kết và tránh lỗi N+1. Với @EntityGraph, bạn có thể chọn tải các mối quan hệ cụ thể mà không cần phải viết truy vấn JPQL hoặc HQL thủ công. ![image](https://github.com/user-attachments/assets/67da2b1c-93e4-4e62-92b2-ccacfbe18a16)
+
 
 **6. Composite Key**
 
