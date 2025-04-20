@@ -6,8 +6,6 @@
 5. Hibernate 
 6. Spring Boot – Spring Data JPA
 7. Spring Boot – MongoRepository with Example
-8. Spring Boot – Difference Between CrudRepository and JpaRepository
-9. Spring Boot – CRUD Operations using MongoDB
 
 
 
@@ -119,7 +117,7 @@
 
 ***6.2.2 PagingAndSortingRepository***
 
-**6. Entity Relationships**
+**6.3 Entity Relationships**
 - mô tả cách các entity (đối tượng trong cơ sở dữ liệu) liên kết với nhau.
 - @OneToOne: Mối quan hệ một-một giữa hai entity, có nghĩa là mỗi đối tượng của entity A chỉ liên kết với một đối tượng duy nhất của entity B, và ngược lại.
   + ![image](https://github.com/user-attachments/assets/cf87ddd4-49c1-4e2d-bb14-22744b63aa1a)
@@ -153,6 +151,8 @@
 - Fetch Types:
   + EAGER: Mặc định sẽ tải dữ liệu liên kết ngay lập tức khi truy vấn entity chính.
   + LAZY: Chỉ tải dữ liệu liên kết khi cần thiết (khi truy xuất các thuộc tính liên quan).![image](https://github.com/user-attachments/assets/1bc899c4-436e-45b4-8551-59bb4391a18c). Khi chúng ta thực hiện List<Child> children = parent.getChildren();  thì lúc đó sẽ có 1 truy vấn thực hiện để lấy thằng con.
+  + ![image](https://github.com/user-attachments/assets/1dcb7bb9-49c1-43ad-9aee-a3d51ccc4227)
+
 
 
 - OrphanRemoval: dùng để tự động xóa các entity con không còn liên kết với entity cha
@@ -169,26 +169,113 @@
   +  @EntityGraph: @EntityGraph là một tính năng trong JPA cho phép bạn chỉ định các thuộc tính hoặc mối quan hệ nào của entity sẽ được tải khi truy vấn, giúp tối ưu hóa truy vấn dữ liệu liên kết và tránh lỗi N+1. Với @EntityGraph, bạn có thể chọn tải các mối quan hệ cụ thể mà không cần phải viết truy vấn JPQL hoặc HQL thủ công. ![image](https://github.com/user-attachments/assets/67da2b1c-93e4-4e62-92b2-ccacfbe18a16)
 
 
-**6. Composite Key**
-
-**6. FetchType và Performance**
+**6.4 Composite Key**
+- Composite Key là một khóa chính (primary key) được tạo từ nhiều hơn một cột (field/thuộc tính).
+- Dùng khi không có một cột duy nhất nào đủ để xác định một bản ghi mà cần kết hợp nhiều cột lại.
+- Có 2 các để thể hiện trong code.
+  + Dùng @IdClass: Step 1 tạo class chứa các trường FK ![image](https://github.com/user-attachments/assets/9f4a2362-f1ee-4ca2-9247-10d030251ddb) và trong entity dùng @IdClass ![image](https://github.com/user-attachments/assets/67d248c6-d598-41ee-b1bb-5865cc9319b9)
+  +  Dùng @EmbeddedId và @Embeddable: Gói các trường khóa chính trong một object có annotation @Embeddable. ![image](https://github.com/user-attachments/assets/fbbda371-cc18-4228-bb17-d22fb7eb055a). Entity chính dùng @EmbeddedId.![image](https://github.com/user-attachments/assets/f42fbc75-ae69-4d78-9243-60d2efa51b44) Khi query cần phải chuyền cả object khóa ![image](https://github.com/user-attachments/assets/7852c162-4942-4a66-a3b9-cd8961f6cfe3)
+- Dùng @MapsId để map đến composite key trong entity khác ![image](https://github.com/user-attachments/assets/be351828-9df3-4e47-9a7b-2df943e5d874)
 
 **6. DTO Projection & Custom Result Mapping**
 
-**6. Native Query vs JPQL**
+***6.5.1 Interface-based DTO Projection**
+- Là cách sử dụng interface để khai báo các thuộc tính cần lấy từ Entity, sau đó Spring Data JPA sẽ tự động map dữ liệu từ kết quả truy vấn (query result) vào các phương thức getter trong interface đó.
+- VD:
+  + ![image](https://github.com/user-attachments/assets/360ea6de-ee4a-4702-af64-8b0f5c056eda)
+  + ![image](https://github.com/user-attachments/assets/9dcd5ace-9202-415d-919f-c695341ab986)
+  + ![image](https://github.com/user-attachments/assets/a6047f6f-2edc-4e3c-ba45-6651b653e943)
+  + ![image](https://github.com/user-attachments/assets/7be077e8-064e-45d2-a366-99b92fdbd3c2)
+ - Không dùng cho các filed phức tạp (List, map..
+- Dùng cho cả native ![image](https://github.com/user-attachments/assets/3c5d044f-959e-4d7d-b2bd-a2d337756e6e)
 
-**6. Pagination & Sorting**
 
-**6. Auditing**
 
-**6. Transaction**
 
-**6. Validation & Constraint**
+***6.5.2 Class-based DTO Projection**
+- Dùng contructor của class ![image](https://github.com/user-attachments/assets/92e5d9b2-9740-49e5-9cae-8319bfe2662d)
 
-**6. Locking**
 
-**6. Custom Repository**
+***6.5.3 Native Query + Class-based DTO + @SqlResultSetMapping**
+- @SqlResultSetMapping là một annotation của JPA (không phải riêng Spring), được dùng để mapping kết quả từ truy vấn SQL thuần (native query) sang DTO hoặc Entity.
 
+***6.5.4 JPQL hoặc Native Query + Tuple hoặc Object[]**
+- Dữ liệu trả ra là Object[] (hoặc Stream[]) ![image](https://github.com/user-attachments/assets/831099fc-c5d1-4c77-aa86-8bc9ddc71c62)
+- Chúng ta khải tạo 1 class DTO chứa các trường cần lấy, phải có contructor ![image](https://github.com/user-attachments/assets/de29c495-bc6e-429e-9f02-d3306d2f48b8)
+- Trong Entity map tới class DTO mới tạo: map đúng contructor ![image](https://github.com/user-attachments/assets/5916bad4-5eac-4d30-b83e-5264440544c6)
+- Chúng ta phải dùng EntityManager để gọi: entityManager.createNativeQuery(sql, resultSetMappingName);
+
+
+***6.5.5 Projection bằng Spring Data JPA Dynamic Projections**
+
+***6.5.6 Native Query + ResultTransformer (Hibernate-specific)**
+
+**6.6 Native Query vs JPQL**
+- JPQL: Ngôn ngữ truy vấn giống SQL nhưng hoạt động trên Entity
+  + Hạn chế – không hỗ trợ đầy đủ như SQL
+- native: SQL thuần (tùy DBMS: MySQL, PostgreSQL, Oracle...)
+  + linh hoạt cao, 	Cao – hỗ trợ mọi cú pháp SQL đặc biệt, truy vấn phức tạp thì dùng cái này.
+  + Phải dùng @SqlResultSetMapping hoặc ResultTransformer
+
+**6.7 Pagination & Sorting**
+- Dùng Pageable, truyền trực tiếp vào query: ![image](https://github.com/user-attachments/assets/43d5b6ef-96ee-4b54-bc9c-abc731dc45f5) ![image](https://github.com/user-attachments/assets/12caaf45-13f5-46e0-856a-a802f8c84ad4) ![image](https://github.com/user-attachments/assets/bf361fe5-2720-4d7d-8728-b3b3359f97cb)
+
+
+
+**6.8 Auditing**
+- Cơ chế tự động ghi nhập lịch sử
+- Các annotation chính:
+  + @CreatedDate Ngày tạo bản ghi
+  + @LastModifiedDate Ngày cập nhật cuối
+  + @CreatedBy Người tạo bản ghi
+  + @LastModifiedBy Người sửa cuối cùng
+- Các bước thực hiện
+  + Tạo class JpaAuditingConfig để bật tính năng auditing của JPA và chỉ định AuditorAware để lấy thông tin người dùng. ![image](https://github.com/user-attachments/assets/014e7beb-fb88-4099-93c5-7e059fb4387f)
+  + Tạo class AuditorAwareImpl implement AuditorAware<String> để lấy tên người dùng hiện tại từ SecurityContext.![image](https://github.com/user-attachments/assets/4aa70620-b0d8-4cf1-b422-0856213ce7a2)
+  + Tạo Entity với Auditing ![image](https://github.com/user-attachments/assets/11d33d44-0490-4b00-9392-3a5c333b546e)
+  + Khi sử dụng @CreatedDate và @LastModifiedDate, bạn không cần phải cấu hình thủ công về ngày giờ. JPA Auditing sẽ tự động điền vào các trường này mà không cần bạn phải can thiệp.
+
+
+
+**6.9 Transaction**
+- Spring cung cấp một cách rất thuận tiện để làm việc với transaction thông qua Spring Transaction Management. Nó hỗ trợ bạn đảm bảo rằng các thay đổi trong cơ sở dữ liệu sẽ chỉ được lưu lại khi giao dịch thành công.
+- Có thể sử dụng thông qua  @Transactional hoặc code java PlatformTransactionManager ![image](https://github.com/user-attachments/assets/d1001a0a-aa35-4148-a82d-161d0b61ec30)
+
+***6.9.1 Propagation trong Spring**
+- nó quyết định xem giao dịch có được tiếp tục, chuyển tiếp, tạo mới hay không tham gia vào giao dịch hiện tại.
+- REQUIRED (Mặc định):  Nếu có một giao dịch đang hoạt động, phương thức sẽ tham gia vào giao dịch đó ![image](https://github.com/user-attachments/assets/c486bd97-3a48-431b-a869-1ceb0cea4e0f)
+- REQUIRES_NEW: Giả sử bạn đang thực hiện một giao dịch chuyển tiền và cần ghi lại lịch sử giao dịch. Khi gọi phương thức lưu lịch sử giao dịch, phương thức đó sẽ bắt đầu một giao dịch mới, không liên quan đến giao dịch chuyển tiền. **=> trong spring khi dùng thằng này thì cần tách ra 1 repository mới  nha, thằng này nó độc lập ko sợ thằng cha bị rollback**
+- NESTED: Đảm bảo thằng con lỗi thì ko ảnh hưởng tới thằng cha, nhưng cha thì rollback cả con. 
+- SUPPORTS: ko có nhiều ỹ nhĩa dùng cho real, tạo transaction nếu cần
+- MANDATORY: Phương thức này yêu cầu giao dịch đã tồn tại và không cho phép chạy nếu không có giao dịch.
+- NOT_SUPPORTED: Dùng khi bạn cần thực thi phương thức trong một chế độ không giao dịch, dù có một giao dịch cha.
+- NEVER: Dùng khi bạn chắc chắn phương thức không cần giao dịch và không muốn giao dịch nào được bắt đầu.
+
+***6.9.1 Isolation trong Spring**
+- Isolation (cô lập giao dịch) quy định mức độ “cô lập” của một giao dịch so với các giao dịch khác, tức là nó kiểm soát giao dịch hiện tại có thể nhìn thấy dữ liệu chưa commit từ các giao dịch khác không. ![image](https://github.com/user-attachments/assets/3644dedf-0b08-44ed-94f0-bd4461c10e6d)
+
+- DEFAULT: Dùng mức mặc định của DB (thường là READ_COMMITTED với H2, MySQL)
+- READ_UNCOMMITTED: Cho phép đọc dữ liệu chưa commit từ giao dịch khác → nguy hiểm
+- READ_COMMITTED: Chỉ đọc được dữ liệu đã commit → ngăn Dirty Read
+- REPEATABLE_READ: 	Giữ nguyên kết quả truy vấn trong cùng một giao dịch → ngăn Non-Repeatable Read
+- SERIALIZABLE: Cô lập tối đa, các giao dịch phải chạy tuần tự → an toàn nhất nhưng hiệu suất thấp
+**6.10 Validation & Constraint**
+
+**6.11 Locking**
+- Trong JPA/Spring Data, Locking (khóa) là cơ chế để đồng bộ truy cập đến dữ liệu giữa các giao dịch, giúp tránh xung đột và đảm bảo nhất quán dữ liệu khi có nhiều người dùng hoặc luồng truy cập cùng lúc.
+- Có 2 loại lock chính: Optimistic Lock và Pessimistic Lock
+- ![image](https://github.com/user-attachments/assets/1ca35152-7f3f-488e-8280-60f7cdcdc77b)
+
+***6.11.1 Optimistic Lock***
+- Không khóa dữ liệu ngay. => Khi cập nhật, JPA sẽ kiểm tra phiên bản (@Version) để biết dữ liệu có bị thay đổi bởi giao dịch khác không. => Nếu có xung đột → ném OptimisticLockException.
+- Thêm trường @Version ![image](https://github.com/user-attachments/assets/8d0c1dea-c792-4bc2-bb55-57678b69cba1)
+
+***6.11.2 Pessimistic Lock***
+- Khi đọc dữ liệu, JPA gửi SQL có câu lệnh FOR UPDATE (tùy loại lock), để khóa dòng dữ liệu. Các giao dịch khác sẽ bị đợi hoặc bị lỗi nếu muốn truy cập dòng đó.
+- ![image](https://github.com/user-attachments/assets/5bac173b-1474-4d29-a7ad-8300142929fa)
+- ![image](https://github.com/user-attachments/assets/874d0006-479d-46ca-9e94-0d104d634736)
+
+ 
 **6. Migration Tool (Optional): Flyway / Liquibase/ mybatis**
 
 
