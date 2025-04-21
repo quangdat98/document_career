@@ -143,6 +143,25 @@ https://github.com/quangdat98/document_career/blob/f5b7ca290f41fd6a28b7500c714cc
 - @CrossOrigin
 - @Enumerated
 
+## 5. Spring Boot Core
+**5.1 Spring Boot Actuator**
+-
+
+**5.2 HTTP Methods**
+
+**5.3 Spring – RestTemplate**
+
+**5. 4Spring Boot – Scheduling**
+
+**5.5 Spring Boot – Cache Provider**
+
+**5.6 Spring core**
+- https://github.com/quangdat98/document_career/blob/6be1e1d69869e031fd014997dda7a34b9e0d74c6/spring_doc/spring%20core/spring_code_and%20mvc.md
+
+**5.7 Custom BeanPostProcessor / BeanFactoryPostProcessor**
+
+**5.8 Spring Context Internals**
+
 
 
 
