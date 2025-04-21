@@ -275,6 +275,9 @@
 - ![image](https://github.com/user-attachments/assets/5bac173b-1474-4d29-a7ad-8300142929fa)
 - ![image](https://github.com/user-attachments/assets/874d0006-479d-46ca-9e94-0d104d634736)
 
+***6.12 Các annotation khác**
+- @Modifying: Nó kích hoạt chế độ executeUpdate() thay vì executeQuery(). => Nếu không có @Modifying, Spring nghĩ đây là một SELECT, và sẽ ném exception vì UPDATE không hợp lệ khi dùng executeQuery().
+
  
 **6. Migration Tool (Optional): Flyway / Liquibase/ mybatis**
 
