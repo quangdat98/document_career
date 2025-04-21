@@ -44,7 +44,7 @@ Template Method
 
 - ### 1.3 Factory
 **1.3.1 Khái niệm**
-- Mục đích: Ẩn logic khởi tạo object, trả về interface
+- Mục đích: Ẩn logic khởi tạo object, trả về interface, Về cơ bản thì ta sẽ định nghĩa một interface hoặc Abstract class , các class con sẽ implements nó
 - Dùng khi nào: Có nhiều loại object khác nhau cùng interface
 - Ý nghĩa: Giảm sự phụ thuộc vào new, tăng mở rộng dễ dàng
 - ![image](https://github.com/user-attachments/assets/4780e3f2-9598-46c1-8195-b351d070015d)
