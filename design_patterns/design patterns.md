@@ -26,6 +26,9 @@ Template Method
 - Mục đích: Tạo bản sao của 1 object gốc
 - Dùng khi nào: Cần quản lý trạng thái chung: config, DB pool, logger...
 - Ý nghĩa: Tránh tạo nhiều object không cần thiết, tiết kiệm tài nguyên
+***1.1.2 Ví dụ***
+- ![image](https://github.com/user-attachments/assets/733cf8a0-e671-4470-a4eb-e9b16101d954)
+- 1 class singleton cần có: 1 là khai báo, 2 contructor là private để ko khởi tạo ở class bên ngoài được, 3 là hàm lấy.
 
 
 ### 1.2 Prototype
@@ -34,12 +37,25 @@ Template Method
 - Dùng khi nào: Tạo nhiều object giống nhau, chi phí tạo mới cao
 - Ý nghĩa: Tăng hiệu suất tạo object, dễ nhân bản
 
+***1.2.2 Ví dụ***
+- Chúng ta implements interface Cloneable để thực hiện clone
+- ![image](https://github.com/user-attachments/assets/8bab0c30-aa6b-4c11-a8f9-c4ebb5df0304)
+
 
 - ### 1.3 Factory
 **1.3.1 Khái niệm**
 - Mục đích: Ẩn logic khởi tạo object, trả về interface
 - Dùng khi nào: Có nhiều loại object khác nhau cùng interface
 - Ý nghĩa: Giảm sự phụ thuộc vào new, tăng mở rộng dễ dàng
+- ![image](https://github.com/user-attachments/assets/4780e3f2-9598-46c1-8195-b351d070015d)
+- ![image](https://github.com/user-attachments/assets/690ef117-7928-4683-8e77-1574841cebaa)
+- ![image](https://github.com/user-attachments/assets/bf1586dd-ca48-485f-9582-46f82a321ce3)
+
+
+
+
+***1.3.2 Ví dụ***
+- 
 
 - ### 1.4 Builder
 **1.4.1 Khái niệm**
