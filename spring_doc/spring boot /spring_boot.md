@@ -1,4 +1,4 @@
-# **------ Tóm Tắt ------**
+![image](https://github.com/user-attachments/assets/16257f8c-1037-49f1-9c93-c1985cf5c640)# **------ Tóm Tắt ------**
 1. Tài liệu tham khảo
 2. Giới thiệu
 3. Prerequisite (Spring Core Concepts)
@@ -120,13 +120,29 @@
   + @Validated	Từ Spring, dùng trên class để bật validation nâng cao
   + @Valid	Từ Javax/Jakarta, dùng cho param hoặc field
   + @Valid trong @RequestBody	Dùng để validate JSON payload
+  + Trong validate rất hay dùng BindingResult, nên nhớ hãy để sau @RequestBody
 
 - Custom Validation (ConstraintValidator)
   + //todo... có 2 trường hợp là custom và dùng phân tầng @Validated
 
+- Validate group
+  + Chia group dùng trong trường hợp là 1 DTO dùng chung cho nhiêu API mỗi một API thì cần validate một số trường riêng.
+  + Step 1 tạo group, mỗi 1 group là 1 interface ![image](https://github.com/user-attachments/assets/b18c35fe-967f-4022-a31c-347f939e8ef9)
+  + Step 2 DTO với Group Validation: ![image](https://github.com/user-attachments/assets/41e2b0e7-0e33-4692-9e00-9bd7e5c7ecfb)
+  + Step 3 sử dụng trong controller: ![image](https://github.com/user-attachments/assets/7750bab3-5ee5-479c-8bc2-fa6b0ac19b27)
+  + có thể dùng group cho code validate thuần hoặc custom validate
+
+- Validate code thuần (Manual Validation)
+  + ![image](https://github.com/user-attachments/assets/77cf44e7-3df3-4a79-b778-c17796953c50)
+  + ![image](https://github.com/user-attachments/assets/50de11d2-ff7b-46f0-9339-be113e881646)
+
 **4.6 Annotation về JPA (nếu dùng database)**
+https://github.com/quangdat98/document_career/blob/f5b7ca290f41fd6a28b7500c714ccc1c5cd651d1/spring_doc/spring%20jpa/spring_boot_database.md
 
 **4.7 Annotation khác (bổ sung nếu cần)**
+- @CrossOrigin
+- @Enumerated
+
 
 
 
