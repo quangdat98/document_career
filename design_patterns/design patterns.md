@@ -58,7 +58,12 @@ Template Method
 - Mục đích: Tạo object phức tạp từng bước, dễ đọc. Tránh tạo nhiều contructor nhiều tham số
 - Dùng khi nào: Object có nhiều field tùy chọn hoặc quá nhiều constructor
 - Ý nghĩa: Dễ đọc, dễ maintain, phù hợp với immutable class
+- Các triển khai là chúng tạo 1 inner class là builder và class này sẽ là nơi nhập tất cả thông tin. sau đó trong contructor của class gốc thì chúng ta chỉ cần chuyền vào là class builder
 ***1.4.2 Ví dụ***
+- class user và inner class builder: ![image](https://github.com/user-attachments/assets/8cab9096-2938-4445-85c5-556579646a3e)
+- Khi tạo object thì chỉ cần truyền vào builder, hạn chế dùng contructor nhiều tham số: ![image](https://github.com/user-attachments/assets/3f8932a9-b6d1-4169-8e17-a5cdcceb0c71)
+- Sau thì có loobook thì ko cần làm thủ công ntn.
+
 
 ## 2. Structural Patterns – Nhóm Cấu trúc
 
@@ -81,6 +86,13 @@ Template Method
 - Mục đích: Thêm hành vi cho object mà không sửa code gốc
 - Dùng khi nào: Cần mở rộng chức năng runtime mà không kế thừa
 - Ý nghĩa: Tuân thủ Open/Closed, mở rộng dễ dàng
+
+***2.2.2 Ví dụ***
+- interface gốc: ![image](https://github.com/user-attachments/assets/af9932e8-6183-4cac-9260-dc2237a37927)
+- ![image](https://github.com/user-attachments/assets/63565087-933e-4df4-b14c-7020255a3ff0)
+- ![image](https://github.com/user-attachments/assets/ec1d75ac-4ba5-4359-80eb-4d9ccdba1616)
+
+
 
 
 ### 2.3 Proxy
@@ -107,8 +119,16 @@ Template Method
 
 - ### 1.3 Template Method
 **1.3.1 Khái niệm**
-- Mục đích: Định nghĩa khung logic, subclass tùy biến bước nhỏ
+- Mục đích: Định nghĩa khung logic, subclass tùy biến bước nhỏ. Phần đầu thì giống nhau còn phần cuối thì tùy biến
 - Dùng khi nào: Logic có nhiều bước giống nhau, nhưng 1 số bước cần tuỳ chỉnh 
 - Ý nghĩa: Tái sử dụng code, rõ ràng về trình tự xử lý
+
+***1.3.2 Ví dụ***
+- Chúng ta có 1 tiến trình, trong đó read và write giống nhau chỉ có phần thực hiện là khác nhau => phần khác thì sẽ là lớp trừu tượng để class con tự thực hiện: ![image](https://github.com/user-attachments/assets/89f4f484-52eb-412b-b979-bb48875ddd71)
+- Khi các class con extend thì nó sẽ phải thực hiện lại thằng process: ![image](https://github.com/user-attachments/assets/b515d68f-6cbe-4d3d-94f6-d04aa3913b73)
+- Kết quả: ![image](https://github.com/user-attachments/assets/48c146bc-3f0a-49e0-9677-263ab262cb63)
+
+
+
 
 
