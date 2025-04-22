@@ -47,21 +47,18 @@ Template Method
 - Mục đích: Ẩn logic khởi tạo object, trả về interface, Về cơ bản thì ta sẽ định nghĩa một interface hoặc Abstract class , các class con sẽ implements nó
 - Dùng khi nào: Có nhiều loại object khác nhau cùng interface
 - Ý nghĩa: Giảm sự phụ thuộc vào new, tăng mở rộng dễ dàng
+
+***1.3.2 Ví dụ***
 - ![image](https://github.com/user-attachments/assets/4780e3f2-9598-46c1-8195-b351d070015d)
 - ![image](https://github.com/user-attachments/assets/690ef117-7928-4683-8e77-1574841cebaa)
 - ![image](https://github.com/user-attachments/assets/bf1586dd-ca48-485f-9582-46f82a321ce3)
 
-
-
-
-***1.3.2 Ví dụ***
-- 
-
 - ### 1.4 Builder
 **1.4.1 Khái niệm**
-- Mục đích: Tạo object phức tạp từng bước, rõ ràng
+- Mục đích: Tạo object phức tạp từng bước, dễ đọc. Tránh tạo nhiều contructor nhiều tham số
 - Dùng khi nào: Object có nhiều field tùy chọn hoặc quá nhiều constructor
 - Ý nghĩa: Dễ đọc, dễ maintain, phù hợp với immutable class
+***1.4.2 Ví dụ***
 
 ## 2. Structural Patterns – Nhóm Cấu trúc
 
@@ -70,6 +67,14 @@ Template Method
 - Mục đích: Chuyển đổi giao diện của một class thành một giao diện khác mà client mong muốn.
 - Dùng khi nào: Bạn có một class/library không thể sửa (ví dụ: bên thứ ba), Giao diện của class đó không phù hợp với hệ thống hiện tại, Bạn muốn "bọc lại" (wrap) một class để dùng được như ý.
 - Ý nghĩa: Tái sử dụng code, Giúp các module tương thích với nhau mà không cần chỉnh sửa gốc.
+
+***2.1.2 Ví dụ***
+- Ta có interface Payment có phương thức payment để thực hiện thanh toán: ![image](https://github.com/user-attachments/assets/38176a6e-cea4-4118-8b9d-9e54e87a222a)
+- Nhưng tôi cần thanh toàn cho một bên thứ 3 có phương thức sendPay khác: ![image](https://github.com/user-attachments/assets/604cda2d-9d73-4546-ba8f-3c2e2640145a)
+- => vậy làm sao để đồng bộ 2 loại trên thành 1. Chúng ta sẽ bọc sendPay của bên thứ 3 lại bên trong thằng payment.
+- Tạo lớp adepter để bọc: ![image](https://github.com/user-attachments/assets/f31a6cad-5828-4795-8696-fee6c8fd290d)
+- Cuối dùng gọi payment từ Lớp Payment ban đầu: ![image](https://github.com/user-attachments/assets/3654799c-d225-4a38-bf4b-1e26f46ec06c)
+
 
 ### 2.2 Decorator
 **2.2.1 Khái niệm**
