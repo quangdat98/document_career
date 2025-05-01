@@ -61,6 +61,34 @@
 ## *** 2. Kafka Cơ Bản  ***
 
 **2.1 Kafka là gì?**
+- Apache Kafka là một nền tảng streaming phân tán (distributed streaming platform) dùng để truyền tải, lưu trữ và xử lý dòng dữ liệu (stream of records) theo thời gian thực, với khả năng mở rộng rất cao.
+- 4 Tính của kafka:
+  + **High scalable:** Kafka là hệ thống phân tán - distributed system, có khả năng mở rộng rất nhanh và dễ dàng với zero downtime - mọi thứ vẫn hoạt động bình thường khi thêm hoặc bớt broker.
+  + **High durable:** message được lưu trên disk, đảm bảo nếu mất điện.. data vẫn còn nguyên. Ngoài ra, một message sẽ có nhiều bản sao lưu trên nhiều broker khác nhau, phụ thuộc vào config và set up. Nếu một broker die, flow vẫn hoạt động bình thường không bị ngắt quãng.
+  + **High reliable:** giống durable, lưu trữ message ở nhiều nơi. Ngoài ra có cơ chế cân bằng request trong trường hợp gặp sự cố về các broker. Đại khái là đáng tin cậy hơn các message broker hiện có trên thị trường.
+  + **High performance:** high throughput cho cả đầu gửi và nhận message với khả năng scale tuyệt vời. Nhờ vậy nó có thể xử lý hàng TB data mà không gặp nhiều vấn đề về performance.
+
 **2.1 Thành phần trong Kafka**
+- Producer:
+- Topic: Topic là một kênh dữ liệu trong Kafka, nơi mà các producer gửi message vào và consumer lấy message ra.
+  + Giống như table trong database, mỗi topic chứa dữ liệu thuộc một loại cụ thể.
+- Partition: Mỗi topic được chia thành nhiều partition → giúp phân tán dữ liệu và xử lý song song.
+  + ![image](https://github.com/user-attachments/assets/68efc929-7ced-47c8-a79f-288e8681f1dc)
+- Offset: Offset là chỉ số thứ tự duy nhất của từng message trong một partition. Mỗi partition sẽ tự đánh số offset riêng, bắt đầu từ 0.
+  + ![image](https://github.com/user-attachments/assets/432a5e54-0b21-4a52-aeb5-90190c92c2d6)
+- Tương quan giữa Topic, Partition, Offset:
+  + ![image](https://github.com/user-attachments/assets/fa66dae4-e38c-4842-924b-03e0ae4fbcba)
+  + ![image](https://github.com/user-attachments/assets/cd133532-35d4-447c-9b03-231abbf8df9d)
+  + Lưu ý: ![image](https://github.com/user-attachments/assets/3cced992-efd7-40e2-b9ff-a05a8396b446)
+
+
+- Consumer:
+- Consumer Group:
+- Broker:
+- Offset:
+- Cluster:
+- Zookeeper / KRaft:
+
 **2.1 Topic & Partition**
+
 **2.1 Kafka là gì?**
