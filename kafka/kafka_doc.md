@@ -81,12 +81,34 @@
   + ![image](https://github.com/user-attachments/assets/cd133532-35d4-447c-9b03-231abbf8df9d)
   + Lưu ý: ![image](https://github.com/user-attachments/assets/3cced992-efd7-40e2-b9ff-a05a8396b446)
 
+- Rebalancing là gì?
+  + Rebalancing là quá trình mà Kafka phân phối lại các partition của topic cho các consumer trong cùng một group, khi có sự thay đổi cấu trúc group như: Consumer tham gia group mới, Consumer rời khỏi group, Partition tăng lên trong topic, Kafka broker bị mất kết nối/tái khởi động
+  + Mục tiêu của rebalancing: đảm bảo rằng mỗi partition chỉ được xử lý bởi một consumer duy nhất trong group, và đảm bảo cân bằng tải.
+  + ![image](https://github.com/user-attachments/assets/75d0318a-0369-4698-9e1b-419fb82d3da8)
 
 - Consumer:
 - Consumer Group:
-- Broker:
+  + Một Consumer Group là tập hợp các consumer (ứng dụng đọc message) cùng chia sẻ một Group ID.
+  + Mỗi partition trong một topic sẽ được gán duy nhất cho 1 consumer trong group đó → tránh xử lý trùng lặp.
+  + ![image](https://github.com/user-attachments/assets/87805eb3-e35f-4af6-9f22-d583df7308ea)
+
+- Broker: Topic được lưu trữ trên file, trên disk, và tất cả đều được lưu trữ trên server. Và server là một Kafka broker trong Kafka cluster.
+  + Kafka Broker là một server trong hệ thống Kafka có nhiệm vụ: Lưu trữ message trong các topic, Xử lý yêu cầu gửi (produce) và nhận (consume) message, Quản lý partition, duy trì offset, Đảm bảo replication giữa các broker (nếu có nhiều broker)
+  + ![image](https://github.com/user-attachments/assets/a8f6382d-1979-4c9a-b81c-d70103e4f2f2)
+  + Để đảm bảo high reliable, Kafka tự động phân tán các partition trên tất cả broker đang có. Mỗi partition nằm trên một broker. Topic-A partition 1 có thể nằm trên bất kì broker nào mà không phụ thuộc thứ tự.
+- Topic replication:
+  + ![image](https://github.com/user-attachments/assets/2baab8d9-7e49-4360-b98d-03813c3de1de) => nếu broker 103 chết thì không sao nhưng 102 hoặc 101 chết thì có vấn đề => cần replication để giải quyết vấn đề này **tạo ra nhiều bản sao cho partition và lưu trên những broker khác nhau thông qua replication factor**
+  + ![image](https://github.com/user-attachments/assets/9af042c3-273c-409d-8d21-77d521a31032)
+  + 1 broker giữ vai trò Leader cho partition đó → Consumer & Producer chỉ làm việc với leader này.
+  + n broker khác giữ bản sao (Follower) → gọi là replica.
+
+- Leader partition concept
+- Message key
+- Consumer group
+- Queue và Topic trong Apache Kafka
+- 
 - Offset:
-- Cluster:
+- Cluster: Có thể hiểu Kafka cluster là nhiều server tập trung lại thành một cụm làm việc với nhau - multi-brokers (multi-servers)
 - Zookeeper / KRaft:
 
 **2.1 Topic & Partition**
