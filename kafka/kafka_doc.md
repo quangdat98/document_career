@@ -2,7 +2,7 @@
 0. Tài liệu
 1.  Kiến thức nền tảng
 2. Kafka Cơ Bản – Làm quen và hiểu cách hoạt động
-3. Kafka Intermediate – Làm việc thực tế
+3. Kafka CLI
 4. Kafka Advanced – Dành cho production và scale
 5. Kafka Ops – Quản trị và vận hành
 # **------ Nội dung chi tiết ------**
@@ -180,4 +180,8 @@ giúp Kafka hoạt động mà không cần ZooKeeper nữa.
 - File descriptor  Mỗi partition được lưu trữ tại một folder của broker. Như vậy, số lượng partition tỉ lệ thuận với số lượng file phải xử lý của broker.
   + Mỗi partition cần xử lý 2 files: index và actual data.
 - Avalability & Latency:  nếu số lượng partition cực nhiều đồng nghĩa với việc 1 broker có khả năng chứa đến vài chục hoặc vài trăm leader replica của partition đó. Do force shutdown nên quá trình này không được kích hoạt chủ động. Vậy nên rất có khả năng tại một thời điểm nào đó sau quá trình shutdown, hệ thống tăng latency đột ngột lên vài giây.
-**2.1 Kafka là gì?**
+
+## 3. Kafka cli
+
+**3.1 Cài đặt**
+- https://kafka.apache.org/downloads
