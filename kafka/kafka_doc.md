@@ -68,7 +68,7 @@
   + **High reliable:** giống durable, lưu trữ message ở nhiều nơi. Ngoài ra có cơ chế cân bằng request trong trường hợp gặp sự cố về các broker. Đại khái là đáng tin cậy hơn các message broker hiện có trên thị trường.
   + **High performance:** high throughput cho cả đầu gửi và nhận message với khả năng scale tuyệt vời. Nhờ vậy nó có thể xử lý hàng TB data mà không gặp nhiều vấn đề về performance.
 
-**2.1 Thành phần trong Kafka**
+**2.2 Thành phần trong Kafka**
 - Topic: Topic là một kênh dữ liệu trong Kafka, nơi mà các producer gửi message vào và consumer lấy message ra.
   + Giống như table trong database, mỗi topic chứa dữ liệu thuộc một loại cụ thể.
 - Partition: Mỗi topic được chia thành nhiều partition → giúp phân tán dữ liệu và xử lý song song.
@@ -168,6 +168,16 @@ giúp Kafka hoạt động mà không cần ZooKeeper nữa.
   + ![image](https://github.com/user-attachments/assets/91f6fed2-e34c-4312-97c6-6744cea0e4af)
 
 
-**2.1 Topic & Partition**
-
+**2.3 Topic & Partition**
+- Bao nhiêu partition là đủ cho một topic?
+- chia thành càng nhiều partition thì throughput càng lớn. Bình thường 1 topic - 1 partition - 1 consumer xử lý được 10 message/s thì với 1 topic - 10 partition - 10 consumer có thể xử lý được 100 message/s. Tuy nhiên nó mới chỉ là một yếu tố, việc tăng số lượng partition kéo theo vô vàn các hệ lụy khác như tăng số lượng open file, tăng latency...
+- Latency Thời gian xử lý 1 message
+- Throughput là lưu lượng xử lý dữ liệu trong một đơn vị thời gian.
+  + Đơn vị thường dùng: messages/second, MB/second hoặc records/sec
+  + Mỗi topic partition có khả năng xử lý 10 MB/s
+  + Kafka không cho phép giảm số lượng partition của một topic, chỉ có thể tăng lên, hoặc xóa đi và tạo lại
+  + Nếu có N brokers (ví dụ N = 6), thì nên tạo tối đa khoảng 2N partitions cho mỗi topic, tức là ~12 partitions.
+- File descriptor  Mỗi partition được lưu trữ tại một folder của broker. Như vậy, số lượng partition tỉ lệ thuận với số lượng file phải xử lý của broker.
+  + Mỗi partition cần xử lý 2 files: index và actual data.
+- Avalability & Latency:  nếu số lượng partition cực nhiều đồng nghĩa với việc 1 broker có khả năng chứa đến vài chục hoặc vài trăm leader replica của partition đó. Do force shutdown nên quá trình này không được kích hoạt chủ động. Vậy nên rất có khả năng tại một thời điểm nào đó sau quá trình shutdown, hệ thống tăng latency đột ngột lên vài giây.
 **2.1 Kafka là gì?**
