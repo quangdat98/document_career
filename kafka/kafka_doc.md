@@ -184,4 +184,36 @@ giúp Kafka hoạt động mà không cần ZooKeeper nữa.
 ## 3. Kafka cli
 
 **3.1 Cài đặt**
-- https://kafka.apache.org/downloads
+- step 1: https://kafka.apache.org/downloads và giải nén
+- step 2: khởi động zookeeper: bin/zookeeper-server-start.sh config/zookeeper.properties
+- step 3: sau khi đẩm bảo zookeeper đã chạy thì chạy kafka: bin/kafka-server-start.sh config/server.properties
+
+**3.2 Practice with CLI**
+
+***3.3 Topic***
+- Tạo topic name bất kì với 4 required options:
+  + --create: chỉ định rằng bạn muốn tạo 1 topic mới
+  + --bootstrap-server: địa chỉ của Kafka server.
+  + --topic: topic name.
+  + --partitions: số lượng partitions muốn tạo.
+  + --replication-factor: số lượng bản sao của partition. VD --replication-factor 2 => Mỗi partition có 2 bản sao (1 leader + 1 follower) và Cần ít nhất 2 broker đang chạy để có thể áp dụng replication factor = 2. Bạn không thể set --replication-factor lớn hơn số broker đang chạy.→ Nếu bạn chỉ có 1 broker thì --replication-factor chỉ được là 1.
+  + CLI: ![image](https://github.com/user-attachments/assets/8e1c20d8-b4eb-431d-9ec7-18a88ea3f0dc) Ban đầu khi cài chỉ có broker. Nếu muốn test có 2 broker thì config server sửa port rồi chạy 1 kafka mới.
+
+- Với config 2 borker:
+  + Chúng ta cần nhân tôi file server.config thành 2 ![image](https://github.com/user-attachments/assets/1f3fd9bc-a813-4b03-a5be-0b7546e028d2)
+  + Trong đó chúng ta cần sửa: broker.id=1 (cái gốc là 0), listeners=PLAINTEXT://localhost:9093 (cổng server cũ là 9092),  log.dirs=/tmp/kafka-logs-1 (chứa data của kafka, cái cũ thì dùng cho borker.id =0 rồi nên cúng ta cần tạo 1 file log khác)
+  + start server: cp config/server.properties config/server-1.properties
+  + Tạo topic, chúng ta cần liệt kê đầu đủ borker: ![image](https://github.com/user-attachments/assets/3cb6463a-d9e3-4977-9eac-a6e17a3ebb2d)
+=> **Kafka broker là một instance chạy Kafka, chịu trách nhiệm lưu trữ, phân phối và xử lý các bản ghi (records). Nó có thể là  1 server vật lý hoặc 1 máy ảo/container.**
+
+- Hiện thị toàn bộ list topic:
+  + --list
+  + CLI: ![image](https://github.com/user-attachments/assets/5bcc2063-2b19-4e26-a57d-c02835ee4d5d)
+  + --describe: muốn xem nhiều hơn thông tin topic: ![image](https://github.com/user-attachments/assets/923af2d7-fd86-4df7-a140-99ea7b4b4b35)
+- Xóa topic:
+  + --delete
+  + CLI: ![image](https://github.com/user-attachments/assets/58f8fc38-cc94-4fff-80de-92b0d4366224)
+
+***3.4 Producer***
+- 
+
