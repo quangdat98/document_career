@@ -191,6 +191,7 @@ giúp Kafka hoạt động mà không cần ZooKeeper nữa.
 **3.2 Practice with CLI**
 
 ***3.3 Topic***
+- chúng ta sử dụng: kafka-topics.sh (trong folder bin)
 - Tạo topic name bất kì với 4 required options:
   + --create: chỉ định rằng bạn muốn tạo 1 topic mới
   + --bootstrap-server: địa chỉ của Kafka server.
@@ -215,5 +216,38 @@ giúp Kafka hoạt động mà không cần ZooKeeper nữa.
   + CLI: ![image](https://github.com/user-attachments/assets/58f8fc38-cc94-4fff-80de-92b0d4366224)
 
 ***3.4 Producer***
-- 
+- chúng ta sử dụng: kafka-console-producer.sh
+- Các required options:
+  +  --bootstrap-server
+  +   --topic
+  + --broker-list -> Danh sách các broker để producer kết nối
+  + --topic -> 	Tên topic để gửi message
+  + --property parse.key=true -> Cho phép phân tích key:value
+  + --property key.separator=: -> : Ký tự phân tách giữa key và value
+  + --producer-property acks=all -> Đảm bảo tất cả replica ghi dữ liệu xong mới trả về ack (độ tin cậy cao hơn)
+  + --producer-property linger.ms=5 -> Chờ 5ms trước khi gửi để gom batch
+  + --producer-property batch.size=16384 -> 	Kích thước tối đa của một batch (bytes)
+- CLI ví dụ gửi message: ![image](https://github.com/user-attachments/assets/3d8d2b08-10ca-4f7e-b94a-029313b10b8d)
+
+***3.5 comsumer***
+- Chúng ta sử dụng: kafka-console-consumer.sh, mặc định ko group sẽ bắt đầu lại từ đầu.
+- Các required options:
+  + --from-beginning : để xem toàn bộ message: bin/kafka-console-consumer.sh     --bootstrap-server localhost:9092     --topic my-first-topic --from-beginning
+- CLI:
+  + Tạo producer gửi message: ![image](https://github.com/user-attachments/assets/32a45cce-c791-4728-8037-48d4fd2d2908)
+  + Mở 1 Consumer để nhận message real time: ![image](https://github.com/user-attachments/assets/4bd8ce94-29a8-43a4-976e-b0d7ac67ad6f)
+***3.6 Consumer group***
+- Nếu ko có group thì mọi consumer đều hiện thị message, còn nếu set group thì trong 1 group sẽ chỉ có 1 consumer nhận được message.
+- Để theo dõi message đi vào pariton nào thì chúng ta dùng: kafka-consumer-groups.sh và --describe
+- ![image](https://github.com/user-attachments/assets/e4fe2e90-eb37-43e9-a43f-01b32c09890c)
+- Các required options:
+  + --group: 
+- CLI:
+  + ![image](https://github.com/user-attachments/assets/1fbfda85-88d1-40bd-af2b-918955bc6607)
+  + ![image](https://github.com/user-attachments/assets/58b6c645-59f8-49b6-878f-e6c3593b33b8)
+  + ![image](https://github.com/user-attachments/assets/81bb3920-8262-45dc-8187-bc74d8537327)
+  + Với group thì nó sẽ đọc tiếp từ nơi dừng: ![image](https://github.com/user-attachments/assets/aa78786e-f7f5-4d43-8cea-11af0c337717)
+
+***3.7 Reset offset***
+
 
