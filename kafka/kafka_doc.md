@@ -3,8 +3,9 @@
 1.  Kiến thức nền tảng
 2. Kafka Cơ Bản – Làm quen và hiểu cách hoạt động
 3. Kafka CLI
-4. Kafka Advanced – Dành cho production và scale
-5. Kafka Ops – Quản trị và vận hành
+4. Kafka với java
+5. Kafka Advanced – Dành cho production và scale
+6. Kafka Ops – Quản trị và vận hành
 # **------ Nội dung chi tiết ------**
 
 ## *** 0. Tài liệu tham khảo ***
@@ -137,6 +138,7 @@
   + Point-to-Point Messaging – Queue: Một message được gửi đến một hàng đợi (queue) và chỉ được một consumer xử lý.
   +  Broadcast Messaging – Topic (Pub/Sub):Một message được phát đồng thời đến tất cả subscriber (người đăng ký). Các hệ thống xử lý message độc lập, không ảnh hưởng nhau.
 - Offset:
+  + **Offset là vị trí duy nhất của một message trong một partition. Nó cho Kafka và consumer biết đã đọc đến đâu trong log dữ liệu.**
   + ![image](https://github.com/user-attachments/assets/b678e95e-da81-4d74-8d60-66a31e6af6d5)
 - broker discovery: Kafka brokers bao gồm rất nhiều broker. Mỗi topic có thể có nhiều partition, mỗi partition được lưu trên các broker khác nhau. Tuy nhiên consumer chỉ cần connect tới một broker bất kì là có thể connect với toàn bộ Kafka cluster. Điều đó giúp consumer có thể đọc được message của topic nằm trên bất kì một broker nào.
   + ![image](https://github.com/user-attachments/assets/ec45e66e-f856-4a83-8a61-b5fd9c2da688)
@@ -249,5 +251,21 @@ giúp Kafka hoạt động mà không cần ZooKeeper nữa.
   + Với group thì nó sẽ đọc tiếp từ nơi dừng: ![image](https://github.com/user-attachments/assets/aa78786e-f7f5-4d43-8cea-11af0c337717)
 
 ***3.7 Reset offset***
+- Ỹ nghĩa của reset: **Mục đích chính của việc reset offset trong Kafka là để điều khiển consumer group đọc dữ liệu từ một vị trí khác trong topic — thay vì vị trí hiện tại.**
+  + Replay lại dữ liệu đã đọc
+  + Bỏ qua dữ liệu cũ
+  + Đọc từ một thời điểm cụ thể
+- Chúng ta sử dụng: kafka-consumer-groups.sh
+- Các required options:
+  + --execute => lệnh thực thi thay đổi offset
+  + --to-earliest -> Reset về offset sớm nhất (đọc lại từ đầu)
+  + --to-latest -> Bỏ qua toàn bộ, chỉ đọc tin mới sau này
+  + --to-offset 15 -> Nhảy tới offset số 15
+  + --to-datetime 2025-05-04T20:00:00.000 -> Đọc từ thời gian nhất định
+  + --shift-by -10 -> Lùi lại 10 offset
+  + --shift-by 5 -> Tiến lên 5 offset
+- Chỉ có thể reset 1 group khi mà consumer đã inactive.
+- CLI: ![image](https://github.com/user-attachments/assets/8f326fd4-23db-4194-ae4f-88edd25c643f)
 
 
+## 4. Kafka với java
