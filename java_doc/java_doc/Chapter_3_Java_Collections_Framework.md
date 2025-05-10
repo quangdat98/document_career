@@ -67,6 +67,14 @@
 - Collections.binarySearch(list, key) = index : tìm kiếm phân tử trong list.
 - Collections.fill(List<T>, value): thay thế toàn bộ phần tử trong list thành value.
 - Collections.max(), Collections.min().
+- Collectors.counting(): Đếm số phần tử trong mỗi nhóm. (thường kết hợp với groupingBy -để đếm số phần tử trong 1 list)
+- Collectors.groupingBy : nhóm các phần tử theo một tiêu chí nào đó. ![image](https://github.com/user-attachments/assets/a4c80261-67ed-4495-8806-7467bd379d80) ![image](https://github.com/user-attachments/assets/e11bd8c6-3cdd-4e97-902c-ba291136c749)
+  + Nhóm + đếm: Thêm Collector thứ 2 ![image](https://github.com/user-attachments/assets/83374967-660e-4092-80f7-c2258177394f)
+  + Nhóm + xử lý nâng cao: groupingBy(e -> key, collector)
+
+
+
+
 - **Collections.unmodifiableList(list)**: Tạo ra 1 danh sách chỉ đọc
 - **Collections.synchronizedList(list), Collections.synchronizedSet(list)**: Tạo ra 1 list an toàn cho nhiều luồng(thread-safe).
 - shuffle: trộn ngẫy nhiên phần tử.
@@ -149,6 +157,9 @@
   + Hashtable: Tương tự HashMap, nhưng đồng bộ (synchronized), chậm hơn
   + ConcurrentHashMap: Phiên bản HashMap hỗ trợ đa luồng, an toàn khi truy cập đồng thời
 - ![image](https://github.com/user-attachments/assets/9e00e65d-0bca-4991-866d-d3d9a83e4ada)
+- Một số phương thức:
+  + V getOrDefault(Object key, V defaultValue): trả ra value theo key, nếu ko có thì trả về defaultValue => phù hợp với bài toán liệt kê số lần suất hiện của phần tử:  ![image](https://github.com/user-attachments/assets/3d0d284c-0c7b-4319-bf25-3fff7a588337)
+
 
 #### 8.1 HashMap Class
 - Không bảo toàn thứ tự phần  tử được thêm vào
