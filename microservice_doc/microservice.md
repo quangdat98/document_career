@@ -1,4 +1,4 @@
-- Làm 1 ví dụ memo post
+![image](https://github.com/user-attachments/assets/f89e776e-01d6-4523-a1ca-a1275150ef8f)- Làm 1 ví dụ memo post
 - Tham khảo design sau: ![image](https://github.com/user-attachments/assets/54104dcd-fd3d-4e3e-9549-bd4ab1590145)
 
 
@@ -100,13 +100,42 @@
 - Cái này hay dùng cho các ứng dụng lớn, ví dụ như đặt hàng shoppe chúng ta có thể sclae độc lập
 - Hoạt động là lồng đọc sẻ ở DB riêng và luồng write sẽ ở 1 server riêng => 2 DB sẽ có 1 cơ chế để liên kết và đồng bộ nhau. => từ đó luồng đọc có thể triển khai noSQL để triển khai nhanh đọc, còn write thì sẽ  là PSQL hoặc MySQL để toàn vẹn dữ liệu
 
-## 1.5 Event Sourching architecture
-- Event Sourcing là mô hình lưu trữ toàn bộ các sự kiện (events) đã xảy ra trong hệ thống để xây dựng nên trạng thái hiện tại.
-- Thay vì lưu trạng thái cuối cùng (state), ta lưu chuỗi các thay đổi (events).
-- ![image](https://github.com/user-attachments/assets/316dbe78-30de-4b7e-83bb-e919614ed667)
+## 1.5 Event driven architecture (EDA)
+**1.5.1 Khái niệm**
+- EDA là kiến trúc phần mềm trong đó các thành phần giao tiếp và phản ứng với nhau thông qua các sự kiện (event), thay vì gọi trực tiếp nhau.
+- 
+**1.5.2 Các thành phần**
+- Event Producer: TThành phần phát sinh và gửi sự kiện (ví dụ: OrderService)
+- Event Consumer: Thành phần nhận và xử lý sự kiện (ví dụ: InventoryService, NotificationService)
+- Event: Thông tin mô tả một hành động đã xảy ra (VD: OrderCreated, UserRegistered)
+- Event Bus / Broker: Hệ thống trung gian truyền tải event (Kafka, RabbitMQ, ActiveMQ,...)
 
+**1.5.3 quy trình hoạt động**
+- Producer phát sinh event (VD: tạo đơn hàng). ![image](https://github.com/user-attachments/assets/ceda9c88-2fe2-4ab9-8219-5cd7d9b1ea95)
+- Event được gửi tới event bus.
+- Consumer lắng nghe bus và xử lý event phù hợp. ![image](https://github.com/user-attachments/assets/0147e4f4-aa59-46d6-893f-4b82e91265de)
 
-## 1.6 SAGA: quản lý transation
+## 1.6 Event sourcing
+**1.6.1 khái niện**
+- Event Sourcing là một kỹ thuật lưu trữ trạng thái hệ thống bằng cách ghi lại tất cả các sự kiện (events) đã xảy ra, thay vì chỉ lưu trạng thái cuối cùng vào database.
+- 📌 Tức là: Thay vì cập nhật và lưu trạng thái hiện tại của đối tượng (entity), bạn lưu mọi sự kiện thay đổi trạng thái.
+→ Sau đó, bạn replay (chạy lại) toàn bộ sự kiện đó để dựng lại trạng thái hiện tại.
+![image](https://github.com/user-attachments/assets/c032fd06-07c4-480c-a6fb-8c607372ecde)
+- Trường hợp 1 đối tượng đã bị thao tác rất nhiều và chúng ta muốn replay lại trạng thái ban đầu => event sourcing giúp chúng ta làm điều đó
+- ![image](https://github.com/user-attachments/assets/acad8f81-7146-4043-8e84-be23a97f6a81)
+- Dúng framework Ãon để triển khai với thàng event sourcing
+
+**1.6.2 Các thành phần**
+- Command: Yêu cầu hành động thay đổi trạng thái
+- Event: Diễn tả hành động đã xảy ra
+- Aggregate: Xây dựng lại trạng thái từ danh sách event
+- Event Store: Kho lưu trữ danh sách events (có thể là DB, Kafka, Redis…)
+- ![image](https://github.com/user-attachments/assets/f10f72e9-ae16-49c2-95fe-af6f810bc811)
+
+## 1.7 SAGA pattern: quản lý transation
+-  là một mẫu thiết kế (design pattern) dùng để xử lý giao dịch phân tán (distributed transaction) trong kiến trúc microservices. Nó đảm bảo tính nhất quán dữ liệu giữa các service khi không thể sử dụng một giao dịch truyền thống xuyên suốt nhiều cơ sở dữ liệu.
+-  Saga là một chuỗi các hành động (local transactions) được thực thi bởi các service khác nhau. Nếu một hành động nào đó thất bại, các hành động trước đó sẽ bị rollback thông qua các hành động bù trừ (compensating actions).
+-  ![image](https://github.com/user-attachments/assets/2bb4e50f-1164-48fd-b8a4-6c3e8de78fc6)
 
 
 -------------------------------------------------------------------------------------------------------------------------------
@@ -133,7 +162,46 @@
 - eureka.client.service-url.defaultZone=http://localhost:8761/eureka => để biết đã đăng ký với eureka địa chỉ nào.
 - => sau khi chạy thì trên eureka sẽ thêm 1 service memo: ![image](https://github.com/user-attachments/assets/bf12c5e9-499a-4e17-ab12-dabe59b7c02b)
 
-- 
+## 2.3 axon framework
+
+**2.3.1 axon framework là gì**
+- https://www.axoniq.io/products/axon-framework
+- Axon Framework là một framework mã nguồn mở trong Java dùng để xây dựng các hệ thống Event-Driven, CQRS và Event Sourcing. Nó giúp bạn dễ dàng áp dụng các kiến trúc phức tạp như DDD (Domain Driven Design) trong các ứng dụng hiện đại, đặc biệt là microservices.
+- Link hướng dẫn: https://docs.axoniq.io/axon-server-reference/v2025.0/
+- cái đặt axon server: ![image](https://github.com/user-attachments/assets/07e8aa50-ce46-4be8-acef-f9e9097961a5), axon chạy trên tomcat
+- Sau khi download axon server -> giải nén -> chạy file axonserver.jar để khởi động axon: ![image](https://github.com/user-attachments/assets/8432fda9-b015-4f5d-afab-24c4ff7a6400)
+- axon chạy cổng 8024: ![image](https://github.com/user-attachments/assets/e6155dcc-457c-478f-94c4-16dee35ba2c1)
+- chúng ta sẽ có ![image](https://github.com/user-attachments/assets/5b6521ae-de9a-4b4e-9a6b-391d1320729f)
+- Cài đặt axon trên docker: chủ yếu là clone image của axon và chạy nó.
+  + https://hub.docker.com/r/axoniq/axonserver/
+  + Tải image: ![image](https://github.com/user-attachments/assets/18dac5c2-45a6-4dd3-91c6-aea15c974d08)
+  + Run image: ![image](https://github.com/user-attachments/assets/d5bb7cc1-75b5-40b7-b172-6787784105cc)
+
+**2.3.2 thông tin trên UI của axon**
+-
+
+## 2.4 Xây dựng dự án theo pattern CQRS (có sự kêt hợp với DDD và event sourcing)
+- CQRS chúng ta phải chia write và real tương ứng với command và query: ![image](https://github.com/user-attachments/assets/ee4c72d3-d5ab-495f-b6db-4cf795f469f4)
+- Command(write):
+  + command: Chứa các Command object – đại diện cho các hành động (tạo, xóa, cập nhật...). Dữ liệu trong Command được gửi đến Aggregate.
+  + aggregate: Chứa các Aggregate Root – trung tâm xử lý logic nghiệp vụ và state. Đây là nơi nhận Command, xử lý logic và phát sinh Event.
+  + controller: Giao diện REST/API nhận từ phía client (UI, app).
+  + data: Lưu trữ hoặc ánh xạ dữ liệu gốc (nếu cần), hoặc cấu hình persistence (nếu không dùng Event Sourcing toàn phần).
+  + event: Chứa các Event class – đại diện cho những gì đã xảy ra trong hệ thống.
+  + model: Chứa các domain model dùng cho xử lý nghiệp vụ (khác với DTO). Dùng bởi Aggregate hoặc domain service.
+- query(real):
+  + controller: Nhận các HTTP GET từ phía người dùng để truy vấn dữ liệu.
+  + model: Chứa Read Model, hoặc View Object, phục vụ cho API layer.
+  + queríe: Chứa các Query object – yêu cầu dữ liệu (tương tự DTO nhưng chỉ để truy vấn).
+  + projection: Nơi xử lý các event từ command/event, để xây dựng Read Model (Projection).
+- ![image](https://github.com/user-attachments/assets/d7f3873f-7695-4381-a548-480715baec24)
+
+- Dùng H2 database: base trên console rất nhẹ và nhanh
+  + ![image](https://github.com/user-attachments/assets/54d0db20-7c7e-4a26-baab-f44bcfdf91f9)
+  + Link console sau chạy dụ án: http://localhost:9001/h2-console/ ![image](https://github.com/user-attachments/assets/09e3c60c-3020-48e0-a884-8803b0629859)
+
+Tiếp 3.14
+
 
 
 
