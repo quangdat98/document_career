@@ -1,7 +1,3 @@
-![image](https://github.com/user-attachments/assets/f89e776e-01d6-4523-a1ca-a1275150ef8f)- Làm 1 ví dụ memo post
-- Tham khảo design sau: ![image](https://github.com/user-attachments/assets/54104dcd-fd3d-4e3e-9549-bd4ab1590145)
-
-
 # 1. Hiểu rõ về microservice architecture
 - mộ số kiểu kiến trúc:
   + ![image](https://github.com/user-attachments/assets/e792f450-1a11-4773-95e0-abb6f8b46129)
