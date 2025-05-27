@@ -177,6 +177,8 @@
 -
 
 ## 2.4 Xây dựng dự án theo pattern CQRS (có sự kêt hợp với DDD và event sourcing)
+- Để nhúng thằng axon thì chúng ta sẽ tiến hành theo mô hình sau: ![image](https://github.com/user-attachments/assets/0685198d-d36c-4125-81bc-bec883968784)
+
 - CQRS chúng ta phải chia write và real tương ứng với command và query: ![image](https://github.com/user-attachments/assets/ee4c72d3-d5ab-495f-b6db-4cf795f469f4)
 - Command(write):
   + command: Chứa các Command object – đại diện cho các hành động (tạo, xóa, cập nhật...). Dữ liệu trong Command được gửi đến Aggregate.
@@ -196,7 +198,51 @@
   + ![image](https://github.com/user-attachments/assets/54d0db20-7c7e-4a26-baab-f44bcfdf91f9)
   + Link console sau chạy dụ án: http://localhost:9001/h2-console/ ![image](https://github.com/user-attachments/assets/09e3c60c-3020-48e0-a884-8803b0629859)
 
-Tiếp 3.14
+### 2.4.1 Tạo project memo
+- **data**: chứa class entity -> là 1 thực thể ánh xạ đến 1 bảng trong DB
+  + ![image](https://github.com/user-attachments/assets/20a3b19c-66bb-449d-89a9-2751022ab1f1)
+- **command (yêu cầu)**: https://docs.axoniq.io/axon-framework-reference/4.11/axon-framework-commands/
+  + Command là một mệnh lệnh (yêu cầu) được gửi từ người dùng (hoặc hệ thống khác) để thực hiện một hành động có ảnh hưởng đến dữ liệu.
+  + Nó không trả về dữ liệu (trong CQRS đúng nghĩa), mà chỉ báo thành công/thất bại. VD: CreateUserCommand, UpdateOrderStatusCommand
+  + Mỗi Command thường chỉ làm một việc cụ thể.
+  + Để tạo 1 memo thì chúng ta cần các trường sau ![image](https://github.com/user-attachments/assets/a207d809-47d5-4de0-87f4-aded00abd07d)
+  + @TargetAggregateIdentifier: Annotation này được dùng trong axon framwork để đánh dấu trường trong Command object, nhằm chỉ định Aggregate nào sẽ xử lý Command đó.
+**Controller- nơi phát ra yêu cầu -(command)**: Nơi phát ra controller
+  + ![image](https://github.com/user-attachments/assets/43e6d193-0f69-4bd3-bbdb-3be67d2fa2a3)
+  + ***CommandGateway***:  là một thành phần trong Axon Framework dùng để gửi (dispatch) Command đến Aggregate hoặc Command Handler.
+  + commandGateway.sendAndWai: send và đợi kết quả trả về, sendAndWai nhận đối tượng là 1 command (class commad thì phải chứa @TargetAggregateIdentifier)
+  + 
+**Aggregate**: nơi chịu trách nghiệp xử lý command
+- ![image](https://github.com/user-attachments/assets/581f1024-76e6-4b84-8dae-fe9197e2615e)
+- @Aggregate: à annotation để khai báo rằng class này là Aggregate Root — nơi xử lý các Command và phát sinh Event.
+- Arragate chứa các thuộc tính nằm trong nó,
+- @AggregateIdentifier: là một annotation trong Axon Framework, được dùng để đánh dấu trường (field) làm ID của Aggregate. **Ánh xạ với giá trị trong @TargetAggregateIdentifier của Command**
+- @CommandHandler: là một annotation trong Axon Framework, nơi thực hiện xử lý command
+  + AggregateLifecycle.apply: Gửi event tới event store => Gọi @EventSourcingHandler tương ứng để cập nhật trạng thái nội bộ ![image](https://github.com/user-attachments/assets/388abf00-2263-45ec-8394-9daf31a0581e)
+  + @EventSourcingHandler: **lắng nghe AggregateLifecycle để nhận 1 event và cập nhận trạng thái các field của thằng aggregate**. ![image](https://github.com/user-attachments/assets/c13cd5c6-f770-4b00-9c45-0de98e17560c)
+  + Trong aggregate bắt buộc phải có 1 hàm contructor không có tham số => Axon cần constructor không đối số để khôi phục Aggregate từ event store khi replay.
+  +  Trong aggregate bắt buộc phải có 1 hàm contructor có tham số => Trong constructor này, bạn sẽ thường dùng AggregateLifecycle.apply(...) để phát sinh sự kiện.
+
+**Event handler**
+- Nó ở bức này: ![image](https://github.com/user-attachments/assets/5851346d-e3f9-48a8-9938-1dc316a294e5)
+- Tạo class Event handler: ![image](https://github.com/user-attachments/assets/8c7348f4-391e-47d2-8f2f-60c5e804365a)
+- @EventHandler: Nhận và xử lý Event sau khi nó đã được phát sinh (ví dụ, do một command tạo ra event và AggregateLifecycle.apply() gọi). Repository chúng ta tạo trong tầng data.
+
+=> sau khi chạy project và axon thì chúng ta sẽ có thêm 1 note ![image](https://github.com/user-attachments/assets/0286100f-8b5c-4000-890e-5f71aee7578d)
+- Có 2 command ![image](https://github.com/user-attachments/assets/fe7b98af-815c-4140-948b-919fbe0f3315)
+
+- ![image](https://github.com/user-attachments/assets/b4f0125e-a78c-4b70-a0fc-30b0035c6835) tương đưng trong DB có ![image](https://github.com/user-attachments/assets/0d7b632a-bdc7-4ac2-8da6-fa08697fb9c6)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
