@@ -204,7 +204,7 @@
 - **command (yêu cầu)**: https://docs.axoniq.io/axon-framework-reference/4.11/axon-framework-commands/
   + Command là một mệnh lệnh (yêu cầu) được gửi từ người dùng (hoặc hệ thống khác) để thực hiện một hành động có ảnh hưởng đến dữ liệu.
   + Nó không trả về dữ liệu (trong CQRS đúng nghĩa), mà chỉ báo thành công/thất bại. VD: CreateUserCommand, UpdateOrderStatusCommand
-  + Mỗi Command thường chỉ làm một việc cụ thể.
+  + Mỗi Command thường chỉ làm một việc cụ thể. 
   + Để tạo 1 memo thì chúng ta cần các trường sau ![image](https://github.com/user-attachments/assets/a207d809-47d5-4de0-87f4-aded00abd07d)
   + @TargetAggregateIdentifier: Annotation này được dùng trong axon framwork để đánh dấu trường trong Command object, nhằm chỉ định Aggregate nào sẽ xử lý Command đó.
 **Controller- nơi phát ra yêu cầu -(command)**: Nơi phát ra controller
@@ -217,7 +217,7 @@
 - @Aggregate: à annotation để khai báo rằng class này là Aggregate Root — nơi xử lý các Command và phát sinh Event.
 - Arragate chứa các thuộc tính nằm trong nó,
 - @AggregateIdentifier: là một annotation trong Axon Framework, được dùng để đánh dấu trường (field) làm ID của Aggregate. **Ánh xạ với giá trị trong @TargetAggregateIdentifier của Command**
-- @CommandHandler: là một annotation trong Axon Framework, nơi thực hiện xử lý command
+- @CommandHandler: là một annotation trong Axon Framework, nơi thực hiện xử lý command, **hàm khai báo @CommandHandler phải là contructor - đùng cho void vào nhé sai đó**
   + AggregateLifecycle.apply: Gửi event tới event store => Gọi @EventSourcingHandler tương ứng để cập nhật trạng thái nội bộ ![image](https://github.com/user-attachments/assets/388abf00-2263-45ec-8394-9daf31a0581e)
   + @EventSourcingHandler: **lắng nghe AggregateLifecycle để nhận 1 event và cập nhận trạng thái các field của thằng aggregate**. ![image](https://github.com/user-attachments/assets/c13cd5c6-f770-4b00-9c45-0de98e17560c)
   + Trong aggregate bắt buộc phải có 1 hàm contructor không có tham số => Axon cần constructor không đối số để khôi phục Aggregate từ event store khi replay.
@@ -227,7 +227,8 @@
 - Nó ở bức này: ![image](https://github.com/user-attachments/assets/5851346d-e3f9-48a8-9938-1dc316a294e5)
 - Tạo class Event handler: ![image](https://github.com/user-attachments/assets/8c7348f4-391e-47d2-8f2f-60c5e804365a)
 - @EventHandler: Nhận và xử lý Event sau khi nó đã được phát sinh (ví dụ, do một command tạo ra event và AggregateLifecycle.apply() gọi). Repository chúng ta tạo trong tầng data.
-
+- Nếu có lỗi ném ra 1 throw nó sẽ làm gián đoạn 1 event nên khi start lại thì nó tự động gọi lại thằng event => ko đúng, chúng ta cần đặt try/catch và ghi log trong catch
+- **@DisallowReplay**: chỉ định axon ko phát lại khi khởi động ứng dụng.
 => sau khi chạy project và axon thì chúng ta sẽ có thêm 1 note ![image](https://github.com/user-attachments/assets/0286100f-8b5c-4000-890e-5f71aee7578d)
 - Có 2 command ![image](https://github.com/user-attachments/assets/fe7b98af-815c-4140-948b-919fbe0f3315)
 
@@ -264,10 +265,11 @@
 
 ### 2.4.4 user service
 - Tương tự như thằng memoservice
-- 
-phần 24
-### 2.4.4 Cấu hình swagger
--
+
+### 2.4.4 Cấu hình swagger trong spring doc openAI
+- Thư viện springdoc-openapi-starter-webmvc-ui phải đi cùng thằng spring-boot-starter-validation không sẽ bị lỗi.
+
+Phần 30
 
 
 
