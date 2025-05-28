@@ -198,7 +198,7 @@
   + ![image](https://github.com/user-attachments/assets/54d0db20-7c7e-4a26-baab-f44bcfdf91f9)
   + Link console sau chạy dụ án: http://localhost:9001/h2-console/ ![image](https://github.com/user-attachments/assets/09e3c60c-3020-48e0-a884-8803b0629859)
 
-### 2.4.1 Tạo project memo
+### 2.4.1 Tạo project memo -> command (xử lý dữ liệu)
 - **data**: chứa class entity -> là 1 thực thể ánh xạ đến 1 bảng trong DB
   + ![image](https://github.com/user-attachments/assets/20a3b19c-66bb-449d-89a9-2751022ab1f1)
 - **command (yêu cầu)**: https://docs.axoniq.io/axon-framework-reference/4.11/axon-framework-commands/
@@ -232,6 +232,30 @@
 - Có 2 command ![image](https://github.com/user-attachments/assets/fe7b98af-815c-4140-948b-919fbe0f3315)
 
 - ![image](https://github.com/user-attachments/assets/b4f0125e-a78c-4b70-a0fc-30b0035c6835) tương đưng trong DB có ![image](https://github.com/user-attachments/assets/0d7b632a-bdc7-4ac2-8da6-fa08697fb9c6)
+
+### 2.4.2 Tạo project memo -> query (lấy dữ liệu)
+- https://docs.axoniq.io/axon-framework-reference/4.11/queries/
+- **QueryGateway**: QueryGateway là một gateway (cổng giao tiếp) dùng để gửi các truy vấn (query) đến các @QueryHandler. Đây là một phần trong mô hình CQRS (Command Query Responsibility Segregation), nơi Command và Query được xử lý tách biệt. Nó trả ra 1 CompletableFuture. ![image](https://github.com/user-attachments/assets/eba3c80c-223c-40e6-9ca8-31e022786e55)
+
+  + ![image](https://github.com/user-attachments/assets/e0770c97-9901-4fe2-a819-c1d1230a171a) -> GetAllMemoQuery là class filter ko có filter thì để nó rỗng
+  + Các loại truy vấn với query: Single Result - Lấy một kết quả duy nhất (@QueryHandler trả về 1 object), Multiple Results - Trả về danh sách kết quả (List<T>), Subscription (stream) - 	Trả về dữ liệu dạng stream/subscribe, xử lý theo thời gian thực
+  + **Single Result**: CompletableFuture<MemoResponse> result = queryGateway.query(new GetMemoQuery("memoId"), ResponseTypes.instanceOf(MemoResponse.class));
+  + **Multiple Results**: CompletableFuture<List<MemoResponse>> result = queryGateway.query(new GetAllMemosQuery(), ResponseTypes.multipleInstancesOf(MemoResponse.class));
+  + **Subscription (stream)**: ![image](https://github.com/user-attachments/assets/c35b7401-973a-48d8-8f04-09fdd0e08035)
+  + ResponseTypes là class tiện ích (utility class) trong Axon Framework, dùng để chỉ định kiểu dữ liệu phản hồi (response type) khi bạn gửi query thông qua QueryGateway. ![image](https://github.com/user-attachments/assets/cf5878a4-cff4-41ee-88c1-39bd45b57c8b)
+
+- **model**: ![image](https://github.com/user-attachments/assets/bfc1f4b0-8802-40ef-84ff-3a1a495913ea)
+- **projection** lthành phần chuyên xử lý các sự kiện (events) để xây dựng và cập nhật mô hình đọc (read model) -> nó là nơi xử lý logic
+  + ![image](https://github.com/user-attachments/assets/4c54f9c4-8d6f-4efc-87a1-0f8ed91548d0)
+  + @QueryHandler: Nhận và xử lý truy vấn (query) để trả về dữ liệu từ read model. Khi dispatch cái GetAllMemoQuery ở controller thì nó sẽ tìm và chạy vào hàm này
+=> ![image](https://github.com/user-attachments/assets/af02f784-7897-4830-9c25-9bcc0980f4ea)
+- Event store là lưu những cái thai đổi trạng thái -> query thì chỉ truy vấn dữ liệu nên chúng ta sẽ ko tìm dk chúng trên axon
+- ![image](https://github.com/user-attachments/assets/2c24ff3a-9e8f-4d39-b3d5-aecec7f3bde0)
+
+
+
+
+
 
 
 
