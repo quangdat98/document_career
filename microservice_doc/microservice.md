@@ -254,6 +254,22 @@
 
 
 
+### 2.4.3 custom library
+- Custom Library là một thư viện do chính bạn viết (hoặc nhóm bạn) để dùng lại trong nhiều dự án Java/Spring Boot khác nhau. Thay vì copy-paste code vào mỗi project, bạn đóng gói logic dùng chung thành một module/thư viện riêng, sau đó import qua Maven hoặc Gradle.
+- Chúng ta tạo ra 1 project common server => build project đó để lấy file jar => khai báo trong file pom của project cần dùng => ![image](https://github.com/user-attachments/assets/517d37ca-3f8a-4c62-b216-8769f09b83c1)
+- Sau khi import thì chúng ta cần khai báo để thằng service có thể scan được nó: ![image](https://github.com/user-attachments/assets/021c228d-aa5a-47b7-bdb6-fedc9d25ad4b)
+
+- DÙng để xử lý exception: chúng ta dùng spring AOP
+- ![image](https://github.com/user-attachments/assets/59dbf8a3-aeea-43d0-9ee5-912bb3fe143b)
+
+### 2.4.4 user service
+- Tương tự như thằng memoservice
+- 
+phần 24
+### 2.4.4 Cấu hình swagger
+-
+
+
 
 
 
