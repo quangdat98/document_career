@@ -269,7 +269,92 @@
 ### 2.4.4 Cấu hình swagger trong spring doc openAI
 - Thư viện springdoc-openapi-starter-webmvc-ui phải đi cùng thằng spring-boot-starter-validation không sẽ bị lỗi.
 
-Phần 30
+Phần 30- 32
+
+## 2.5 api gateway
+**2.5.1 Khái niện và lợi ích**
+- 1 kiến trúc microservice có cả trăm service, => cả cả trăm endpoint
+- **API Gateway là một thành phần trung gian đóng vai trò như cổng vào duy nhất (entry point) cho tất cả các request từ client đến hệ thống microservices phía sau.**
+- Che dấu cấu trúc hệ thống với bên ngoài, vì client chỉ biết host và post của api gateway
+- Một số công nghệ API Gateway phổ biến
+  + Spring Cloud Gateway
+  + Kong/ngix/Apigee/Zuul (Netflix)
+  + AWS API Gateway
+**2.5.2 Nhược điểm**
+- Nhược điểm: tăng thời gian response do phải đi qua 1 server trung gian, thêm 1 tác nhân gây lỗi.
+- Không config chuẩn sẽ gây tắc nghẽn
+- Tốn tiền
+**2.5.3 Triển khai**
+- Chúng ta có thể dùng từ các nhà cung cấp sẵn có như aws, kong gateway
+- Chúng ta có thể tự dựng 1 project api gateway
+- Chúng ta dùng thư viện spring-cloud-starter-gateway, do dúng ta đang dùng eureka thì chúng ta cần thư viện: spring-cloud-starter-netflix-eureka-client
+- ![image](https://github.com/user-attachments/assets/473c7fc2-0114-45dc-9c2a-7215b5ae684a)
+- discovery.locator.enabled: true : Cho phép Spring Cloud Gateway tự động phát hiện các service đã đăng ký trên Eureka, tức chỗ uri chúng ta có thể tháy đổi từ localhost:9002 => chuyển thành lb://userservice (ở đây lb có nghĩa là load balancing, userservice tên service mà chúng ta đã đăng ký với discovery)
+- routes: ấu hình thủ công từng route
+  + id: userservice Định danh (tên) cho route này
+  + uri: lb://userservice Gửi request đến service có tên userservice đăng ký trên Eureka (dùng load balancing). cách khách chỉ định đúng con instant cần chạy ![image](https://github.com/user-attachments/assets/5581f137-340b-4938-9398-ddc9572fb20f)
+
+  + predicates: Định nghĩa điều kiện để route này được sử dụng: nếu URL bắt đầu bằng
+  + Path=/api/v1/user/** : /api/v1/user/ thì sẽ map sang userservice
+- **Khi chúng ta call đúng port và đường dẫn api gateway sẽ chuyển đến đúng service đích.**
+
+## 2.5 Load balancing
+- Load Balancing là kỹ thuật phân phối lưu lượng truy cập (traffic) hoặc tác vụ (requests) đến nhiều server/máy chủ khác nhau để đảm bảo:Không có server nào bị quá tải, Hệ thống hoạt động ổn định, nhanh và đáng tin cậy, Khả năng mở rộng dễ dàng khi có thêm người dùng.
+- Để thực hiện balancing ở trong api gateway thì cúng ta sủ dụng: lb://userservice
+- Để test chúng ta tạo thêm 1 application của thằng user và đặt point khác
+  + ![image](https://github.com/user-attachments/assets/8044d899-71e1-410a-8777-6e23af033900)
+  + ![image](https://github.com/user-attachments/assets/50f38525-41c1-477b-b832-4e4b3daae2b6)
+- Thuật toán mặc định là Round Robin (chọn lần lượt, mỗi lần là 1 instant)
+
+**2.5.1 Câc thuật toán nổi tiếng**
+- https://viblo.asia/p/tim-hieu-ve-co-che-load-balancing-GrLZD0X2Zk0
+- **Round Robin**:Gửi request đến các server theo thứ tự tuần tự., đơn giản là thuật toán mặc định, nhưng không ưu tiên được các server mạnh
+- **Sticky round robin**: Nó dựa vào session, nếu cùng 1 sesson thì nó sẽ vào 1 server. => gom nhóm theo session. Nếu sesion có lưu lượng lớn thì cách này ko tối ưu
+- ****: mỗi server gán 1 trọng số, thằng nào có trọng số cao thì sẽ được ưu tiên để phân số request. => nếu server nào mạnh thì mh có thể tùy trỉnh để nó xử lý nhiều việc
+- **IP/url Hash**:Dựa vào địa chỉ IP của client để chọn server. 
+- **Least Connections**: Phân phối dựa vào số lượng kết nối, máy chủ nào ít request thì sẽ phôi phối đến đó => quản lý ko 1 con server nào ko làm gì cả
+- **Least time**: Dựa vào thời gian phản hồi. ưu tiên các máy chủ có thời gian phản hồi nhanh nhất mà ít kết nối nhất
+- **Random**:Chọn server một cách ngẫu nhiên.
+
+**2.5.2 Custom thuật toán trong spring gateway**
+- Tham khảo: https://docs.spring.io/spring-cloud-commons/reference/spring-cloud-commons/loadbalancer.html
+- ![image](https://github.com/user-attachments/assets/4e347e43-6cc0-4188-adfa-7f14b876916b)
+- ![image](https://github.com/user-attachments/assets/f687e0df-cd0f-443c-813f-95d7a5a402e2)
+
+**2.6 Rate limiting**
+- Khi bị tấn công DDOS thì làm sao đây??
+- Rate limiting (giới hạn tốc độ) là một kỹ thuật được sử dụng để kiểm soát số lượng request mà một client có thể gửi đến một server trong một khoảng thời gian nhất định.
+- Ví dụ: Chỉ cho phép một người dùng gửi tối đa 100 request mỗi phút => Nếu người dùng gửi nhiều hơn, hệ thống sẽ:Trả về lỗi 429 Too Many Requests/Hoặc trì hoãn/delay các request tiếp theo
+- ![image](https://github.com/user-attachments/assets/2e257b4e-35c9-4570-a00c-b6c1c7ea376a)
+**2.6.1 Throttling**: Cho phép request nhưng sẽ làm chậm, trì hoãn, hoặc giảm tốc độ xử lý thay vì chặn hoàn toàn.
+- ![image](https://github.com/user-attachments/assets/6050f3c9-a827-47a0-8b33-ccb4fc02293c)
+- Ngoài thời gian ra, thì nó còn kiểu theo địa lý (geography-based rate limting)
+**2.6.2 Thuật toán của rate limiting**
+- Thuật toán token bucket: Có một “xô” chứa token, Token được thêm vào định kỳ (ví dụ: 1 token mỗi 100ms)., Mỗi request tiêu tốn 1 token. => nếu hết token thì request sẽ chờ hoặc bị từ chối
+  + ![image](https://github.com/user-attachments/assets/f73793c9-7609-4805-b4bc-625c67db8704)
+  + Khi 1 request tới thì nó sẽ kiểm tra token bucket còn ko, còn thì gán ko còn thì xử lý riêng, config riêng sau 1 khoảng thời gian sẽ nạp thêm token
+
+- Fixed Window Counter:Mỗi khoảng thời gian (vd: mỗi phút), một bộ đếm sẽ được tạo. Mỗi request tăng bộ đếm lên 1.Nếu vượt quá giới hạn, request bị từ chối.
+- Sliding Window Log: Ghi lại timestamp của từng request.Khi có request mới → xóa các timestamp cũ ngoài khung thời gian → kiểm tra còn bao nhiêu request trong khoảng thời gian.
+- Sliding Window Counter: Chia thời gian thành các khung nhỏ (sub-window).Ghi số lượng request trong từng khung.Khi có request mới, tính trung bình có trọng số của các khung gần nhất.
+- ![image](https://github.com/user-attachments/assets/19b3b7cc-bc26-4af2-955f-7f30bf7cde40)
+
+
+**2.6.3 thực hành**
+- Vậy chúng ta đặt rate limiter ở đâu? - client / server / middleware.
+- ko đặt tại client vì hacker sẽ thao túng được. Đặt ở server thì tốn rất nhiều tài nguyên nếu có 100 server thì lại phải tạo 100 rate limiter, cần sửa thì phải sửa 100 thằng => triển khai rate limiter như 1 middleware
+- ![image](https://github.com/user-attachments/assets/741cde8d-8324-44bc-84c6-9d44d37ac3f0)
+- Người ta thường dùng Redis (cache memory) để lưu.=> connection là nhanh nhất
+- ![image](https://github.com/user-attachments/assets/b4061916-6b22-4bd1-80d2-aa4a377dde24)
+
+
+Phần 40
+  
+
+
+
+
+
 
 
 
