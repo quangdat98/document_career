@@ -23,3 +23,14 @@ thưởng 2-3 yoe thì coding thuật toán sẽ chuyển thành hỏi về dự
 HR dặn:
 + anh nắm chắc Java, Java core (OOP, list, map, stream), Spring (Bean, ORM, mybatis, transactional, AOP), datasase (SQL), acks kafka, thread poll,... nhé :') :') em liệt kê keyword thôi, k biết đúng sai nn...
 + túm lại thì Java + database + cloud là mấy cái chính nha, cloud AWS rất quan trọng, anh làm ít kn thực tế thì bù bằng kiến thực tực tìm hiểu thêm nhá 
+
+Aws cloud: 
+EC2 (Elastic Compute Cloud)
+S3 (Simple Storage Service)
+IAM (Identity & Access Management)
+Lambda
+API Gateway
+CloudWatch
+DynamoDB / RDS
+Cognito
+SQS / SNS
