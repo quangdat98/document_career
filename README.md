@@ -19,3 +19,7 @@ có hỏi java core, spring core.
 tổng thời gian tầm 1h :D
 
 thưởng 2-3 yoe thì coding thuật toán sẽ chuyển thành hỏi về dự án thực tế. Có 1 câu chắc chắn chỗ nào cx hỏi : Dự án nào e thấy tâm đắc nhất và học hỏi dc nhiều nhất ? trình bày về dự án đó
+
+HR dặn:
++ anh nắm chắc Java, Java core (OOP, list, map, stream), Spring (Bean, ORM, mybatis, transactional, AOP), datasase (SQL), acks kafka, thread poll,... nhé :') :') em liệt kê keyword thôi, k biết đúng sai nn...
++ túm lại thì Java + database + cloud là mấy cái chính nha, cloud AWS rất quan trọng, anh làm ít kn thực tế thì bù bằng kiến thực tực tìm hiểu thêm nhá 
