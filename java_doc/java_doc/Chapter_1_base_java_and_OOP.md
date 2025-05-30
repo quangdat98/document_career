@@ -197,6 +197,7 @@
   - **Kiểu dữ liệu nguyên thủy**:
     + Có 8 kiểu dữ liệu nguyên thủy: boolean, byte, char, short, int, long, float, double.
     + bộ nhớ stack (ngăn xếp), lưu trữ giá trị thực thế -> truy xuất nhanh hơn
+    
     + ![image](https://github.com/user-attachments/assets/dfcef19b-f77b-405c-aa74-3783c49f5c7f)
     + 1 byte = 8 bit
     + ![image](https://github.com/user-attachments/assets/f5f5e60f-d3cb-488e-af4b-2d4587e359ad)
@@ -204,22 +205,36 @@
   - VD tính phạm vi: short là số nguyên 16 bit (2 byte). Máy tính lưu trữ số nguyên bằng hệ bù 2, nghĩa là : Nếu bit đầu tiên (MSB) = 0, số đó là dương.Nếu bit đầu tiên (MSB) = 1, số đó là âm.
     + Số lớn nhất, Khi tất cả 15 bit còn lại đều là 1, ta có: 0111 1111 1111 1111  (15 bit 1, MSB = 0) -> tính ra là 32767 (2^14+2^13+...2^0)
     + Số nhở nhất tính théo hệ bù 2(16 bit): 1000 0000 0000 0000. Đảo bit (bù 1) 0111 1111 1111 1111 cộng thêm 1 (bù 2) 1000 0000 0000 0000. => -32768
+    
   -  **Kiểu dữ liệu tham chiếu** : các đối tượng, string, mảng, lớp trừu tượng và giao điện interface
+
     + Kiểu tham chiếu lưu trữ địa chỉ của đối tượng thay vì giá trị trực tiếp
+    
     + ![image](https://github.com/user-attachments/assets/05b6b924-b785-4c9f-a161-89fa15a577b8)
+    
     + == trong tham chiếu là so sánh địa chỉ bộ nhớ chứ ko phải nội dung, chúng ta phải dùng equals
+    
     + Nếu tạo string bằng "" thì có thể dùng == vì giá trị "" mà giống nhau thì được lưu cùng địa chỉ, còn lại thì đều ko được. Vì dùng new là tạo đối tượng mới trên heap.
+    
     + Nếu 2 object trỏ cùng 1 đại chỉ trên heap thì cả == và equals đều true: ![image](https://github.com/user-attachments/assets/037fba34-d027-4499-bae8-e0023bb512b8)
+    
     + Với các class thì equals có kiểm tra cả địa chỉ lên nếu muốn dùng equals trong so sánh 2 object class thì nhớ override lại nha.
+    
+    + **chỉ có equals() gốc tức của Object là so sánh địa chỉ ô nhớ, còn lại tất cả các equals khác như của String là đã override để so sánh nội dung rồi**  
+
+    + ![image](https://github.com/user-attachments/assets/8b73b561-d6da-4544-b6c9-3b4237ee7ac9) ![image](https://github.com/user-attachments/assets/7fd9c1a6-735d-43d0-abdc-966e79fcf4fd)
+
+
+    
     + Cẩn thận với từ hóa new sẽ làm tốn nhiều bộ nhớ. Hãy tận dụng string pool.
   - Nếu chuyền tham chiếu và tham trị vào 1 hàm void có biến đổi thì chỉ có tham chiếu là thay đổi nội dung còng lại là ko đổi gì cả. (đây gọi là pass by value)
 ### 4.4 Ép kiểu
   - Với kiểu nguyên thủy: Ép kiểu tự động (widening casting): từ kích thước nhỏ sang to - không phải làm gì. Và Ép kiểu tường minh (Narrowing casting) là từ kích thước lớn sang nhỏ - có sai lệch.
     + ![image](https://github.com/user-attachments/assets/ff86d60b-bc6e-4dc7-a8db-80142219fbd9)
   - Với kiểu tham chiếu: Ép kiểu ngầm định - upcasting và ép kiểu tường minh - downcasting: 
-    + upcasting - từ thằng con sang cha (kiểu là từ kích thứoc bé sang lowns0 -> luôn an toàn.
+    + upcasting - từ thằng con sang cha (kiểu là từ kích thứoc bé sang lowns0 -> luôn an toàn. Bạn gán một đối tượng Dog vào một biến Animal — đây được gọi là ép kiểu lên (upcasting). Vì Dog kế thừa từ Animal, nên mọi Dog đều là một Animal, nên hoàn toàn an toàn.
         + ![image](https://github.com/user-attachments/assets/ee447d9e-dd08-429f-8750-4bb6086be7e2)
-    + downcasting - từ kiểu cha về con, yêu cầu cú pháp rõ ràng và cần kiểm tra instanceof nếu ko sẽ lỗi ClassCastException
+    + downcasting - từ kiểu cha về con, yêu cầu cú pháp rõ ràng và cần kiểm tra instanceof nếu ko sẽ lỗi ClassCastException.  animal là một đối tượng Animal thông thường, không phải là Dog. Khi bạn ép xuống kiểu Dog, JVM cố gắng "xem" animal như một Dog. Nhưng vì bản chất animal không chứa thông tin của Dog, JVM ném lỗi
         + ![image](https://github.com/user-attachments/assets/c49c19a1-6d0a-4195-9f59-0ca34c2e6b68)
   - boxing và Unboxing
     + Boxing(autoboxing) là kiểu nguyên thủy -> wrapper 1 cách tự động ![image](https://github.com/user-attachments/assets/d090f749-8ea3-448d-8eca-571753a107cd)
@@ -228,6 +243,8 @@
   - String là một class trong Java nằm trong java.lang. Là Immutable (bất biến - nếu gán bằng giá trị khác thì giá trị cũ vẫn còn trong bộ nhớ -> rất an toàn với đa luồng), nghĩa là một khi tạo, giá trị của nó không thể thay đổi. Được lưu trong String Pool để tiếp kiệm bộ nhớ.
   - ![image](https://github.com/user-attachments/assets/089f5db6-816b-46da-a0b2-187aae935560)
   - String là một lớp đối tượng (object) thuộc gói java.lang, nhưng nó được thiết kế đặc biệt để có thể hoạt động như một kiểu dữ liệu nguyên thủy trong một số tình huống.(String str = "Hello"; -> ko dùng từ khóa new).
+  - String Pool à một vùng đặc biệt trong bộ nhớ heap dùng để lưu trữ các chuỗi String bất biến (immutable) đã được intern — tức là dùng chung thay vì tạo mới. Điều này giúp tiết kiệm bộ nhớ và tăng hiệu suất xử lý chuỗi. Các String pool được tạo ra khi mà chúng ta dùng = chứ ko phải từ khóa new.![image](https://github.com/user-attachments/assets/fc0ecf32-1495-4277-85b9-e5ee571553a0)
+
   - StringBuilder
     + Có thể thay đổi. append -> ko tạo object mới mà chỉ thay đổi nội dung
     + Không đồng bộ (not Thread-Safe)
@@ -370,13 +387,19 @@
        + Tính đa hình: Bạn có thể thay đổi đối tượng mà tham chiếu này trỏ đến mà không cần thay đổi mã gọi phương thức.
        + ![image](https://github.com/user-attachments/assets/d9d0c3a1-d042-4ce1-ba82-afaf43cca87c) ![image](https://github.com/user-attachments/assets/fb299454-e46f-4bf3-b88f-95ddd514b3bd)
        + Sử dụng: ![image](https://github.com/user-attachments/assets/77239839-1071-4aea-9818-acb251b2cae6)
-       + Dựa vào trên thì chúng ta có thể tạo ra 1 hàm truyền vào 1 interface và từ đó chúng ta có thể tạo ra nhiều hàm khác implements interface để truyền vào hàm: ![Uploading image.png…]()
+       + Dựa vào trên thì chúng ta có thể tạo ra 1 hàm truyền vào 1 interface và từ đó chúng ta có thể tạo ra nhiều hàm khác implements interface để truyền vào hàm: ![image](https://github.com/user-attachments/assets/caa55a5c-0905-45e3-9ed7-0617312cd554)
        + Tính linh hoạt: Bạn có thể thay đổi loại động vật mà không cần thay đổi mã trong phần gọi.
        + Dễ dàng mở rộng: Nếu bạn thêm một lớp mới (ví dụ: Bird), bạn chỉ cần triển khai Animal mà không cần thay đổi mã hiện có.
        + Hỗ trợ đa hình: Bạn có thể sử dụng các phương thức của interface mà không cần biết chi tiết về lớp cụ thể.
   - ![image](https://github.com/user-attachments/assets/9ab0dbe4-b3a4-4095-83f4-b2626e0fa987)
   - Lý do dùng interface và abstraction
     + interface thì khi implements thì bạn chỉ override lại 1 phương thức nhưng với abstract thì khi kết thừa thì bạn có thể dùng theeo cả cá phương thức khác chứ ko chỉ là override lại.
+    + interface chỉ định hành vi (không có thân hàm và không có trạng thái).
+    + abstract class có logic cụ thể, giữ trạng thái, có thể dùng protected, final, constructor, v.v.
+    + ![image](https://github.com/user-attachments/assets/451989d1-457a-4980-a99c-3fe5e4045d4b)
+    + Chúng ta chỉ có thể kế thừa 1 abstract nhưng lại có thể implement nhiều thằng interface
+
+
 ## *** 6. Các khái niện OOPs ***
   - Constructor
     + Có thể có Overloading (nhiều constructor khác nhau trong cùng class).
@@ -394,6 +417,8 @@
     + Mặc định, hashCode() trong Object trả về một số nguyên duy nhất dựa trên địa chỉ bộ nhớ của đối tượng (không liên quan đến nội dung của đối tượng)
     + Khi bạn ghi đè phương thức equals(), bạn bắt buộc phải ghi đè phương thức hashCode(): Nếu hai đối tượng bằng nhau (equals() trả về true), thì hashCode() của chúng phải giống nhau.và ngược lại.
     + Nếu hai đối tượng có cùng giá trị băm (do ghi đè hashCode()), nhưng không ghi đè equals(), chúng sẽ không được nhận diện là bằng nhau khi so sánh nội dung.
+    + **hashCode() trả về một mã số nguyên đại diện cho object, dùng để đặt object vào các bucket trong cấu trúc như HashMap, HashSet, Hashtable.**
+    + set.contains(new Person(1)) => khác giá trị băm nên sẽ là false dùng equals của chúng giống nhau.
   - Đệ quy
     + Một phương thức gọi lại chính nó.
     + Dùng để giải bài toán đệ quy như: Tính giai thừa, dãy Fibonacci, tìm kiếm đệ quy...![image](https://github.com/user-attachments/assets/28f3412e-9fd2-43da-83a6-43acb6c840a2)
