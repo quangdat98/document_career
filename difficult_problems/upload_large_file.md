@@ -1,0 +1,2 @@
+- Link tham khảo: https://medium.com/tuanhdotnet/upload-large-files-in-chunks-with-spring-boot-1299e5e28fc0
+- ý tưởng là tạo 2 api, 1 là upload từng phần, api 2 là merge hợp nhất các phần đã upload.
