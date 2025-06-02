@@ -346,9 +346,22 @@ Phần 30- 32
 - ![image](https://github.com/user-attachments/assets/741cde8d-8324-44bc-84c6-9d44d37ac3f0)
 - Người ta thường dùng Redis (cache memory) để lưu.=> connection là nhanh nhất
 - ![image](https://github.com/user-attachments/assets/b4061916-6b22-4bd1-80d2-aa4a377dde24)
+- https://spring.io/blog/2021/04/05/api-rate-limiting-with-spring-cloud-gateway
+- Dùng  RequestRateLimiter
+- Trong file config api gateway, chúng ta config thêm filters ![image](https://github.com/user-attachments/assets/8592398b-b4b8-4a90-afd1-d1e9a845684f)
+- **KeyResolver**: là thành phần dùng để xác định "key" cho từng request, để áp dụng giới hạn rate-limiting (giới hạn số lượng request) riêng biệt theo từng đối tượng, ví dụ: theo IP, theo user ID, theo API key...RequestRateLimiter cần biết “ai” đang gửi request, để giới hạn mỗi người dùng khác nhau (nếu không thì tất cả đều tính chung, rất không hợp lý).
+- Ví dụ phổ biến của KeyResolver
+  + ![image](https://github.com/user-attachments/assets/d7419f6d-b1a6-4c30-ba74-a833739a020f) 
 
 
-Phần 40
+
+
+
+
+
+
+
+
   
 
 
