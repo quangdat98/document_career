@@ -1,6 +1,8 @@
 ## 1. Nâng version
 - Có một bài toán là khi chúng ta nâng cấp version của thư viện như là của spring boot thì cần phải tính đến ảnh hưởng tới dự án như thế nào?
 - Công cụ kiểm tra: mvn dependency:tree -Dverbose=true => Sẽ liệt kê chi tiết các version, thông tin conflict, duplicate.
+  + ![image](https://github.com/user-attachments/assets/daa3f65e-1c2e-4ed4-808c-4da1729dc353)
+  + Sẽ có thông tin thư viện bị duplicate và conflict. -> spring sẽ chọn lấy 1 phiên bản.
 - mvn dependency:tree => version nào đã được spring chọn.
 
 ## 2. Mức độ thay đổi của version
