@@ -373,8 +373,21 @@ Phần 30- 32
 
 
 
+## 2.7 Message queue
+
+## 2.7.1 Khái niệm
+- Refer: https://github.com/quangdat98/document_career/blob/main/kafka/kafka_doc.md
+- ![image](https://github.com/user-attachments/assets/0ac4b83a-ca75-4e4d-80ef-bef63f6f8c12)
+- ![image](https://github.com/user-attachments/assets/3c1809f0-d91a-4541-a9fe-2fb155f1a61c)
 
 
+## 2.7.2 Thực hành
+- Cài đặt apache kafka: apache kafka docker compose
+- Docker Compose là một công cụ của Docker dùng để định nghĩa và chạy nhiều container Docker cùng lúc thông qua một file cấu hình duy nhất (docker-compose.yml).
+- https://hub.docker.com/r/apache/kafka
+- 1 số ví dụ config docker compose: https://github.com/conduktor/kafka-stack-docker-compose => ở đây chúng ta sẽ làm giống với zk-single-kafka-single.yml
+
+45 p 7.20
 
 
 
