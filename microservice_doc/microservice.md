@@ -360,6 +360,16 @@ Phần 30- 32
 - khai báo thư viện: spring-boot-starter-data-redis
 - ![image](https://github.com/user-attachments/assets/4a628cb5-c81d-4784-bfe9-86b72e8c606a)
 
+**2.6.3.3 custom spring cloud gateway**
+- https://spring.io/blog/2022/08/26/creating-a-custom-spring-cloud-gateway-filter
+- AbstractGatewayFilterFactory<T> là class cha trừu tượng dùng để tạo các custom filter có thể cấu hình trong Spring Cloud Gateway.
+- Tạo 1 Componentkế thừa **AbstractGatewayFilterFactory** để tạo một filter tùy chỉnh cho Spring Cloud Gateway. @Override lại hàm apply nơi sẽ viết xử lý chính. việc thực hiện lớp filter này phụ thuộc config của bạn trong file properties đang trỏ tới class: ![image](https://github.com/user-attachments/assets/d5cd8e8a-86c7-433c-9f41-c00a7f5f75a1)
+- Ví dụ về việc check api key nếu có request đến: ![image](https://github.com/user-attachments/assets/0d35a1b2-4995-45dc-945c-ef65c97302fd)
+- Tạo contructor: Constructor này bắt buộc phải có để gọi super(Config.class) — nhằm nói với Spring Cloud Gateway biết class Config nào sẽ được binding từ YAML.
+- Class config: dùng để định nghĩa các cấu hình (chưa dùng trong ví dụ) được lấy từ file propertiesm do apiKey đã lấy trực tiếp lên ko dùng -> tự search
+- hàm apply có 2 tham số là ServerWebExchange exchange, GatewayFilterChain chain
+  + ServerWebExchange: đại diện cho toàn bộ HTTP request + response trong môi trường reactive. exchange.mutate() Là tạo 1 bản sao do ServerWebExchange ko thể thay đổi được. ![image](https://github.com/user-attachments/assets/276c84f0-5c17-432a-b136-cb5fe74ac8a8)
+  + GatewayFilterChain: Đại diện cho chuỗi filter tiếp theo. Dùng chain.filter(exchange) để chuyển tiếp request đi tiếp (chain.filter(...) để chuyển request sang các filter hoặc route kế tiếp)
 
 
 
