@@ -4,7 +4,7 @@
   + Rất ổn định → Dùng cho các hệ thống production (sản phẩm thực tế).
 - Non-LTS: Non-LTS = Không hỗ trợ dài hạn
   + Chỉ được hỗ trợ 6 tháng sau ngày phát hành. Không nên dùng cho hệ thống lớn/trong doanh nghiệp nếu không có lý do đặc biệt.
-
+- Thông tin các lần update và các tính năng: https://openjdk.org/jeps/0
 # Các version java hiện có (current date: 2025/05)
 ## LTS
 - java 8
