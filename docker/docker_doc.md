@@ -109,7 +109,7 @@
   + docker build --target dev --build-arg ENV=development -t my-app:dev .
   + VD file docker ![image](https://github.com/user-attachments/assets/d97a8e0a-63a5-494c-923a-0e6ea17ebc46)
 
-
+-**buildx**
 
 **3.2 Docker Image Command**
 ***Tham khảo phần 5 Docker Images***
