@@ -5,6 +5,8 @@
 - Non-LTS: Non-LTS = Không hỗ trợ dài hạn
   + Chỉ được hỗ trợ 6 tháng sau ngày phát hành. Không nên dùng cho hệ thống lớn/trong doanh nghiệp nếu không có lý do đặc biệt.
 - Thông tin các lần update và các tính năng: https://openjdk.org/jeps/0 => check mục Delivered Feature and Infrastructure JEPs => nó sẽ có các tính năng theo version
+- Thông tin các version: https://docs.oracle.com/en/java/javase/index.html
+  + Check 2 phần là Language Updates và Core Libraries
 # Các version java hiện có (current date: 2025/05)
 ## LTS
 - java 8
