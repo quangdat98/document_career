@@ -12,10 +12,23 @@
 9. Docker Registry
 10. Docker Containers and Managing Containers
 11. Docker Swarm
-12. Miscellaneous
+12. Kubernetes
+13. Miscellaneous
 
 ----------------------------------------------------------------------------------------------------------------------------
 ## 1. Docker Introduction
+
+**1.1 Cơ chế hoạt động:**
+
+**1.2 Kiến trúc Docker:**
+
+**1.2.1 Docker Engine** 
+
+**1.2.2 Docker Client** 
+
+**1.2.3 Docker Daemon** 
+
+**1.2.4 Docker Registry:**
 
 ## 2. Docker Installation
 
