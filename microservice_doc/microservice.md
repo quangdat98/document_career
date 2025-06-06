@@ -386,8 +386,61 @@ Phần 30- 32
 - Docker Compose là một công cụ của Docker dùng để định nghĩa và chạy nhiều container Docker cùng lúc thông qua một file cấu hình duy nhất (docker-compose.yml).
 - https://hub.docker.com/r/apache/kafka
 - 1 số ví dụ config docker compose: https://github.com/conduktor/kafka-stack-docker-compose => ở đây chúng ta sẽ làm giống với zk-single-kafka-single.yml
+- Chạy docker compose tại folder chứa file: ![image](https://github.com/user-attachments/assets/0551bd5c-b5da-4282-aed7-1b9c229fb948)
+- sau khi chạy thì chúng ta đã tạo được server kafka, và kafka UI - control center http://localhost:9021
+- ![image](https://github.com/user-attachments/assets/4d0d8f74-b27d-43f9-b946-dd7835909167)
+  + Đây là giao diện quản lý, chúng ta có thể gửi, nhận tạo message, topic ...
+  + Cái này khá nặng nếu dùng dk cli thì có thể bỏ phần này ra khỏi docker compose
 
-45 p 7.20
+**2.7.2.1 Config kafka và commonserver**
+- https://www.baeldung.com/spring-kafka
+- commonserver thì chúng ta đang build ra file ra và dùng nhiều chỗ, do chúng đang đang dùng kafka để giao tiếp giữa các server nên sẽ config kafka ở đây
+- Đầu tiên là khai báo thư viện kafka: org.springframework.kafka
+- Tạo class config kafka:
+  + ![image](https://github.com/user-attachments/assets/96758912-8202-414a-98be-d93011481921)
+  + Biến bootstrapAddress Đây là địa chỉ Kafka cluster (có thể là nhiều broker, phân cách bằng dấu phẩy).
+  + **KafkaTemplate<String, String> Bean** là 1 tempalte của kafka giúp chúng ta gửi được message
+  + **KafkaAdmin** trong Spring Kafka dùng để quản lý các thành phần của Kafka, chủ yếu là tự động tạo topic khi ứng dụng khởi động.
+  + KafkaAdmin không bắt buộc nếu bạn không cần tạo topic bằng code.
+  + Nếu bạn tự tạo topic bằng lệnh kafka-topics.sh hoặc qua UI như Kafka Manager, thì không cần KafkaAdmin.
+  + Ngoài ra chúng ta có thể tạo 1 topic mới: ![image](https://github.com/user-attachments/assets/de4be41e-f9e6-4384-a00d-8cd62a47fa7f)
+- Tạo class config consumer (thường viết chung với class config kafka - nhưng để dễ hiểu thì tách ra cũng dk
+  + ![image](https://github.com/user-attachments/assets/53abe031-3078-4140-a9e6-f2d85853e025)
+  + bootstrapAddress => vẫn cần biến này để biết chúng ta đang thực hiện có server kafka nào
+  + **@EnableKafka** Kích hoạt hỗ trợ Kafka Listener (các method dùng @KafkaListener sẽ bắt đầu hoạt động).
+  + Tạo hàm ConsumerFactory: Tạo ra Kafka consumer với cấu hình cụ thể ![image](https://github.com/user-attachments/assets/33e9d19c-65a0-457c-ab7a-b7dc35bf9fbe)
+  + Tạo hàm KafkaListenerContainerFactory: ConcurrentKafkaListenerContainerFactory Dùng để tạo listener (container) thực tế. **Hàm này sẽ được kết nối với @KafkaListener đẻ lắng nghe event, ở class notification**
+  + Ở hàm kafkaListenerContainerFactory   gắn các config ở  ConsumerFactory ở trên vào listener factory. ![image](https://github.com/user-attachments/assets/7e0535ab-2576-4625-820a-467872e8dbd4)
+
+- Tạo class KafkaProducerConfig
+  + ![image](https://github.com/user-attachments/assets/52d4878b-8999-492a-9098-a2c8e48716c0)
+  + Đầu tiên là vẫn giải gửi địa chỉ của server kafka
+  + **ProducerFactory<String, String>**: Factory tạo ra Kafka producer, với key và value đều là kiểu String.
+  + ![image](https://github.com/user-attachments/assets/20049bff-070f-49c3-ac20-ca5f318d84cc)
+  + **Đúng, StringSerializer (ở Producer) và StringDeserializer (ở Consumer) phải tương thích với nhau để bên Consumer đọc được dữ liệu mà Producer gửi.**
+  + ở producer dùng StringSerializer thì ở consumer cũng phải dùng StringSerializer
+- Tạo class server gửi message
+  + ![image](https://github.com/user-attachments/assets/71ab2651-7227-435f-bcf7-c9cb11bcb833)
+  + Autowired lại KafkaTemplate đã khởi tạo bean class KafkaConfig
+  + kafkaTemplate.send(topic, message); => dùng để gửi message lên topic
+  + Giờ thì chúng ta có thể tạo 1 api ở server nào đó rồi call đến hàm kafkaTemplate.send của server common để gửi message.
+  + Ở ví dụ này là memoserver ![image](https://github.com/user-attachments/assets/7eea1301-77b8-46c3-8de5-a462b1cfd7b1)
+
+
+
+**2.7.2.2 sửa đổi service notification để nhận message**
+- Tạo class eventconsumer để nhận message
+- ![image](https://github.com/user-attachments/assets/604b53a5-2dcd-48f4-a9bf-d7774b05830e)
+- **@KafkaListener**dùng để đánh dấu một method là listener – tức là method đó sẽ tự động được gọi khi có message Kafka đến topic đã chỉ định.
+  + topics = test -> là topic chúng ta tự tạo
+  + containerFactory = "kafkaListenerContainerFactory" => trỏ tới hàm kafkaListenerContainerFactory ở KafkaConsumerConfig
+- test thử: ![image](https://github.com/user-attachments/assets/1feaed00-7387-4398-beae-000c607e94ee)
+  + ![image](https://github.com/user-attachments/assets/a70f33b5-2690-4393-9489-dc7f49dd242b)
+
+
+
+
+
 
 
 
