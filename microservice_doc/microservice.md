@@ -437,12 +437,22 @@ Phần 30- 32
 - test thử: ![image](https://github.com/user-attachments/assets/1feaed00-7387-4398-beae-000c607e94ee)
   + ![image](https://github.com/user-attachments/assets/a70f33b5-2690-4393-9489-dc7f49dd242b)
 
+**2.7.3 xử lý mất message trong kafka**
+- Lỗi logic nghiệp vụ thì ko thể retry được
+- Giải pháp cơ bản: Cơ chế separate retry queue:
+  + Tách biệt logic retry khỏi xử lý chính => đẩy ra 1 topic riêng các message sẽ vẫn tiếp tục xử lý để app ko bị block => nhưng cứ đẩy ra topic như vậy thì sẽ là tạo ra rất  nhiều topic
 
+- Giải pháp tốt nhất: **Dead letter queue (DLQ)** => sao 1 số số lần retry (có thể config) mà ko xử lý được thì nó sẽ đẩy ra 1 topic riêng
+  + ![image](https://github.com/user-attachments/assets/14172c7f-0f7d-40e7-b495-d0f174533926)
+- FLOW:
+  + Consumer nhận message từ orders.
+  + Nếu xử lý lỗi → chuyển message sang orders-retry-1.
+  + Một consumer khác lắng nghe orders-retry-1 (với delay 10s).
+  + Nếu tiếp tục lỗi → chuyển sang orders-retry-2.
+  + Sau N lần retry → chuyển đến orders-dlt (Dead Letter Topic).
+- Nhờ cái DLQ topic giúp chúng ta có thể điều tra log, cảnh báo own về topic này có nhiều lỗi.
 
-
-
-
-
+**2.7.3.1 implement xử lý message lỗi**
 
   
 
