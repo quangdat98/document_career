@@ -438,6 +438,7 @@ Phần 30- 32
   + ![image](https://github.com/user-attachments/assets/a70f33b5-2690-4393-9489-dc7f49dd242b)
 
 **2.7.3 xử lý mất message trong kafka**
+- Link tham khảo: https://docs.spring.io/spring-kafka/reference/retrytopic.html
 - Lỗi logic nghiệp vụ thì ko thể retry được
 - Giải pháp cơ bản: Cơ chế separate retry queue:
   + Tách biệt logic retry khỏi xử lý chính => đẩy ra 1 topic riêng các message sẽ vẫn tiếp tục xử lý để app ko bị block => nhưng cứ đẩy ra topic như vậy thì sẽ là tạo ra rất  nhiều topic
@@ -453,8 +454,24 @@ Phần 30- 32
 - Nhờ cái DLQ topic giúp chúng ta có thể điều tra log, cảnh báo own về topic này có nhiều lỗi.
 
 **2.7.3.1 implement xử lý message lỗi**
+- ![image](https://github.com/user-attachments/assets/b3249809-896c-4eb1-a4b0-2bc611027e92)
 
+- **@RetryableTopic**  để triển khai cơ chế retry queue (retry topic) cho Kafka một cách tự động. (có cách khác tự config các topic). Nó bổ trợ cho @KafkaListener ở eventconsumer
+  + attempts: số topic tính cả topic DLQ
+  + backoff = @Backoff(delay = 1000, multiplier = 2): Lần retry đầu sau 1 giây, lần 2 sau 2 giây, lần 3 sau 4 giây (1s * 2).
+  + autoCreateTopics = "true" Spring Kafka sẽ tự động tạo các topic retry và DLT nếu chưa có.
+  + dltStrategy = DltStrategy.FAIL_ON_ERROR 	Mặc định. Nếu gửi message vào DLT thất bại → throw exception và không xử lý tiếp nữa. Đây là cách tiếp cận an toàn, tránh mất message.
+  + dltStrategy = DltStrategy.ALWAYS_RET Nếu gửi message vào DLT thất bại → retry lại việc gửi vào DLT theo cơ chế retry (không phải gửi lại vào topic chính). Điều này giúp tăng khả năng message không bị mất nếu lỗi mạng hoặc Kafka tạm thời unavailable.
+  + dltStrategy = DltStrategy.NO_DLT  khi hết số lần retry mà message vẫn lỗi, message sẽ bị bỏ qua chứ không được gửi đến topic DLT.
+  + include = {RetriableException.class, RuntimeException.class} Chỉ retry nếu gặp một trong các exception này.
+ 
+- **@DltHandler** Khi một message đã retry hết số lần (ở đây là 3 lần) mà vẫn lỗi → nó sẽ được gửi đến topic DLT (test-dlt), Hàm này sẽ tự động được gọi để xử lý message từ DLT.
+- **Trong trường hợp mà server bị stop thì khi gửi các message sẽ ko bị biết mất, lúc nào server start lại thì các message vẫn tự động gửi lại => cái hay của kafka
   
+- Sau khi chạy thì các topic đã được tạo 1 các tự động ![image](https://github.com/user-attachments/assets/2396248d-0c26-4d70-83c7-cc5f0c3175bf)
+
+
+
 
 
 
