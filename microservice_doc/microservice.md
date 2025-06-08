@@ -486,7 +486,32 @@ Phần 30- 32
 - Tại server notification thì chúng ta thêm 1 topic "test_email" dùng đẻ call hàm sendmail khi có message(là 1 email) được gửi tới
   + ![image](https://github.com/user-attachments/assets/057bc69b-df0b-4dde-a64b-e04bce7c43fc)
 
+**2.8.1 gửi mail có template**
+- [https://stripo.email/](https://stripo.email/templates/) => chứa các template mail miễn phí
+- chúng ta tạo file template emil dùng file .ftl
+  + .ftl là viết tắt của FreeMarker Template Language.
+  + Là file chứa mẫu văn bản với các biểu thức động như ${name}, <#if>, <#list>, v.v. và  Dữ liệu sẽ được inject vào file .ftl và render ra HTML/email/text hoàn chỉnh.
+  + ![image](https://github.com/user-attachments/assets/863fec13-6576-491b-ac22-9bdcc5206246)
 
+**2.8.1.1 cấu hình service common**
+- Do chúng ta dùng file ftl nên phải cấu hình FreeMarker + thêm thư viện spring-boot-starter-freemarker
+  + Trỏ cấu hình tới folder chứa file template ![image](https://github.com/user-attachments/assets/9f03f47b-cfda-41c4-8c69-a73a7ad348b9)
+- Tạo hàm send mail template
+  + ![image](https://github.com/user-attachments/assets/9248b495-6606-4a56-bd61-5f0214964800)
+  + Tạo sao lại khởi tạo Configuration vì FreeMarkerConfigurationFactoryBean là implements FactoryBean<Configuration>, getObject() là hàm mặc định được gọi tự động khi Spring muốn lấy "đối tượng thực sự" mà một FactoryBean tạo ra. Do ![image](https://github.com/user-attachments/assets/f8e1a263-251b-4830-bce4-daa792e99e97) nên thực chất nó sẽ trả ra Configuration
+  + Nếu muốn lấy FactoryBean thì @Qualifier("&mailFreeMarkerConfig")
+  + ![image](https://github.com/user-attachments/assets/eafcae9c-41ae-49bb-86e6-1f80cb92ad51)
+
+- FreeMarkerTemplateUtils.processTemplateIntoString là một hàm tiện ích của Spring hỗ trợ xử lý template FreeMarker.
+  + Nhận vào một Template của FreeMarker (template chứa các placeholder, ví dụ ${username}, ${email}...)
+  + Nhận vào một Map<String, Object> chứa dữ liệu thay thế cho các placeholder trong template
+  + Trả ra 1 String html hoàn chỉnh
+  + ![image](https://github.com/user-attachments/assets/e31c89ba-45fd-4c5d-a162-51d7bcb587d0)
+  + ![image](https://github.com/user-attachments/assets/db296eea-5433-4171-8d85-b7f188ca5f9c)
+
+**2.8.1.2 notification service**
+- Tạo 1 topic để gửi mail template và truyền các giá trị, vào
+- ![image](https://github.com/user-attachments/assets/54cb0675-a0f0-445a-a862-ed72cd423a37)
 
 
 
