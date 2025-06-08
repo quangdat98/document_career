@@ -469,6 +469,26 @@ Phần 30- 32
 - Sau khi chạy thì các topic đã được tạo 1 các tự động ![image](https://github.com/user-attachments/assets/2396248d-0c26-4d70-83c7-cc5f0c3175bf)
 - => Nếu muốn tự tạo các topic thì có thể check link sau: https://docs.spring.io/spring-kafka/reference/retrytopic/topic-naming.html
 
+## 2.8 Spring email
+- https://www.baeldung.com/spring-email
+- **SMTP Gmail** SMTP Gmail là dịch vụ gửi email của Gmail thông qua giao thức SMTP (Simple Mail Transfer Protocol) – một giao thức chuẩn dùng để gửi thư điện tử từ ứng dụng (như Java, Spring Boot) tới máy chủ thư.Nó cho phép ứng dụng của bạn (ví dụ: backend Java) gửi email qua tài khoản Gmail, thay vì dùng hệ thống gửi thư riêng.
+- Để dùng smtp mail thì chúng ta phải tạo **APP password của gmail**
+  + https://myaccount.google.com/ -> "Security" ->  "Signing in to Google", bật 2-Step Verification
+  + Tạo App Password -> https://myaccount.google.com/apppasswords
+- Để cấu hình gửi mail thì chúng ta có thể config bằng file properties hoặc dùng bean để config
+- Vì send mail có thẻ dùng nhiều chỗ chúng ta lên viết ở common
+  + ![image](https://github.com/user-attachments/assets/90618b33-12c9-40d9-868d-4ac4356b3826)
+  + JavaMailSender  là một interface của Spring Framework dùng để gửi email. Nó là một lớp wrapper xung quanh thư viện JavaMail API (chuẩn của Java để làm việc với email qua SMTP, IMAP, POP3...).
+  + MimeMessage là một đối tượng đại diện cho email MIME (Multipurpose Internet Mail Extensions) trong JavaMail API. Cho phép gửi mail dạng văn bản hoặc html, file đính kèm... Được tạo ra từ JavaMailSender
+  + MimeMessageHelper là một class hỗ trợ từ Spring giúp bạn thao tác với MimeMessage dễ dàng hơn. ![image](https://github.com/user-attachments/assets/3066c9d1-434c-4f21-99f7-cfdca6d95ab0)
+
+- ![image](https://github.com/user-attachments/assets/0cfd4be2-bde5-422d-b31e-ac374fd10342)
+- Tại server notification thì chúng ta thêm 1 topic "test_email" dùng đẻ call hàm sendmail khi có message(là 1 email) được gửi tới
+  + ![image](https://github.com/user-attachments/assets/057bc69b-df0b-4dde-a64b-e04bce7c43fc)
+
+
+
+
 
 
 
