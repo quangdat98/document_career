@@ -464,11 +464,10 @@ Phần 30- 32
   + dltStrategy = DltStrategy.ALWAYS_RET Nếu gửi message vào DLT thất bại → retry lại việc gửi vào DLT theo cơ chế retry (không phải gửi lại vào topic chính). Điều này giúp tăng khả năng message không bị mất nếu lỗi mạng hoặc Kafka tạm thời unavailable.
   + dltStrategy = DltStrategy.NO_DLT  khi hết số lần retry mà message vẫn lỗi, message sẽ bị bỏ qua chứ không được gửi đến topic DLT.
   + include = {RetriableException.class, RuntimeException.class} Chỉ retry nếu gặp một trong các exception này.
- 
 - **@DltHandler** Khi một message đã retry hết số lần (ở đây là 3 lần) mà vẫn lỗi → nó sẽ được gửi đến topic DLT (test-dlt), Hàm này sẽ tự động được gọi để xử lý message từ DLT.
 - **Trong trường hợp mà server bị stop thì khi gửi các message sẽ ko bị biết mất, lúc nào server start lại thì các message vẫn tự động gửi lại => cái hay của kafka
-  
 - Sau khi chạy thì các topic đã được tạo 1 các tự động ![image](https://github.com/user-attachments/assets/2396248d-0c26-4d70-83c7-cc5f0c3175bf)
+- => Nếu muốn tự tạo các topic thì có thể check link sau: https://docs.spring.io/spring-kafka/reference/retrytopic/topic-naming.html
 
 
 
