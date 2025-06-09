@@ -513,8 +513,37 @@ Phần 30- 32
 - Tạo 1 topic để gửi mail template và truyền các giá trị, vào
 - ![image](https://github.com/user-attachments/assets/54cb0675-a0f0-445a-a862-ed72cd423a37)
 
+# 3. Post service
+- Khởi tại project tương tự các service khác
 
+## 3.1 Distributed transaction
+- **Distributed transaction là một loại giao dịch liên quan đến nhiều hệ thống hoặc nhiều nguồn dữ liệu khác nhau, nhưng vẫn cần đảm bảo tính toàn vẹn (consistency) và nguyên tử (atomicity) giống như một giao dịch đơn.**
+- **Dual Write Problem** xảy ra khi hai hệ thống độc lập (ví dụ: database và message queue) được ghi dữ liệu cùng lúc, nhưng không có cơ chế giao dịch đồng bộ giữa chúng. Kết quả là có thể dẫn đến mất đồng bộ dữ liệu, gây lỗi nghiêm trọng trong hệ thống.
 
+**3.1.1 $ tính chất ACID của transaction**
+- Atomicity (Tính nguyên tử) Toàn bộ hoặc không gì cả
+- Consistency (Tính nhất quán) Dữ liệu phải luôn hợp lệ trước và sau transaction
+- Isolation (Tính độc lập) Transaction không ảnh hưởng lẫn nhau khi chạy đồng thời
+- Durability (Tính bền vững) Khi đã commit, dữ liệu sẽ không mất kể cả khi hệ thống bị crash
+
+**3.1.2 Các cách giải quyết Distributed transaction**
+- Tạo 1 thằng trung gian,phân tán thành các transaction nhỏ ![image](https://github.com/user-attachments/assets/48b68667-fe67-480b-ad47-884d2503d62f)
+- Có nhiều thuật toán cớ chế implement thằng distributed transaction
+  + two phase commit
+  + three phase commit
+  + saga pattern with orchestration / choreography
+  + parallel pipeline
+
+**3.1.3 SAGA orchestration pattern**
+- **Saga Pattern là một mô hình quản lý giao dịch phân tán (Distributed Transaction), được dùng trong kiến trúc Microservices, nơi mà mỗi service có database riêng và không thể dùng transaction xuyên service như trong monolith.**
+- Saga pattern ra đời để giải quyết vấn đề này bằng cách chia nhỏ giao dịch thành nhiều bước (local transactions), và nếu có lỗi, sẽ gọi "bù trừ" (compensation transaction).
+- ![image](https://github.com/user-attachments/assets/f5f218b6-5fc7-4824-84ab-46732e5046cb)
+
+- Saga pattern xử lý distributed transation với 2 cách thức:
+  + **choreography (Điều phối phân tán)**: Không có service trung tâm điều phối. Mỗi service tự động lắng nghe các sự kiện (event) và phản ứng tương ứng. Nếu có lỗi ở giữa, từng service sẽ gửi event rollback tương ứng (ví dụ: ReleaseInventory).
+  + **orchestration (Điều phối tập trung)**: Có một service trung tâm gọi là orchestrator (người điều phối).Orchestrator điều khiển luồng giao dịch bằng cách gọi từng service theo thứ tự và xử lý thất bại (gọi rollback nếu cần). ![image](https://github.com/user-attachments/assets/c2339ee2-8e16-4620-b55f-fcb782131d3e)
+
+- **exception handling**
 
 
 
