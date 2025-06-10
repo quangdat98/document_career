@@ -543,9 +543,15 @@ Phần 30- 32
   + **choreography (Điều phối phân tán)**: Không có service trung tâm điều phối. Mỗi service tự động lắng nghe các sự kiện (event) và phản ứng tương ứng. Nếu có lỗi ở giữa, từng service sẽ gửi event rollback tương ứng (ví dụ: ReleaseInventory).
   + **orchestration (Điều phối tập trung)**: Có một service trung tâm gọi là orchestrator (người điều phối).Orchestrator điều khiển luồng giao dịch bằng cách gọi từng service theo thứ tự và xử lý thất bại (gọi rollback nếu cần). ![image](https://github.com/user-attachments/assets/c2339ee2-8e16-4620-b55f-fcb782131d3e)
 
-- **exception handling**
-
-
+**3.1.4 exception handling**
+- Có 2 cơ chế
+  + Retry: thực hiện lại
+  + Abort: xử lý rollback
+- Ví dụ: ![image](https://github.com/user-attachments/assets/04253643-e262-4707-ab32-abaca115d671)
+- Khi 1 service mới được thêm thì nó chỉ cần quan tâm 2 điều là 1 commit và rollback còn lại ko cần quan tâm gì => thằng orchestration sẽ chịu trách nhiệm controll
+- **drawbacks-nhược điểm**:
+  + orchestration nếu bị lỗi thì transaction thì sẽ bị ảnh hưởng -> tạo nhiều instance để đảm bảo nó ko bị chết
+  + Độ chế do các server phải thông qua orchestration để quản lý chứ không phải giao tiếp trức tiếp
 
 
 
