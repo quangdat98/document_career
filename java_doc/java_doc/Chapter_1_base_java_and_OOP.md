@@ -93,6 +93,8 @@
   - Execution Engine (Bộ thực thi)
   - Java có 2 giai đoạn chính: 
     + Biên dịch (Compile-time): Khi chạy javac MyProgram.java hoặc khi IDE build được Java Compiler (javac) thực hiện
+    + ![image](https://github.com/user-attachments/assets/8136ac01-2722-417f-809b-83b9a6ac6e18)
+
     + Chạy chương trình (Runtime): Khi chạy java MyProgram được JVM (Java Virtual Machine) thực hiện
   
 ### 3.4 Quá trình JRE làm việc như thế nào???
@@ -217,6 +219,8 @@
   + ![image](https://github.com/user-attachments/assets/8b73b561-d6da-4544-b6c9-3b4237ee7ac9) ![image](https://github.com/user-attachments/assets/7fd9c1a6-735d-43d0-abdc-966e79fcf4fd)
   + ![image](https://github.com/user-attachments/assets/4c05750d-5cdd-40e5-8971-33842d7e7f2c)
   + Cẩn thận với từ hóa new sẽ làm tốn nhiều bộ nhớ. Hãy tận dụng string pool.
+  + ![image](https://github.com/user-attachments/assets/6cadd638-d721-45d5-8dfb-53c311c90f64)
+
 - Nếu chuyền tham chiếu và tham trị vào 1 hàm void có biến đổi thì chỉ có tham chiếu là thay đổi nội dung còng lại là ko đổi gì cả. (đây gọi là pass by value)
 ### 4.4 Ép kiểu
   - Với kiểu nguyên thủy: Ép kiểu tự động (widening casting): từ kích thước nhỏ sang to - không phải làm gì. Và Ép kiểu tường minh (Narrowing casting) là từ kích thước lớn sang nhỏ - có sai lệch.
@@ -240,7 +244,13 @@
     + Không đồng bộ (not Thread-Safe)
     + Nhanh hơn StringBuffer và ko đồng bộ
     + Được sử dụng khi ko cần đa luồng và hiệu suất cao
+    + ![image](https://github.com/user-attachments/assets/0f8ebed4-24cb-4e1b-a0f0-f6cb81c8746e)
+    + ![image](https://github.com/user-attachments/assets/25ae1075-f3a9-463c-b03f-163c1b3de1cf)
+
+
   - StringBuffer: giống với build nhưng khác ở chỗ là đồng bộ cho đa luồng.
+    + vi cac ham cua no co them synchronized ![image](https://github.com/user-attachments/assets/df1f0da4-f389-43ff-af8b-e38ff4907a1c)
+
   - ![image](https://github.com/user-attachments/assets/c8e03900-e813-4e2f-b029-1786d6c0947c)
 ### 4.6 Toán tử
   - Toán tử (tập trung vào toán tử bit): ![image](https://github.com/user-attachments/assets/1127ae87-992e-4302-ab74-f888af84da2d)
@@ -404,9 +414,10 @@
     + Equals() So sánh nội dung của object, thay vì so sánh địa chỉ.
     + Mặc định, equals() dùng so sánh địa chỉ (==), nhưng có thể override lại.![image](https://github.com/user-attachments/assets/4d210fed-763e-49ad-9335-1eabe8cf98d6)
     + Phương thức hashCode() trả về một giá trị băm (hash value) của đối tượng, được sử dụng chủ yếu trong các cấu trúc dữ liệu như HashMap, HashSet, hoặc Hashtable để xác định vị trí lưu trữ của đối tượng.
-    + Mặc định, hashCode() trong Object trả về một số nguyên duy nhất dựa trên địa chỉ bộ nhớ của đối tượng (không liên quan đến nội dung của đối tượng)
-    + Khi bạn ghi đè phương thức equals(), bạn bắt buộc phải ghi đè phương thức hashCode(): Nếu hai đối tượng bằng nhau (equals() trả về true), thì hashCode() của chúng phải giống nhau.và ngược lại.
-    + Nếu hai đối tượng có cùng giá trị băm (do ghi đè hashCode()), nhưng không ghi đè equals(), chúng sẽ không được nhận diện là bằng nhau khi so sánh nội dung.
+    + Mặc định, hashCode() của một object trong Java là duy nhất cho từng instance, trừ khi bạn ghi đè (override).
+    + Cách HashMap hoạt động: **Khi bạn gọi map.put(key, value): Java tính key.hashCode() để tìm vị trí trong bảng băm (bucket).Nếu có nhiều phần tử trong cùng bucket → so sánh bằng equals().**
+    + Nếu bạn override equals() mà không override hashCode(): **2 object bằng nhau về logic (equals trả về true) Nhưng có hashCode khác nhau → Java sẽ đưa vào 2 bucket khác nhau → sai logic.**
+    + ![image](https://github.com/user-attachments/assets/40c54a5a-1b92-48fd-b70e-0a4720f70e03)
     + **hashCode() trả về một mã số nguyên đại diện cho object, dùng để đặt object vào các bucket trong cấu trúc như HashMap, HashSet, Hashtable.**
     + set.contains(new Person(1)) => khác giá trị băm nên sẽ là false dùng equals của chúng giống nhau.
   - Đệ quy
