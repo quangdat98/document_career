@@ -207,25 +207,14 @@
     + Số nhở nhất tính théo hệ bù 2(16 bit): 1000 0000 0000 0000. Đảo bit (bù 1) 0111 1111 1111 1111 cộng thêm 1 (bù 2) 1000 0000 0000 0000. => -32768
     
   -  **Kiểu dữ liệu tham chiếu** : các đối tượng, string, mảng, lớp trừu tượng và giao điện interface
-
     + Kiểu tham chiếu lưu trữ địa chỉ của đối tượng thay vì giá trị trực tiếp
-    
     + ![image](https://github.com/user-attachments/assets/05b6b924-b785-4c9f-a161-89fa15a577b8)
-    
     + == trong tham chiếu là so sánh địa chỉ bộ nhớ chứ ko phải nội dung, chúng ta phải dùng equals
-    
     + Nếu tạo string bằng "" thì có thể dùng == vì giá trị "" mà giống nhau thì được lưu cùng địa chỉ, còn lại thì đều ko được. Vì dùng new là tạo đối tượng mới trên heap.
-    
     + Nếu 2 object trỏ cùng 1 đại chỉ trên heap thì cả == và equals đều true: ![image](https://github.com/user-attachments/assets/037fba34-d027-4499-bae8-e0023bb512b8)
-    
     + Với các class thì equals có kiểm tra cả địa chỉ lên nếu muốn dùng equals trong so sánh 2 object class thì nhớ override lại nha.
-    
     + **chỉ có equals() gốc tức của Object là so sánh địa chỉ ô nhớ, còn lại tất cả các equals khác như của String là đã override để so sánh nội dung rồi**  
-
     + ![image](https://github.com/user-attachments/assets/8b73b561-d6da-4544-b6c9-3b4237ee7ac9) ![image](https://github.com/user-attachments/assets/7fd9c1a6-735d-43d0-abdc-966e79fcf4fd)
-
-
-    
     + Cẩn thận với từ hóa new sẽ làm tốn nhiều bộ nhớ. Hãy tận dụng string pool.
   - Nếu chuyền tham chiếu và tham trị vào 1 hàm void có biến đổi thì chỉ có tham chiếu là thay đổi nội dung còng lại là ko đổi gì cả. (đây gọi là pass by value)
 ### 4.4 Ép kiểu
