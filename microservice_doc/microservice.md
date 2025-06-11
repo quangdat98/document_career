@@ -553,6 +553,36 @@ Phần 30- 32
   + orchestration nếu bị lỗi thì transaction thì sẽ bị ảnh hưởng -> tạo nhiều instance để đảm bảo nó ko bị chết
   + Độ chế do các server phải thông qua orchestration để quản lý chứ không phải giao tiếp trức tiếp
 
+## 3.2 Sagas của axon framework
+- https://docs.axoniq.io/axon-framework-reference/4.11/sagas/
+
+**3.2.1 sagas trong axon**
+- life cycle.
+  + Start Một sự kiện xảy ra và được đánh dấu bằng @StartSaga để tạo ra một instance của Saga.
+  + Running Saga đang hoạt động: tiếp nhận sự kiện, xử lý nghiệp vụ, gửi lệnh, chờ phản hồi…
+  + End Khi công việc hoàn tất, gọi SagaLifecycle.end() hoặc đánh dấu sự kiện bằng @EndSaga để kết thúc Saga (giải phóng tài nguyên).
+- **@SagaEventHandler**: Đây là annotation dùng để đánh dấu các method xử lý sự kiện trong Saga.
+  + ![image](https://github.com/user-attachments/assets/9813d2b5-13a9-47a2-ba04-9ed7afd66367)
+  + associationProperty: là tên property dùng để liên kết sự kiện với Saga đang tồn tại
+- **AssociationValue**: Để biết Saga nào sẽ xử lý sự kiện nào, Axon dùng cơ chế Association.
+  + Là cặp khóa-giá trị (key-value), ví dụ: ("orderId", "abc123")
+  + Mỗi Saga instance sẽ được liên kết với một hoặc nhiều AssociationValue.
+  + ![image](https://github.com/user-attachments/assets/73666c4b-df5b-425d-9634-a080b3a00d61)
+
+- @EndSaga (SagaLifecycle.and()): Khi Saga hoàn thành, bạn phải kết thúc vòng đời của nó
+  + ![image](https://github.com/user-attachments/assets/0ce2f2ba-c8e6-4e70-aedd-5c9d1d7b4016)
+
+- @StartSaga: Dùng để đánh dấu sự kiện sẽ khởi tạo một Saga mới
+
+- VD:
+  + ![image](https://github.com/user-attachments/assets/e929c7cb-c9bb-43fa-a7ed-3ad990c3a53f)
+  + ![image](https://github.com/user-attachments/assets/70cc045e-0c8f-4999-ad4d-64cef9102e46)
+- Các hoạt động
+  + Điều gì xảy ra khi bạn gọi associateWith(...)?
+  + Axon ghi nhớ: "Saga này liên quan đến paymentId = xxx"
+  + Khi sau này có một event đến và event đó có field tên là paymentId với giá trị trùng khớp, Axon sẽ route event đó vào Saga này
+  + Nhưng nó không gọi handler ngay lập tức – phải đợi có sự kiện gửi tới sau đó.
+
 
 
 
