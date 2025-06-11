@@ -85,6 +85,7 @@
 - Mỗi interface mở rộng chức năng của Collection để phục vụ các mục đích cụ thể khác nhau trong việc quản lý tập hợp dữ liệu.
 - ![image](https://github.com/user-attachments/assets/88e20cea-4544-44f0-a441-344339e9524c)
 
+=> su khac nhau Collection la interface, Collections la lop tien ich
 ### 5. List interface
 - Thứ tự các phần tử trong danh sách có thử tự chèn vào, phần tử có thẻ trùng lặp và null.
 - Hỗ trợ Iterator, ListIterator để duyệt danh sách.
