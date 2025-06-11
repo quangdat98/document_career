@@ -193,30 +193,31 @@
   - Biến final: là hằng số, sau khi gán giá trị lần đầu tiên thì không thể thay đổi nữa. (không thế kế thừa và ghi đè phương thức final)
 
 ### 4.3 Kiểu dữ liệu
-  - Java chia kiểu dữ liệu thành 2 nhóm chính là **Kiểu dữ liệu nguyên thủy (Primitive Data Types) ** và ** Kiểu dữ liệu tham chiếu  (Reference Data Types) **
-  - **Kiểu dữ liệu nguyên thủy**:
-    + Có 8 kiểu dữ liệu nguyên thủy: boolean, byte, char, short, int, long, float, double.
-    + bộ nhớ stack (ngăn xếp), lưu trữ giá trị thực thế -> truy xuất nhanh hơn
-    
-    + ![image](https://github.com/user-attachments/assets/dfcef19b-f77b-405c-aa74-3783c49f5c7f)
-    + 1 byte = 8 bit
-    + ![image](https://github.com/user-attachments/assets/f5f5e60f-d3cb-488e-af4b-2d4587e359ad)
-    + Mỗi kiểu dữ liệu nguyên thủy đều có 1 lớp bao - wrapper class tương ứng cho phép bạn làm việc với các giá trị nguyên thủy như thể chúng là các đối tượng (ví dụ có thể null).
-  - VD tính phạm vi: short là số nguyên 16 bit (2 byte). Máy tính lưu trữ số nguyên bằng hệ bù 2, nghĩa là : Nếu bit đầu tiên (MSB) = 0, số đó là dương.Nếu bit đầu tiên (MSB) = 1, số đó là âm.
-    + Số lớn nhất, Khi tất cả 15 bit còn lại đều là 1, ta có: 0111 1111 1111 1111  (15 bit 1, MSB = 0) -> tính ra là 32767 (2^14+2^13+...2^0)
-    + Số nhở nhất tính théo hệ bù 2(16 bit): 1000 0000 0000 0000. Đảo bit (bù 1) 0111 1111 1111 1111 cộng thêm 1 (bù 2) 1000 0000 0000 0000. => -32768
-    
-  -  **Kiểu dữ liệu tham chiếu** : các đối tượng, string, mảng, lớp trừu tượng và giao điện interface
-    + Kiểu tham chiếu lưu trữ địa chỉ của đối tượng thay vì giá trị trực tiếp
-    + ![image](https://github.com/user-attachments/assets/05b6b924-b785-4c9f-a161-89fa15a577b8)
-    + == trong tham chiếu là so sánh địa chỉ bộ nhớ chứ ko phải nội dung, chúng ta phải dùng equals
-    + Nếu tạo string bằng "" thì có thể dùng == vì giá trị "" mà giống nhau thì được lưu cùng địa chỉ, còn lại thì đều ko được. Vì dùng new là tạo đối tượng mới trên heap.
-    + Nếu 2 object trỏ cùng 1 đại chỉ trên heap thì cả == và equals đều true: ![image](https://github.com/user-attachments/assets/037fba34-d027-4499-bae8-e0023bb512b8)
-    + Với các class thì equals có kiểm tra cả địa chỉ lên nếu muốn dùng equals trong so sánh 2 object class thì nhớ override lại nha.
-    + **chỉ có equals() gốc tức của Object là so sánh địa chỉ ô nhớ, còn lại tất cả các equals khác như của String là đã override để so sánh nội dung rồi**  
-    + ![image](https://github.com/user-attachments/assets/8b73b561-d6da-4544-b6c9-3b4237ee7ac9) ![image](https://github.com/user-attachments/assets/7fd9c1a6-735d-43d0-abdc-966e79fcf4fd)
-    + Cẩn thận với từ hóa new sẽ làm tốn nhiều bộ nhớ. Hãy tận dụng string pool.
-  - Nếu chuyền tham chiếu và tham trị vào 1 hàm void có biến đổi thì chỉ có tham chiếu là thay đổi nội dung còng lại là ko đổi gì cả. (đây gọi là pass by value)
+- Java chia kiểu dữ liệu thành 2 nhóm chính là **Kiểu dữ liệu nguyên thủy (Primitive Data Types) ** và ** Kiểu dữ liệu tham chiếu  (Reference Data Types) **
+- **Kiểu dữ liệu nguyên thủy**:
+  + Có 8 kiểu dữ liệu nguyên thủy: boolean, byte, char, short, int, long, float, double.
+  + bộ nhớ stack (ngăn xếp), lưu trữ giá trị thực thế -> truy xuất nhanh hơn
+  + ![image](https://github.com/user-attachments/assets/dfcef19b-f77b-405c-aa74-3783c49f5c7f)
+  + ![image](https://github.com/user-attachments/assets/b950bdb9-82ac-4eed-ad77-0474d63b6e0c)
+  + 1 byte = 8 bit
+  + ![image](https://github.com/user-attachments/assets/f5f5e60f-d3cb-488e-af4b-2d4587e359ad)
+  + Mỗi kiểu dữ liệu nguyên thủy đều có 1 lớp bao - wrapper class tương ứng cho phép bạn làm việc với các giá trị nguyên thủy như thể chúng là các đối tượng (ví dụ có thể null).
+- VD tính phạm vi: short là số nguyên 16 bit (2 byte). Máy tính lưu trữ số nguyên bằng hệ bù 2, nghĩa là : Nếu bit đầu tiên (MSB) = 0, số đó là dương.Nếu bit đầu tiên (MSB) = 1, số đó là âm.
+  + Số lớn nhất, Khi tất cả 15 bit còn lại đều là 1, ta có: 0111 1111 1111 1111  (15 bit 1, MSB = 0) -> tính ra là 32767 (2^14+2^13+...2^0)
+  + Số nhở nhất tính théo hệ bù 2(16 bit): 1000 0000 0000 0000. Đảo bit (bù 1) 0111 1111 1111 1111 cộng thêm 1 (bù 2) 1000 0000 0000 0000. => -32768
+
+-  **Kiểu dữ liệu tham chiếu**: các đối tượng, string, mảng, lớp trừu tượng và giao điện interface.
+  + Kiểu tham chiếu lưu trữ địa chỉ của đối tượng thay vì giá trị trực tiếp.
+  + ![image](https://github.com/user-attachments/assets/05b6b924-b785-4c9f-a161-89fa15a577b8)
+  + == trong tham chiếu là so sánh địa chỉ bộ nhớ chứ ko phải nội dung, chúng ta phải dùng equals
+  + Nếu tạo string bằng "" thì có thể dùng == vì giá trị "" mà giống nhau thì được lưu cùng địa chỉ, còn lại thì đều ko được. Vì dùng new là tạo đối tượng mới trên heap.
+  + Nếu 2 object trỏ cùng 1 đại chỉ trên heap thì cả == và equals đều true: ![image](https://github.com/user-attachments/assets/037fba34-d027-4499-bae8-e0023bb512b8)
+  + Với các class thì equals có kiểm tra cả địa chỉ lên nếu muốn dùng equals trong so sánh 2 object class thì nhớ override lại nha.
+  + **chỉ có equals() gốc tức của Object là so sánh địa chỉ ô nhớ, còn lại tất cả các equals khác như của String là đã override để so sánh nội dung rồi**
+  + ![image](https://github.com/user-attachments/assets/8b73b561-d6da-4544-b6c9-3b4237ee7ac9) ![image](https://github.com/user-attachments/assets/7fd9c1a6-735d-43d0-abdc-966e79fcf4fd)
+  + ![image](https://github.com/user-attachments/assets/4c05750d-5cdd-40e5-8971-33842d7e7f2c)
+  + Cẩn thận với từ hóa new sẽ làm tốn nhiều bộ nhớ. Hãy tận dụng string pool.
+- Nếu chuyền tham chiếu và tham trị vào 1 hàm void có biến đổi thì chỉ có tham chiếu là thay đổi nội dung còng lại là ko đổi gì cả. (đây gọi là pass by value)
 ### 4.4 Ép kiểu
   - Với kiểu nguyên thủy: Ép kiểu tự động (widening casting): từ kích thước nhỏ sang to - không phải làm gì. Và Ép kiểu tường minh (Narrowing casting) là từ kích thước lớn sang nhỏ - có sai lệch.
     + ![image](https://github.com/user-attachments/assets/ff86d60b-bc6e-4dc7-a8db-80142219fbd9)
