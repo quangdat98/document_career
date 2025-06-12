@@ -160,12 +160,12 @@
  + Khi không có @OrphanRemoval: Nếu bạn gỡ bỏ một Child khỏi danh sách children của Parent, Child vẫn sẽ tồn tại trong cơ sở dữ liệu và bạn cần gọi remove thủ công để xóa nó.
 
 - Lỗi N+1
-  + Giả sử bạn có 2 bảng Parent và Child, và mối quan hệ giữa chúng là OneToMany. Mỗi Parent có nhiều Child.
-  + Ở đây, truy vấn đầu tiên lấy danh sách tất cả các Parent. Sau đó, đối với mỗi Parent, một truy vấn riêng biệt được thực hiện để lấy các Child của Parent đó.
-  + Nếu có 100 Parent, sẽ có 1 truy vấn đầu tiên để lấy tất cả các Parent, và 100 truy vấn phụ để lấy các Child cho từng Parent, tức là tổng cộng 101 truy vấn.
-  +  => Hiệu suất thấp, Giao tiếp nhiều lần với cơ sở dữ liệu
+  + **Khi bạn truy vấn một danh sách các entity cha (ví dụ: danh sách Author), và mỗi Author có danh sách Book, JPA có thể gây ra: 1 truy vấn để lấy tất cả Author, N truy vấn tiếp theo (N là số lượng Author) để lấy Book của từng Author**
+  + ![image](https://github.com/user-attachments/assets/9b58e5c8-da50-44b2-9a22-7aefc8a0f752)
+
   +  Các fix: dùng FetchType.LAZY,JOIN FETCH, @EntityGraph
-  +  JOIN FETCH JOIN FETCH kết hợp các bảng trong cơ sở dữ liệu và tải dữ liệu liên kết trong một truy vấn duy nhất. Điều này có nghĩa là các đối tượng con sẽ được tải kèm với đối tượng cha mà không phải thực hiện truy vấn bổ sung cho mỗi đối tượng con.![image](https://github.com/user-attachments/assets/9bf2742c-c17f-46bd-a526-a92cd38157d7)
+  +  JOIN FETCH JOIN FETCH kết hợp các bảng trong cơ sở dữ liệu và tải dữ liệu liên kết trong một truy vấn duy nhất. Điều này có nghĩa là các đối tượng con sẽ được tải kèm với đối tượng cha mà không phải thực hiện truy vấn bổ sung cho mỗi đối tượng con. ![image](https://github.com/user-attachments/assets/9236551c-b97d-470a-8d23-fb013e64eedf)
+
   +  @EntityGraph: @EntityGraph là một tính năng trong JPA cho phép bạn chỉ định các thuộc tính hoặc mối quan hệ nào của entity sẽ được tải khi truy vấn, giúp tối ưu hóa truy vấn dữ liệu liên kết và tránh lỗi N+1. Với @EntityGraph, bạn có thể chọn tải các mối quan hệ cụ thể mà không cần phải viết truy vấn JPQL hoặc HQL thủ công. ![image](https://github.com/user-attachments/assets/67da2b1c-93e4-4e62-92b2-ccacfbe18a16)
 
 
