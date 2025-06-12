@@ -43,13 +43,13 @@
 ### 2.2 Runnable interface 
 - Sử dụng Runnable interface ![image](https://github.com/user-attachments/assets/bba91ac3-11a6-4598-8ab0-ffdbe5aa7306)
   + Có thể kế thừa lớp khác, link hoạt hơn. Nhưng cần tạo thêm thread để chạy
+  + Can implements method void run().
 
-### 2.3 Sử dụng Callable Interface và Future Class (Trả về kết quả & xử lý ngoại lệ)
-- Callable là một interface trong Java, tương tự như Runnable, nhưng nó có khả năng trả về kết quả và ném ngoại lệ.
-  + Chỉ có phương thức call() trả về kết quả. Còn runnable có method run là hàm void.
+### 2.3 Sử dụng Callable Interface (Trả về kết quả & xử lý ngoại lệ)
+- **Callable là một interface trong Java, tương tự như Runnable, nhưng nó có khả năng trả về kết quả và ném ngoại lệ.**
+  + **Chỉ có phương thức call() trả về kết quả. Còn runnable có method run là hàm void.**
   + Callable có khả năng ném ngoại lệ từ phương thức call(), trong khi Runnable chỉ có thể sử dụng try-catch để xử lý ngoại lệ bên trong tác vụ.
-  + 
-- FutureTask là một lớp cung cấp implement của RunnableFuture, kế thừa từ Runnable và Callable. ![image](https://github.com/user-attachments/assets/333d7de1-51c6-420f-8909-a34f28db4079) ![image](https://github.com/user-attachments/assets/1e2f652b-51ba-4a68-8f89-97f057c798f0)
+- **Future<V>: dùng để lấy kết quả, kiểm tra trạng thái, hoặc hủy một task do Callable thực hiện**. ![image](https://github.com/user-attachments/assets/333d7de1-51c6-420f-8909-a34f28db4079) ![image](https://github.com/user-attachments/assets/1e2f652b-51ba-4a68-8f89-97f057c798f0)
 
   + FutureTask dùng để lấy kết quả trả ra
 - Callable và FutureTask cung cấp các tính năng mở rộng so với Runnable, giúp xử lý kết quả và ngoại lệ một cách linh hoạt hơn khi thực hiện các tác vụ đồng thời trong Java.
@@ -59,6 +59,8 @@
 - Executor Framework là một phần của java.util.concurrent giúp quản lý và thực thi các tác vụ đồng thời một cách hiệu quả thay vì tạo Thread thủ công.
 #### 2.4.1 Executor - Interface gốc để thực thi tác vụ.
 - Chỉ chạy không quản lý.
+- ![image](https://github.com/user-attachments/assets/2b894061-1b4f-4bae-9cdb-81968d4b5307)
+
 #### 2.4.2 Executors class - Tạo và Quản lý Thread Pool (Tốt hơn Thread)
 - Executors là một lớp hỗ trợ trong gói java.util.concurrent cung cấp các factory method để tạo các loại khác nhau của ExecutorService
 - newFixedThreadPool(int nThreads): Tạo một ExecutorService với một pool cố định có số lượng luồng xác định.
@@ -67,23 +69,32 @@
 - newScheduledThreadPool(int corePoolSize): Tạo thread pool hỗ trợ lập lịch chạy task.
 - newWorkStealingPool(): Tạo pool hỗ trợ Fork/Join, tối ưu CPU đa lõi.
 
-#### 2.4.3 ExecutorService (Quản lý tiến trình tốt hơn)
-- ExecutorService là một giao diện mở rộng từ Executor, giúp quản lý thread pool và cung cấp các phương thức mạnh mẽ như:
+#### 2.4.3 Interface ExecutorService (Quản lý tiến trình tốt hơn)
+- **ExecutorService là một interface mở rộng từ Executor**, giúp quản lý thread pool và cung cấp các phương thức mạnh mẽ như:
   + Gửi task (submit(), invokeAll(), invokeAny())
   + Quản lý vòng đời (shutdown(), shutdownNow())
   + Xử lý kết quả (Future<V>, Callable<V>)
 - Sử dụng ExecutorService giúp tránh quản lý thread thủ công, giúp chương trình ổn định hơn, dễ mở rộng hơn.
 - Các tạo dùng Executors : ![image](https://github.com/user-attachments/assets/8d3cd5b9-9869-47b7-a7ea-d089d544218f) hoặc ThreadPoolExecutor ![image](https://github.com/user-attachments/assets/46dc42ed-2906-4f1d-9e80-ef21bc44daaf)
-  + Hàm execute(Runnable task) - Không có giá trị trả về
-  + submit(Callable<T> task) - Có giá trị trả về (Future<T>) ![image](https://github.com/user-attachments/assets/020e550d-8c23-4d89-8498-68ed8c7a0d9d)
-  + invokeAll(Collection<Callable<T>> tasks) - Chạy nhiều task và đợi tất cả hoàn thành ![image](https://github.com/user-attachments/assets/1c883ce4-0db4-415e-a476-52051e54c3b9)
-- Quán lý vòng đời của ExecutorService
+  + **Hàm execute(Runnable task) - Không có giá trị trả về**
+  + **submit(Callable<T> task) - Có giá trị trả về (Future<T>)** ![image](https://github.com/user-attachments/assets/020e550d-8c23-4d89-8498-68ed8c7a0d9d)
+  + **invokeAll(Collection<Callable<T>> tasks) - dùng để thực thi đồng thời nhiều Callable tasks và chờ tất cả task hoàn thành, rồi trả List Future.**![image](https://github.com/user-attachments/assets/1c883ce4-0db4-415e-a476-52051e54c3b9)
+- Vòng đời ExecutorService
+  + Running: Đang nhận task (submit(), execute())
+  + Shutdown: Không nhận task mới, nhưng tiếp tục xử lý task đang chờ
+  + Terminated: Tất cả task đã xong, pool đóng hoàn toàn
+- Các phương thức quản lý vòng đời
   + shutdown() - Đóng Executor một cách "mềm" : các task tiếp tục nhưng ko nhận thêm task mới
   + shutdownNow() - Đóng Executor ngay lập tức.
   + awaitTermination(timeout, unit) - Chờ Executor tắt hoàn toàn ![image](https://github.com/user-attachments/assets/0b741d56-6fbd-4ddd-93f2-fae2f148a913)
+  + isShutdown(): Trả về true nếu đã gọi shutdown() hoặc shutdownNow().
+  + isTerminated(): Trả về true nếu tất cả task đã hoàn thành sau shutdown.
+  + Nen kiem tra thead da interrup chua bang isInterrupted() de an toan ![image](https://github.com/user-attachments/assets/a3242351-6270-4b18-a600-3ed0f3fa725c)
 
 
-#### 2.4.4 ThreadPoolExecutor - Cấu hình chi tiết
+
+#### 2.4.4 Class ThreadPoolExecutor - Cấu hình chi tiết
+- **Là lớp triển khai chính của interface ExecutorService. Các class như Executors.newFixedThreadPool() hay newCachedThreadPool() đều trả về một đối tượng ThreadPoolExecutor bên trong.**
 - Khi cần kiểm soát số lượng thread hoạt động trong pool.
 - Khi muốn tinh chỉnh kích thước pool, thời gian chờ, và các chính sách quản lý thread.
 - Các tham số quan trọng:
@@ -93,22 +104,24 @@
   + Queue (BlockingQueue): nếu tất cả thread bận, task sẽ được đưa vào hàng đợi.
 - ![image](https://github.com/user-attachments/assets/e532839e-ce3b-49c8-a6d8-5857ad2cbe89)
 - ![image](https://github.com/user-attachments/assets/ae4dc1ec-dfda-4bea-a3ba-25af3a7dbc5d)
+-**Executors.newFixedThreadPool(n) .... chính là cách đơn giản để tạo ra một đối tượng ThreadPoolExecutor với cấu hình cố định — cụ thể là corePoolSize = n và maximumPoolSize = n,LinkedBlockingQueue, không giới hạn số lượng phần tử. . Executors.newFixedThreadPool(n)... là wrapper tiện dụng của ThreadPoolExecutor. **
 
-
-#### 2.4.5 ScheduledExecutorService
-- Khi cần lên lịch chạy task sau một khoảng thời gian.
-- Khi muốn thực hiện task theo chu kỳ (vd: chạy mỗi 5 giây).
+#### 2.4.5 Interface ScheduledExecutorService
+- Giong Interface ExecutorService nhung co them lap lich.
+- **ScheduledExecutorService là một interface đặc biệt trong Java Executor Framework**, cho phép bạn lên lịch chạy các task (Runnable/Callable):
+  + Sau một khoảng thời gian trễ (delay)
+  + Hoặc chạy định kỳ lặp lại
 - Các method quan trọng:
-  + schedule(Runnable, delay, unit): chạy task sau delay thời gian. unit là đơn vị thời gian
-  + scheduleAtFixedRate(Runnable, initialDelay, period, unit): chạy task đầu tiên sau initialDelay, rồi lặp lại sau mỗi period.
-  + scheduleWithFixedDelay(Runnable, initialDelay, delay, unit): giống scheduleAtFixedRate, nhưng đợi đến khi task trước hoàn thành mới đếm delay.
+  + **schedule(Runnable, delay, unit)**: chạy task sau delay thời gian. unit là đơn vị thời gian
+  + **scheduleAtFixedRate(Runnable, initialDelay, period, unit)**: chạy task đầu tiên sau initialDelay, rồi lặp lại sau mỗi period.
+  + **scheduleWithFixedDelay(Runnable, initialDelay, delay, unit)**: giống scheduleAtFixedRate, nhưng đợi đến khi task trước hoàn thành mới đếm delay.
 - ![image](https://github.com/user-attachments/assets/a682de36-42e4-45de-8597-96ab034cc93b)
 - ![image](https://github.com/user-attachments/assets/3e4ec2fc-fca5-4f08-9ccc-12f2db82303b)
 - Đầu tiên sau 2 giây thì chu kỳ 2 chạy, sau đó 1s (tức giây thứ 3) chạy chu kỳ 1. Cuối cùng thì chu kỳ 2 cứ 5s chạy 1lần.
 
 
-#### 2.4.6 ForkJoinPool - chia nhỏ tiến trình để thực hiện song song.
-- Khi cần xử lý đệ quy song song, ví dụ như chia nhỏ công việc.
+#### 2.4.6 Class ForkJoinPool - chia nhỏ tiến trình để thực hiện song song.
+- Một ExecutorService đặc biệt để xử lý các tác vụ đệ quy song song (divide & conquer).
 - Khi cần tối ưu xử lý CPU-bound (chia nhỏ công việc cho nhiều core).
 - Trong thực tế, bước đầu tiên framework Fork/ Join thực hiện là chia nhỏ task (fork/ split), đệ quy chia nhỏ nhiệm vụ thành các nhiệm vụ phụ nhỏ hơn cho đến khi chúng đơn giản đủ để được thực hiện xử lý không đồng bộ.
 - **Fork/Join**: Đây là mô hình trong đó một tác vụ được chia thành các tác vụ con (fork) và sau đó gộp kết quả lại khi các tác vụ con hoàn thành (join).
@@ -149,7 +162,7 @@
 
 ## 4. CompletableFuture -lập trình bất đồng bộ
 ### 4.1 Lý thuyết
-- Nếu muốn tạo 1 chương trình chạy ngầm.
+- **CompletableFuture được dùng để xử lý chương trình chạy ngầm (background / async task) — tức là các công việc chạy bất đồng bộ (asynchronous) mà không làm chặn luồng chính (main thread).**
 - CompletableFuture là một class trong Java thuộc gói java.util.concurrent, được giới thiệu từ Java 8. Nó đại diện cho một tương lai (future) có thể được hoàn thành thủ công và có thể lập lịch các tác vụ bất đồng bộ. CompletableFuture cung cấp API mạnh mẽ cho lập trình bất đồng bộ, giúp dễ dàng thực hiện các tác vụ song song và xử lý kết quả khi các tác vụ hoàn thành.
 - Hỗ trợ xử lý bất đồng bộ
   + Bạn có thể thực thi các tác vụ ở nền mà không chặn luồng chính.
@@ -160,9 +173,27 @@
 - Sử dụng các phương thức static tiện lợi: ![image](https://github.com/user-attachments/assets/d6b1816a-2e26-4085-b179-d35c5c0a3bfa)
   + supplyAsync: Thực hiện một tác vụ trả về kết quả.
   + runAsync: Thực hiện một tác vụ không trả về kết quả.
-- Chaining (thenApply -xâu chuỗi các tác vụ)
-  + ![image](https://github.com/user-attachments/assets/3397568d-dcc9-4f17-b686-b620b8123af1)
-- thenCompose: Thực hiện tác vụ thứ hai dựa trên kết quả tác vụ thứ nhất: ![image](https://github.com/user-attachments/assets/890bd0b9-3ceb-41c5-af8b-565ec571667e)
+- Chaining API (Thực hiện hành động sau supplyAsync/runAsync)
+  + Chaining (thenApply -xâu chuỗi các tác vụ)
+    + ![image](https://github.com/user-attachments/assets/3397568d-dcc9-4f17-b686-b620b8123af1)
+  + thenCompose: Kết nối 2 CompletableFuture phụ thuộc nhau: ![image](https://github.com/user-attachments/assets/890bd0b9-3ceb-41c5-af8b-565ec571667e)
+  + thenApply:Xử lý kết quả và trả kết quả mới ![image](https://github.com/user-attachments/assets/574cb12d-af4e-4a18-a851-ea5db7e7516e)
+  + thenCombine: Kết hợp 2 CompletableFuture chạy độc lập ![image](https://github.com/user-attachments/assets/8a51d0eb-a83d-475b-b0eb-093c0fc3d8b4)
+  + thenAccept: Tiêu thụ kết quả, KHÔNG trả về giá trị ![image](https://github.com/user-attachments/assets/304f4102-9f47-4dcf-80a8-d0d3f382c576)
+  + thenRun(): Thực thi runnable KHÔNG dùng kết quả trước đó ![image](https://github.com/user-attachments/assets/072d0fa9-9ca2-4868-a560-d6eb90957fb7)
+  + exceptionally(): Xử lý exception khi task lỗi ![image](https://github.com/user-attachments/assets/88238f47-07b2-467b-9eae-76f4902f2546)
+  + handle(): Xử lý kết quả hoặc lỗi ![image](https://github.com/user-attachments/assets/942a1d37-7681-4c71-9bf6-f116e6172e9f)
+  + allOf(): Chờ tất cả CompletableFuture hoàn thành ![image](https://github.com/user-attachments/assets/69e157e5-21b7-41dd-877b-cc8c14545ee1)
+  + anyOf(): Chờ 1 task bất kỳ hoàn thành ![image](https://github.com/user-attachments/assets/f52b87c9-bcdb-4f4a-80e3-0702a2e50e6c)
+
+- CompletableFuture.join() : KẾT THÚC: chờ tác vụ hoàn tất và lấy kết quả ![image](https://github.com/user-attachments/assets/90272f4b-0d10-4184-a714-8f97d69b9140)
+- CompletableFuture.get(): Giong join Khi bạn muốn xử lý ngoại lệ rõ ràng
+  + ![image](https://github.com/user-attachments/assets/106e15f9-860c-4bf4-924d-302a32d16e62)
+
+
+
+
+
 - Tạo CompletableFuture với Executor: Thực thi một tác vụ bất đồng bộ trên một Executor cụ thể.
   + ![image](https://github.com/user-attachments/assets/82e9526f-dfe9-4863-abbd-c21289551192)
 - get(): Chờ kết quả của CompletableFuture và trả về giá trị.
