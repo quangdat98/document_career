@@ -164,7 +164,6 @@
 - **EXISTS** là một mệnh đề được dùng trong WHERE để kiểm tra sự tồn tại của một hoặc nhiều dòng trong, Nếu có ít nhất một dòng được trả về từ subquery → EXISTS trả về TRUE.
   + ![image](https://github.com/user-attachments/assets/d6014fa4-c7a3-4622-959f-3dfd2956753d)
   + Không quan tâm là select cái gì, chỉ cần subquery có kết quả là true -> hiệu năng cao hơn
-
 - **NOT EXISTS** ngược lại với Exists ![image](https://github.com/user-attachments/assets/c0a06472-7466-4be5-ab87-b085a81527bd)
 
 **6.1.12 CASE WHEN ... THEN ... ELSE ... END**
@@ -176,37 +175,96 @@
 - ![image](https://github.com/user-attachments/assets/9f1cee0f-063f-4d7f-9142-a7cd5f3179b0)
 - Có thể dùng trong SELECT, ORDER BY, WHERE, GROUP BY, HAVING
 
-
-
 **6.1.13 OR**
 
 
 ## 6.2 Clause trong câu lệnh INSERT, UPDATE, DELETE**
 
 **6.2.1 INSERT INTO** 
+- RETURNING(PostgreSQL) -> mục đích là trả về dữ liệu và được thực hiện(insert/update/delete)  ![image](https://github.com/user-attachments/assets/e1fe8568-1b30-456e-88fa-f74226b0e7b0)
+  + Ứng dụng trong JPA: ![image](https://github.com/user-attachments/assets/06494db1-9726-4210-8c04-356bac68c61b)
+
+- OUTPUT(SQL Server) -> Tương tự RETURNING trong PostgreSQL – cho phép truy xuất bản ghi bị ảnh hưởng.
+- INSERT INTO ... SELECT -> Sao chép dữ liệu từ một bảng khác, hoặc từ kết quả truy vấn. ![image](https://github.com/user-attachments/assets/966049e1-2a00-4ba4-989b-b6403bca29ab)
+
+
 
 **6.2.2 VALUES** 
+- Nên batch nhiều VALUES (...) trong 1 INSERT để tối ưu hiệu năng
+- Dùng VALUES trong câu UPDATE nâng cao (PostgreSQL, SQL Server):
+  + Thay vì dùng CASE có thẻ dùng ![image](https://github.com/user-attachments/assets/903d466d-db93-4397-ac5d-86793b25d9ac)
+
 
 **6.2.3 UPDATE** 
+- Với nhiều row, nên dùng batch UPDATE hoặc MERGE (nâng cao)
+- Dùng UPDATE ... JOIN để cập nhật từ bảng khác:
 
 **6.2.4 SET** 
+- Tránh SET col = (SELECT ...) nếu SELECT trả về nhiều dòng → lỗi.
+- Dùng SET kết hợp CASE, SELECT, COALESCE, NULLIF để xử lý dữ liệu sạch hơn.
+- Nếu update nhiều cột cùng lúc, có thể dùng alias tạm:
 
 **6.2.5 DELETE FROM** 
+- Cân nhắc dùng ON DELETE CASCADE trong ràng buộc FK nếu muốn xoá kèm con.
+- Có thể dùng RETURNING hoặc OUTPUT để lấy bản ghi đã xoá.
+
 
 ## 6.3 Clause trong câu lệnh CREATE / ALTER / DROP**
+- ALTER – Sửa đổi đối tượng đã tồn tại. VD:
+  + Sửa dữ liệu: ALTER TABLE users ALTER COLUMN age TYPE SMALLINT;
+  + Thêm 1 cột vào bảng: ALTER TABLE users ADD COLUMN age INT;
+  + Đổi tên cột: ALTER TABLE users RENAME COLUMN name TO full_name;
+  + PostgreSQL / SQL Server: ALTER COLUMN column_name TYPE new_data_type;
+  + MySQL:MODIFY COLUMN column_name new_data_type;
+- DROP IF EXISTS Tránh lỗi nếu đối tượng chưa tồn tại
+- DROP CASCADE: Xóa bảng kèm theo các đối tượng phụ thuộc như foreign key, view,...
+
 
 **6.3.1 CREATE TABLE**
+- Ràng buộc (Constraints)
+  + NOT NULL – Không được phép null
+  + UNIQUE – Không trùng lặp
+  + PRIMARY KEY – Khóa chính
+  + FOREIGN KEY – Khóa ngoại, chúng ta có thê hành vi ON DELETE / ON UPDATE -> khi có thay đổi thì tất cả phụ thuộc thay đổi theo ![image](https://github.com/user-attachments/assets/aa660e9b-5f41-45be-867f-e8b380e3d42e)
+  + CHECK Ràng buộc thảo mãn điều kiện nào đó: ![image](https://github.com/user-attachments/assets/dcba805f-2ef4-487e-bdaf-3d166153797e) ![image](https://github.com/user-attachments/assets/3ad0d65c-febe-4158-baec-2a2cc1be79c9)
+  + AUTO INCREMENT -> dùng cho khóa chính tự tăng của mysql ![image](https://github.com/user-attachments/assets/4f32a5de-815c-41ab-bb4e-e7278558dd3b)
+  + SERIAL -> dùng cho khóa chính tự tăng của PostgreSQL ![image](https://github.com/user-attachments/assets/4df19160-3eb3-49b3-bf70-4108074700c0)
+
+
+- Khóa chính (PK) và khóa ngoại (FK)
+  + Khóa chính tổ hợp (composite key) ![image](https://github.com/user-attachments/assets/e4b8b10b-f590-44ed-aff5-927256e38c3b)
+  + Tránh dùng PK dạng VARCHAR -> Dễ gây tốn index space và chậm JOIN
+- Tạo bảng với IF NOT EXISTS ![image](https://github.com/user-attachments/assets/08b73366-a88e-4ab7-a0f7-2e4439154a96)
+- Tạo bảng từ kết quả truy vấn ![image](https://github.com/user-attachments/assets/26d96e80-6ebe-418e-95f6-6ec22219fffb)
+- Tạo bảng tạm (Temporary Table)
+  + Là bảng tồn tại tạm thời trong phiên làm việc hoặc kết nối (session) hiện tại.
+  + Không ảnh hưởng đến schema chính của CSDL.
+  + Chia nhỏ truy vấn tạo hiệu năng, đơn giản hóa cấu trúc
+  + ![image](https://github.com/user-attachments/assets/6cf37b4d-30b8-44be-8e00-1e635ac928c8)
+
+- INHERITS (PostgreSQL) Kế thừa bảng ![image](https://github.com/user-attachments/assets/2c3ae81e-300b-4724-a2c0-2609699ea71e)
+  + Ràng buộc PK/FK/UNIQUE Không kế thừa tự động
+
+- Tạo bảng với GENERATED ... STORED (PostgreSQL 12+) Dùng để tạo cột tự động tính toán từ cột khác, không cần trigger.
+  + VD price: giá sản phẩm,  quantity: số lượng tồn kho => Muốn tự động tính total_value = price * quantity nhưng không muốn viết trigger ![image](https://github.com/user-attachments/assets/2c18c8e7-44fb-42b0-9294-949e4907048f)
+  + Ko thể tự insert cột đã genetated
+
+- GENERATED ... VIRTUAL (mysql) là cột có giá trị được tính toán "tạm thời" mỗi khi truy vấn — không được lưu trữ vào ổ đĩa.
 
 **6.3.2 CREATE INDEX**
+- ![image](https://github.com/user-attachments/assets/893b8254-bb7f-4bdd-9a46-7183803cbdd2)
+- CREATE INDEX idx_name_trgm ON products USING gin (name gin_trgm_ops);
 
-**6.3.3 ALTER TABLE**
+**6.3.3 Sự khác nhau giữa DROP và TRUNCATE và DELETE**
+- ![image](https://github.com/user-attachments/assets/23dc40ca-e49c-4631-8286-ce17049fb533)
+- TRUNCATE là DDL nên:
+  + Không sinh trigger (PostgreSQL, MySQL)
+  + Không dùng được nếu bảng bị FOREIGN KEY ràng buộc
 
-**6.3.4 DROP TABLE/VIEW/INDEX**
+- DELETE là DML: 
+  + Ghi log từng dòng → phù hợp với audit, an toàn hơn
 
-**6.3.5 ADD, MODIFY, DROP COLUMN**
-
-**6.3.6 PRIMARY KEY, FOREIGN KEY, CHECK, DEFAULT**
-
+- DROP không thể rollback nếu không nằm trong transaction block đặc biệt (PostgreSQL 13+ cho phép DROP TABLE trong transaction)
 
 ## 6.4 MỆNH ĐỀ CON (SUBQUERY)**
 
@@ -215,16 +273,51 @@
 **6.4.1 IN (SELECT ...)** 
 
 **6.4.1 EXISTS (SELECT ...)** 
+- Trả về TRUE nếu subquery có ít nhất 1 dòng: Tối ưu vì không quan tâm kết quả, chỉ cần tồn tại. SELECT 1 là kỹ thuật viết subquery nhẹ hơn.
 
 **6.4.1 ANY, ALL (so sánh với subquery)** 
+- Dùng để so sánh một giá trị với tập hợp các giá trị từ subquery.
+- ALL ![image](https://github.com/user-attachments/assets/bdb578ff-bd10-4f52-a371-d7347ae46984)
+- ANY ![image](https://github.com/user-attachments/assets/b6a23919-ef41-4ac6-83d0-ffeae65f1b0e)
+- > ALL (subquery) Lớn hơn tất cả giá trị
+- < ANY (subquery) Nhỏ hơn ít nhất một giá trị
+- = ANY (subquery) Tương đương với IN
+- Không dùng IN nếu subquery trả về NULL ⇒ dễ sai kết quả.
+
 
 
 ## 6.5 MỆNH ĐỀ TRONG QUẢN TRỊ CSDL**
-
+**6.5.0 Tạo user**
+- PostgreSQL: CREATE USER username WITH PASSWORD 'password';
+- MySQL: CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';
+  + localhost: Địa chỉ từ đó người dùng có thể kết nối (có thể thay đổi thành % để cho phép kết nối từ mọi địa chỉ).
+ 
+- SQLserver: CREATE LOGIN username WITH PASSWORD = 'password';
 **6.5.1 GRANT, REVOKE**
+- GRANT: Cấp quyền . VD GRANT SELECT, INSERT ON employees TO user_name; (ấp quyền SELECT, INSERT lên bảng employees cho người dùng user_name.)
+  + Một số quyền phổ biến:
+  + ELECT, INSERT, UPDATE, DELETE
+  + ALL PRIVILEGES: dùng để cấp toàn bộ quyền truy cập khả dụng cho một người dùng đối với một đối tượng (bảng, schema, toàn bộ database,...). Đây là cách nhanh chóng để cho phép user làm mọi thao tác mà hệ thống cho phép.
+  + ![image](https://github.com/user-attachments/assets/de5ed6a9-d042-4000-99f8-b42acb901e4f)
 
+  + EXECUTE (đối với thủ tục hoặc hàm)
+
+- REVOKE: Thu hồi quyền. VD: REVOKE SELECT, INSERT ON employees FROM user_name; (Thu hồi quyền SELECT, INSERT khỏi user.)
 **6.5.2 COMMIT, ROLLBACK, SAVEPOINT**
+- Một transaction là một khối thao tác (SQL) được thực hiện cùng nhau như một đơn vị logic.
+-  BEGIN; hoặc START TRANSACTION; bắt đầu 1 transaction
+-  COMMIT; Ghi vĩnh viễn các thay đổi vào DB
+-  ROLLBACK; ROLLBACK: Hoàn tác (undo) toàn bộ thay đổi kể từ BEGIN
+- SAVEPOINT – điểm khôi phục tạm trong transaction ![image](https://github.com/user-attachments/assets/f3f4bff1-b258-4838-b5c0-53e4d417a6c3)
+
 
 **6.5.3 BEGIN, END**
+- BEGIN ... END – Cấu trúc khối (Block Statements)
+  + PostgreSQL: sử dụng PL/pgSQL: DO $$ BEGIN ... END $$
+  + SQL Server: dùng BEGIN ... END ![image](https://github.com/user-attachments/assets/37ba403e-c2ca-4645-ae12-ad55dc422ac4)
+
+  + Oracle: BEGIN ... END;
 
 **6.5.1 SET**
+- SET – Gán giá trị hoặc thiết lập cấu hình
+- ![image](https://github.com/user-attachments/assets/c52cf9c4-0bfc-4238-9956-5a3a274688cd)
