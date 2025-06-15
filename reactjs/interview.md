@@ -23,3 +23,7 @@
 
 # 3 So sánh == vs ===
 - ![image](https://github.com/user-attachments/assets/d7372c33-724a-4bce-98ca-442894293709)
+
+
+-----------
+![image](https://github.com/user-attachments/assets/02caa071-4bf1-430d-92df-90003565330c)
