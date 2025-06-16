@@ -24,6 +24,9 @@ Các câu hỏi java
 13. spring aop va thanh phan
 14. Toi uu 1 cau sql -> sql memozi
 15. day 1 file lon len server
+16. trong java nếu các object trung nhau thì gộp nhóm kiểu gì
+17. lý do tại sao phải dùng kafka
+18. 
 
 Cac bai toan java
 1. dem phan tu trung nhau trong mot mang
