@@ -585,9 +585,20 @@ Phần 30- 32
 - Luồng chạy:
   + Ở controller chúng ta có 1 api tạo post(luồng tạo post diễn ra như bt): ![image](https://github.com/user-attachments/assets/30d2e11e-7691-4d6f-82f3-9d92d681604f)
   + Ở class saga có set @SagaEventHandler(associationProperty = "id") và truyền vào hàm PostCreatedEvent => Axon tìm thấy saga handler có @SagaEventHandler và có class là PostCreatedEvent.  Tức là Axon lấy event.getId() rồi associate với key "id" → khởi tạo Saga mới.
+  + Tương tự khi chúng ta sử dụng  commandGateway.sendAndWait(command); và axon nó tìm ra  @SagaEventHandler(associationProperty = "id") của hàm private void handler(PostUpdateStatusEvent event) => map nhau giá trị của class, giá trị associationProperty thì hàm @SagaEventHandler sẽ được chạy
+  + ![image](https://github.com/user-attachments/assets/8cd01d30-bc6b-4358-8e4e-1630fcfaeaaf)
 
+- KHi chạy chúng ra sẽ có một bảng sage trên BD tự vào và 1 bảng ASSOCIATION_VALUE_ENTRY => lưu trạng thái runtime của các Saga đang chạy. Khi Saga hoàn thành (kết thúc bằng SagaLifecycle.end()), Axon sẽ xóa nó khỏi bảng.
+  + Nếu ko muốn xóa thì không dùng SagaLifecycle.end() hoặc search key word SagaStore
+- **Tóm lại**
+  + Khi chúng ta dùng saga thì sẽ quản lý được luồng transaction giữa các service.
+  + STEP 1: Dùng SagaLifecycle.associateWith("id", event.getMemoId()); và thực hiện xong 1 tác vụ commandGateway.sendAndWait(command); ![image](https://github.com/user-attachments/assets/f48b0728-f53f-45bd-841a-afd2723a631e)
 
+  + STEP 2: Lúc này thì theo luồng DDD nó sẽ nhảy vào @Aggregate => và chạy hàm   @CommandHandler và @EventSourcingHandler đẻ set giá trị vào 1 class event và tiêp tục xử lý dữ liệu. ![image](https://github.com/user-attachments/assets/db594024-5470-4185-a0ef-3c7f1d76fe0c)
 
+  + STEP 3: Axon saga sẽ check hàm @SagaEventHandler(associationProperty = "id") có map giá trị key và value nào từ SagaLifecycle.associateWith("id", event.getMemoId()) ở step 1 hay hay ko, nếu có thì check tiếp xem class truyền vào có phải là class Event mà chúng ta đã truyền dữ liệu ở STEP 2 hay ko => nếu đúng thì hàm đó sẽ chạy => từ trong hàm đó chúng ta có thể set tiếp các SagaLifecycle mới ![image](https://github.com/user-attachments/assets/1a5d23d1-b218-47aa-80d1-26161de733da)
+
+- **Rollback khi lỗi**: chúng ta phải tự xử lý bàng tay. Tưc là Gửi command để xóa dữ liệu đã tạo ở bước trước ![image](https://github.com/user-attachments/assets/0edb1cb9-a598-4b52-b64c-a817c230606c)
 
 
 
