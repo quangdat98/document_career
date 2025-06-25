@@ -582,6 +582,9 @@ Phần 30- 32
   + Axon ghi nhớ: "Saga này liên quan đến paymentId = xxx"
   + Khi sau này có một event đến và event đó có field tên là paymentId với giá trị trùng khớp, Axon sẽ route event đó vào Saga này
   + Nhưng nó không gọi handler ngay lập tức – phải đợi có sự kiện gửi tới sau đó.
+- Luồng chạy:
+  + Ở controller chúng ta có 1 api tạo post(luồng tạo post diễn ra như bt): ![image](https://github.com/user-attachments/assets/30d2e11e-7691-4d6f-82f3-9d92d681604f)
+  + Ở class saga có set @SagaEventHandler(associationProperty = "id") và truyền vào hàm PostCreatedEvent => Axon tìm thấy saga handler có @SagaEventHandler và có class là PostCreatedEvent.  Tức là Axon lấy event.getId() rồi associate với key "id" → khởi tạo Saga mới.
 
 
 
