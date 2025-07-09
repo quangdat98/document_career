@@ -93,7 +93,22 @@
 ## 2. Standard or Default Streams in Java
 
 ### 2.1 Standard Streams 
-- **Standard Streams (hay còn gọi là Default Streams) là ba luồng được JVM tự động cung cấp khi một chương trình Java bắt đầu chạy:**
-  + Standard Input (System.in) -> đọc dữ liệu từ bàn phím (stdin)
-  + Standard Output (System.out) -> Ghi dữ liệu ra màn hình (stdout)
-  + Standard Error (System.err) -> Ghi lỗi ra màn hình (stderr)
+**Standard Streams (hay còn gọi là Default Streams) Là 3 luồng IO mặc định mà JVM tạo ra sẵn để giao tiếp với console (terminal). Nó cũng là IO stream:**
+- Standard Input (System.in) -> đọc dữ liệu từ bàn phím (stdin). được kế thừa từ InputStream
+- Standard Output (System.out) -> Ghi dữ liệu ra màn hình (stdout) loại PrintStream. được kế thừa từ OutputStream
+- Standard Error (System.err) -> Ghi lỗi ra màn hình (stderr) loại PrintStream
+
+**System.in - chuẩn đầu vào**
+- InputStream in = System.in;
+- System.in instanceof InputStream. Nó chỉ đọc được byte, từng ký tự mã hóa. => **scanner  Chuyển byte → ký tự, Cung cấp API đơn giản (Bạn chỉ cần gọi nextLine(), nextInt() thay vì tự xử lý byte thủ công)**
+- Là một InputStream → đọc byte từ bàn phím.
+- Không đọc được dòng (String) trực tiếp, nên thường bọc bằng InputStreamReader hoặc Scanner.
+
+### 2.2 Scanner
+- Scanner là một class tiện ích trong Java, nằm trong package java.util, dùng để:
+  + Đọc dữ liệu từ nhiều nguồn khác nhau: System.in, file, chuỗi, socket...
+  + Hỗ trợ tách dữ liệu thành token (số, từ, dòng…)
+- Một số phương thức của scanner: ![image](https://github.com/user-attachments/assets/ae4f576d-4545-4137-a056-0259a2b1a5cd)
+- **Dùng lớp wrap để chuyển đổi từ byte sang ký tự khác như InputStreamReader cũng dk nhưng nó chỉ đọc từng ký tự**
+- ![image](https://github.com/user-attachments/assets/96bb291d-199a-4b29-95eb-860dcf34c96d)
+
