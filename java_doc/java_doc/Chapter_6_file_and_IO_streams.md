@@ -25,6 +25,8 @@
 - **Stream là một chiều: InputStream chỉ dùng để đọc, OutputStream chỉ dùng để ghi. Nếu muốn đọc và ghi, bạn phải mở 2 luồng riêng biệt. Mở stream thì phải close() nếu không thì Gây leak hoặc file lock**
 
 ### 1.3 Phân loại stream truyền thống
+- https://javaconceptoftheday.com/byte-stream-vs-character-stream-in-java/
+- ![image](https://github.com/user-attachments/assets/e49d02be-27f5-44b2-86ff-c8f048938e4c)
 - **A. Byte Stream – Đọc/Ghi dữ liệu nhị phân.** chúng ta có 2 lớp abstract class: InputStream: đọc byte và OutputStream: ghi byte.
 - Được sử dụng để xử lý dữ liệu nhị phân (như hình ảnh, âm thanh).
 - Các lớp con phổ biến:
