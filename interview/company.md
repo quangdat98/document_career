@@ -16,4 +16,6 @@ https://www.topcv.vn/viec-lam/java-developer/1788724.html?ta_source=JobSearchLis
 
 https://www.topcv.vn/viec-lam/backend-developer-java-net-golang/1774547.html?ta_source=JobSearchList_LinkDetail&u_sr_id=xymoHHwcE4prIqs4p2zogzOIjda63VO2hMVLXv18_1751906323 (tb) ứng tuyển
 
-https://www.topcv.vn/brand/educa/tuyen-dung/full-stack-developer-java-springboot-luong-cung-upto-45m-j1792866.html?ta_source=JobSearchList_LinkDetail&u_sr_id=ybyedCn6QTYrfX5r2pmxSMXvjTgBzBMiX1QBYykD_1752162868 -> lương ngon 
+https://www.topcv.vn/brand/educa/tuyen-dung/full-stack-developer-java-springboot-luong-cung-upto-45m-j1792866.html?ta_source=JobSearchList_LinkDetail&u_sr_id=ybyedCn6QTYrfX5r2pmxSMXvjTgBzBMiX1QBYykD_1752162868 -> lương ngon
+
+https://www.topcv.vn/viec-lam/java-developer-backend-du-an-banking/1765341.html?ta_source=JobSearchList_LinkDetail&u_sr_id=ybyedCn6QTYrfX5r2pmxSMXvjTgBzBMiX1QBYykD_1752163117 -> ứng tuyển 
