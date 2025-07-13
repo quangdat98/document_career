@@ -6,7 +6,7 @@
 3. Docker Commands
 4. Docker Run and Dockerfile
 5. Docker Images
-6. Docker Compose
+6. Docker file và Compose
 7. Docker Engine and Storage
 8. Docker Networking
 9. Docker Registry
@@ -16,6 +16,10 @@
 13. Miscellaneous
 
 ----------------------------------------------------------------------------------------------------------------------------
+## 0. Ảo hóa - containerization và các thành phần chính
+- <img width="711" height="370" alt="image" src="https://github.com/user-attachments/assets/60d5db64-2e75-4193-90b7-93ff8083895e" />
+
+
 ## 1. Docker Introduction
 
 **1.1 Cơ chế hoạt động:**
@@ -124,7 +128,72 @@
 
 **3.6 Docker Compose Command**
 
+## 6. Docker file và docker Compose
 
+### 6. Docker file
+- Dockerfile là một tệp văn bản chứa các lệnh và chỉ thị được sử dụng để xây dựng một hình ảnh Docker. Hình ảnh này có thể chứa mọi thứ cần thiết để chạy một ứng dụng, bao gồm mã nguồn, thư viện, và các phụ thuộc khác.
+- Check thông tin trong page: https://docs.docker.com/reference/dockerfile/
+- **FROM**: được sử dụng để chỉ định hình ảnh nền mà bạn muốn bắt đầu xây dựng hình ảnh Docker của mình. Hình ảnh này có thể là một hệ điều hành hoặc một ứng dụng đã được cài đặt sẵn.
+  + Cấu trúc: FROM <image>[:<tag>]
+  + VD: FROM ubuntu:20.04 / FROM openjdk:11-jre
+  + Vể openjdk thì chúng ta có thể lấy tag trong page sau: https://hub.docker.com/_/openjdk
+  + Maven thì chúng ta có thể lấy tag ở page: https://hub.docker.com/_/maven. VD maven:amazoncorretto
+- **COPY**: Câu lệnh COPY trong Dockerfile được sử dụng để sao chép các tệp và thư mục từ hệ thống tệp của máy chủ vào hình ảnh Docker.
+  + Cấu trúc COPY <source-may chu> <destination>
+  + VD: copy 1 tệp: COPY myapp.jar /app/myapp.jar
+  + VD: copy một thư mục: COPY src /app/src
+  + VD: copy nhiều tệp: COPY *.properties /app/config/
+  + **chú ý: Đường dẫn tương đối: Đường dẫn <source> được tính từ nơi bạn chạy lệnh docker build, vì vậy hãy chắc chắn rằng nó đúng.**
+- **ADD**: Nó giống với copy nhưng mà mạnh hơn, như tự động giả nén, Bạn có thể sử dụng một URL làm <source>, và Docker sẽ tải tệp từ URL đó vào hình ảnh.
+  + Cấu trúc: ADD <source> <destination>
+  + VD: ADD myapp.tar.gz /app/
+  + VD: ADD https://example.com/file.txt /app/file.txt
+- **WORKDIR**:Thiết lập thư mục làm việc: Câu lệnh này thiết lập thư mục làm việc cho các lệnh tiếp theo trong Dockerfile. Nếu thư mục không tồn tại, Docker sẽ tự động tạo nó.
+  + VD: WORKDIR /app => Từ thời điểm này, mọi lệnh sau sẽ được thực thi trong /app.
+- **RUN**: Chạy lệnh trong quá trình xây dựng hình ảnh: Câu lệnh này cho phép bạn thực thi các lệnh trong shell để cài đặt phần mềm, sao chép tệp, v.v. Tạo các layer: Mỗi lệnh RUN sẽ tạo ra một layer mới trong hình ảnh Docker.
+  + Một ứng dụng quan trọng của nó là như khi bạn sử dụng các thư viện bên trong code của bạn và nó yêu cầu phải tải thêm các thư viện khác hoặc môi trường gì đó thì sẽ phải dụng run.
+  + Cấu trúc: RUN <command>
+  + VD: RUN apt-get update && apt-get install -y git
+- **CMD**: Thiết lập lệnh mặc định để chạy khi khởi động container: Câu lệnh CMD chỉ định lệnh mà container sẽ thực thi khi nó được khởi động. Có thể bị ghi đè: Nếu bạn cung cấp một lệnh khác khi chạy container, lệnh trong CMD sẽ bị ghi đè.
+  + Cấu trúc: CMD ["executable","param1","param2"]
+  + VD: để chạy 1 chương trình java: CMD ["java", "-jar", "/app/myapp.jar"]
+  + VD: cần truyền biến: ENV MY_VARIABLE=value CMD ["java", "-jar", "/app/myapp.jar", "$MY_VARIABLE"]
+  + <img width="901" height="632" alt="image" src="https://github.com/user-attachments/assets/38cb2e9f-2816-4950-bff9-5e1acb085970" />
+
+- **ENTRYPOINT**: Thiết lập lệnh chính để chạy khi container khởi động: Câu lệnh ENTRYPOINT xác định lệnh mà container sẽ thực thi. Không bị ghi đè: Nếu bạn chỉ định lệnh khi chạy container, lệnh trong ENTRYPOINT sẽ không bị ghi đè; tham số bạn cung cấp sẽ được thêm vào lệnh đó.
+  + Cấu trúc: ENTRYPOINT ["executable", "param1", "param2"]
+  + VD: ENTRYPOINT ["java", "-jar", "/app/myapp.jar"]
+- **EXPOSE**: Câu lệnh EXPOSE trong Dockerfile chỉ định các cổng mà ứng dụng bên trong container sẽ lắng nghe. Ví dụ, nếu ứng dụng của bạn chạy trên cổng 8080, bạn sẽ khai báo EXPOSE 8080.
+  + EXPOSE <port> [<port>/<protocol>...]
+  + VD: EXPOSE 8080
+- **ENV**: Thiết lập biến môi trường: Câu lệnh này cho phép bạn định nghĩa các biến môi trường mà ứng dụng có thể sử dụng. Có thể truy cập từ các lệnh sau: Các biến này có thể được sử dụng trong các lệnh RUN, CMD, ENTRYPOINT, v.v.
+  + Cấu trúc: ENV <key> <value>
+  + VD: <img width="745" height="777" alt="image" src="https://github.com/user-attachments/assets/f63cfebc-8932-409f-87b2-09067a29c81d" />
+
+- **VOLUME**: được sử dụng để xác định một hoặc nhiều thư mục trong container sẽ được ánh xạ với một volume Docker. Điều này giúp giữ dữ liệu bền vững, ngay cả khi container bị xóa.
+- **ARG**: ARG được sử dụng để định nghĩa các biến có thể được truyền vào Dockerfile trong quá trình xây dựng hình ảnh. Những biến này chỉ có thể được sử dụng trong quá trình xây dựng và không tồn tại trong container khi nó được chạy. Nói chung thì nó chỉ hoạt động với thằng docker build. check VD
+  + Cấu trúc: ARG <name>[=<default>]
+  + VD: <img width="754" height="299" alt="image" src="https://github.com/user-attachments/assets/b830e5fc-4e5f-415c-aa64-043c72762c26" />
+
+- **LABEL**: LABEL được sử dụng để thêm metadata cho hình ảnh Docker. Metadata này có thể bao gồm thông tin như tên tác giả, phiên bản, mô tả, v.v.
+  + Cấu trúc: LABEL <key>=<value>
+  + <img width="756" height="223" alt="image" src="https://github.com/user-attachments/assets/d09b06d7-c21b-4a59-9ea2-9854a39ae7a6" />
+
+
+
+
+
+## 7. Docker Engine and Storage
+
+### 7.1 Docker Engine
+- https://200lab.io/blog/docker-la-gi?srsltid=AfmBOoqQwLZnoX5TjsHVzXCDtUnKu5jSzJtV1vBqjLqcFXE20PeX-n2c
+- Docker Engine là trái tim của Docker – một phần mềm chạy nền (daemon) giúp tạo, chạy và quản lý container.
+- Thành phần chính của Docker Engine:
+  + <img width="626" height="334" alt="image" src="https://github.com/user-attachments/assets/e5c2f413-7563-4eec-b39d-fd9b10e3a92b" />
+  + Docker Daemon (dockerd): Tiến trình chạy nền, xử lý lệnh từ Docker CLI/API
+  + Docker CLI (docker): Công cụ dòng lệnh để tương tác với Docker
+  + REST API: Giao tiếp giữa CLI và daemon (qua Unix socket hoặc TCP)
+=> **Khi bạn chạy lệnh docker run, CLI gửi lệnh qua API tới dockerd, daemon xử lý và tạo container.**
 
 
 
