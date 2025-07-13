@@ -608,12 +608,18 @@ Phần 30- 32
 - Thực hiện tạo docker file cho server discoverserver: <img width="720" height="362" alt="image" src="https://github.com/user-attachments/assets/b3154f56-fcdb-45af-a27a-5bd60da42850" />
 - Chú ý khi thực hiện chạy phải set cả post nếu ko sẽ ko truy cập dk web âu: docker run -p 8761:8761 discoverserver
 
- ### 3.3.2 Docker compose 
+ ### 3.3.2 Docker compose
+- Về cấu trúc docker compose thì tìm hiểu trong link: https://github.com/quangdat98/document_career/blob/main/docker/docker_doc.md phần 6.2
 - Khi xây dụng ứng dụng microservice thì mỗi server chúng ta lại có 1 dockerfile thì rất khó để kiểm soát và thực thi => cần docker compose để quản lý tập trung  các dockerfile đó
 - Điều lưu ý khi chạy docker compose là vị trí chạy file đã khác với chạy lẻ, nên trong file docker cần khai báo rõ thư mục:
   + Không nên dùng: COPY . ./discoverserver
   + Nên dùng: COPY ./discoverserver ./discoverserver
+- Trong file docker của memo thì cần copy thêm folder của commonservice: <img width="613" height="414" alt="image" src="https://github.com/user-attachments/assets/ea6c7022-468c-427f-9d78-6c1fa7409df0" />
+  + tìm hiểu tại sự khác nhau giữa RUN mvn clean install -DskipTests và RUN mvn clean package -DskipTests?
+- **Trong axon thì cổng 8024 => là cổng UI trong docker compose chúng ta ko kết nối tới cổng này mà là cổng gRPC: 8124** => cần tìm hiểu về axon
 
+***3.3.3 thực hành tạo file compose**
+- 
 
 
 
