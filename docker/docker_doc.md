@@ -130,7 +130,7 @@
 
 ## 6. Docker file và docker Compose
 
-### 6. Docker file
+### 6.1 Docker file
 - Dockerfile là một tệp văn bản chứa các lệnh và chỉ thị được sử dụng để xây dựng một hình ảnh Docker. Hình ảnh này có thể chứa mọi thứ cần thiết để chạy một ứng dụng, bao gồm mã nguồn, thư viện, và các phụ thuộc khác.
 - Check thông tin trong page: https://docs.docker.com/reference/dockerfile/
 - **FROM**: được sử dụng để chỉ định hình ảnh nền mà bạn muốn bắt đầu xây dựng hình ảnh Docker của mình. Hình ảnh này có thể là một hệ điều hành hoặc một ứng dụng đã được cài đặt sẵn.
@@ -180,7 +180,15 @@
   + <img width="756" height="223" alt="image" src="https://github.com/user-attachments/assets/d09b06d7-c21b-4a59-9ea2-9854a39ae7a6" />
 
 
+### 6.2 Docker Compose
+- https://docs.docker.com/compose/
+- Docker Compose cho phép bạn định nghĩa và quản lý nhiều dịch vụ trong một tệp cấu hình duy nhất (docker-compose.yml), giúp bạn dễ dàng triển khai và cấu hình toàn bộ ứng dụng.
+- Bạn có thể dễ dàng cấu hình các dịch vụ, mạng, và volumes chỉ trong một tệp. Điều này giúp giảm thiểu sự nhầm lẫn và lặp lại.
+- Chỉ cần một lệnh (docker-compose up hoặc docker-compose down) để khởi động hoặc dừng tất cả các dịch vụ. Điều này giúp tiết kiệm thời gian và công sức.
 
+**6.2.1 cấu trúc**
+- https://docs.docker.com/compose/intro/compose-application-model/
+- <img width="773" height="770" alt="image" src="https://github.com/user-attachments/assets/e3bc369a-6b8a-4db0-9991-ad5c1558fe79" />
 
 
 ## 7. Docker Engine and Storage
