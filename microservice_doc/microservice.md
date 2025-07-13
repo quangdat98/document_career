@@ -600,7 +600,19 @@ Phần 30- 32
 
 - **Rollback khi lỗi**: chúng ta phải tự xử lý bàng tay. Tưc là Gửi command để xóa dữ liệu đã tạo ở bước trước ![image](https://github.com/user-attachments/assets/0edb1cb9-a598-4b52-b64c-a817c230606c)
 
+## 3.3 build project lên docker
 
+ ### 3.3.1 Docker file
+- Dockerfile là một tệp văn bản chứa các lệnh và chỉ thị được sử dụng để xây dựng một hình ảnh Docker. Hình ảnh này có thể chứa mọi thứ cần thiết để chạy một ứng dụng, bao gồm mã nguồn, thư viện, và các phụ thuộc khác.
+- Thông tin chi tiết về docker thì tham chiếu: https://github.com/quangdat98/document_career/blob/main/docker/docker_doc.md
+- Thực hiện tạo docker file cho server discoverserver: <img width="720" height="362" alt="image" src="https://github.com/user-attachments/assets/b3154f56-fcdb-45af-a27a-5bd60da42850" />
+- Chú ý khi thực hiện chạy phải set cả post nếu ko sẽ ko truy cập dk web âu: docker run -p 8761:8761 discoverserver
+
+ ### 3.3.2 Docker compose 
+- Khi xây dụng ứng dụng microservice thì mỗi server chúng ta lại có 1 dockerfile thì rất khó để kiểm soát và thực thi => cần docker compose để quản lý tập trung  các dockerfile đó
+- Điều lưu ý khi chạy docker compose là vị trí chạy file đã khác với chạy lẻ, nên trong file docker cần khai báo rõ thư mục:
+  + Không nên dùng: COPY . ./discoverserver
+  + Nên dùng: COPY ./discoverserver ./discoverserver
 
 
 
