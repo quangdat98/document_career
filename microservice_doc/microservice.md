@@ -619,7 +619,49 @@ Phần 30- 32
 - **Trong axon thì cổng 8024 => là cổng UI trong docker compose chúng ta ko kết nối tới cổng này mà là cổng gRPC: 8124** => cần tìm hiểu về axon
 
 ***3.3.3 thực hành tạo file compose**
-- 
+- Mục tiêu là: do chúng ta đang sử dụng microservice -> có rất nhiều file docker, nên việc quản lý và chạy từng cái lúc build thì thật là phúc tạm và mất thời gian
+- => giải pháp là dùng docker compose => **docker compose là một công cụ mạnh giúp bạn quản lý nhiều container Docker dễ dàng thông qua một file cấu hình duy nhất là docker-compose.yml**
+- Về cấu trúc thì sẽ tìm hiểu trong bài https://github.com/quangdat98/document_career/blob/main/docker/docker_doc.md
+**3.3.3.A Tạo các file docker**
+- Mỗi 1 project chúng ta cần tạo 1 dockerfile
+- VD như file docker của memoserver:
+  + <img width="658" height="425" alt="image" src="https://github.com/user-attachments/assets/b3458f5d-e350-4f86-bf56-183ed2c6f970" />
+  + ở đây thì là chúng ta chia ra làm 2, 1 phần là build file jar, phần 2 là run
+  + Cần tạo folder và build luôn cả maven cho commonservice. Do commonservice có dùng trong memoservice
+  + **quan trong**: trong file properties cần sửa eureka.client.service-url.defaultZone=http://localhost:8761/eureka  => eureka.client.service-url.defaultZone=http://discoveryserver:8761/eureka Do là build trong docker thì link của server euraka sẽ ko là localhost nữa mà là tên service mà chúng ta đặt trong file docker compose
+  + Phải thêm config axon.axonserver.servers=axonserver:8124 (Là cổng gRPC mà AxonServer sử dụng để giao tiếp với Axon Client (Axon Framework) như đăng ký các Command, Event, Query handler với AxonServer.,. Còn 8024 là cổng UI) nếu ko có thì nó sẽ là mặc định là localhost:8124 ( axonserver là service chúng ta đặt trong docker compose)
+ 
+- **Lưu ý**: klhi chúng ta dùng docker build thì chúng ta phải thay toàn bộ localhost thành server tưng ứng trong docker compose
+  + <img width="591" height="389" alt="image" src="https://github.com/user-attachments/assets/41d0e359-cfdb-440c-ab3f-18f604538972" />
+  + <img width="740" height="455" alt="image" src="https://github.com/user-attachments/assets/dbec2f6a-015d-474e-baca-c4276f7a9d51" />
+
+- Cách truyền biến từ docker compose vào trong file properties
+  + <img width="852" height="159" alt="image" src="https://github.com/user-attachments/assets/9659b33c-bf83-41e1-9014-8c01d5d9ea11" />
+  + <img width="917" height="321" alt="image" src="https://github.com/user-attachments/assets/a8030982-7aaf-4217-8363-185b4591f140" />
+
+=> **Về cơ bản thì các file docker phải có đủ về môi trường như java, mvn. Đủ code như code common. Còn kafka, redis thì sẽ build ở docker compose. Đổi tên localhost thành tên server đã khai báo trong docker compose**
+
+**3.3.3.B Tạo các file docker compose**
+- Tạo file docker-compose.yml ở cấp thư mục ngang với các service
+- VD: <img width="751" height="428" alt="image" src="https://github.com/user-attachments/assets/14f97bc6-1786-40f2-a662-4848fc7ea494" />
+- Tất cả các service đều phải chung 1 networks thì mới hoạt động được.
+- depends_on => cần thêm tất cả các phụ thuộc. VD như memoservice bắt buộc phải có discoveryserver, axonserver
+- Trong phần environment cũng nhớ đổi localhost thành tên service
+- Với phần tạo kafka (cần check file compose) đổi localhost thành broker. Vần cần tạo 3 image broker (server kafka), zookeeper cấu hình kafka, control-center (cái này quản lý giao diện UI - có thẻ bỏ ko cần)
+- Một số ví dụ:
+  + <img width="949" height="425" alt="image" src="https://github.com/user-attachments/assets/6d192eae-6317-4a94-854f-8b7b66b3aee2" />
+  + <img width="888" height="348" alt="image" src="https://github.com/user-attachments/assets/8fbb5fa5-f3cf-480a-8d2e-3d8c3378caf9" />
+  + <img width="1040" height="574" alt="image" src="https://github.com/user-attachments/assets/c0acd73e-c257-4bbe-8414-cb4817f1cbad" />
+
+
+
+
+
+
+
+  
+
+
 
 
 
