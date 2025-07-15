@@ -653,6 +653,26 @@ Phần 30- 32
   + <img width="888" height="348" alt="image" src="https://github.com/user-attachments/assets/8fbb5fa5-f3cf-480a-8d2e-3d8c3378caf9" />
   + <img width="1040" height="574" alt="image" src="https://github.com/user-attachments/assets/c0acd73e-c257-4bbe-8414-cb4817f1cbad" />
 
+## 4 KeyCloak và OpenID connect
+
+### 4.1 Lý thuyết
+**Keycloak và OAuth 2.0**
+- Keycloak là một giải pháp quản lý định danh và truy cập (IAM – Identity and Access Management) mã nguồn mở, được phát triển bởi Red Hat.
+- Keycloak giúp bạn thêm chức năng “Đăng nhập”, “Đăng xuất”, “Phân quyền” cho ứng dụng một cách nhanh chóng, bảo mật, và linh hoạt. (giống aws)
+- OAuth 2.0 là một giao thức ủy quyền (authorization protocol) giúp ứng dụng của bên thứ ba truy cập tài nguyên của người dùng mà không cần biết mật khẩu của họ.
+  + OAuth không phải là xác thực (Authentication)
+  + Về nguyên tắc thì nó sẽ là yêu cầu lấy accesstoken để truy cập vào ứng dụng thay vì username password
+- Các thành phần chính:
+  + Resource Owner (Chủ tài nguyên): Chính là người dùng cuối (bạn, tôi). VD Bạn (resource owner) đồng ý cho app Spotify xem danh sách bạn bè Facebook.
+  + Client (Ứng dụng bên thứ ba): Là ứng dụng muốn truy cập dữ liệu thay mặt người dùng. VD: vỨng dụng Spotify, Zalo, Slack,... muốn truy cập vào tài khoản Google của bạn.
+  + Authorization Server (Máy chủ ủy quyền): Là nơi người dùng đăng nhập và xác nhận cấp quyền. Là nơi cấp Access Token và Refresh Token cho Client. Có thể là Google OAuth Server, Facebook Login.
+  + Resource Server (Máy chủ tài nguyên): Nơi lưu trữ dữ liệu thực sự cần bảo vệ (API server).Khi nhận được access token hợp lệ → trả dữ liệu tương ứng. VD Google API Server, Facebook Graph API, hoặc API backend của bạn
+- Luồng hoạt động: <img width="662" height="220" alt="image" src="https://github.com/user-attachments/assets/a957ef64-1fed-463d-bfc8-6afb0eb5180c" />
+
+**OpenID Connect**
+- OpenID (cụ thể là OpenID Connect – OIDC) là một giao thức xác thực (authentication protocol) được xây dựng trên nền tảng OAuth 2.0, dùng để xác minh danh tính của người dùng và lấy thông tin hồ sơ (profile) của họ một cách an toàn.
+- Nếu OAuth 2.0 = cấp quyền (authorization), thì OpenID Connect = xác thực người dùng (authentication).
+- https://openid.net/developers/how-connect-works/
 
 
 
