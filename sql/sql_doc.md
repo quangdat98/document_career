@@ -251,10 +251,27 @@
 
 - GENERATED ... VIRTUAL (mysql) là cột có giá trị được tính toán "tạm thời" mỗi khi truy vấn — không được lưu trữ vào ổ đĩa.
 
-**6.3.2 CREATE INDEX**
+**6.3.2 INDEX**
+- https://200lab.io/blog/index-la-gi
 - ![image](https://github.com/user-attachments/assets/893b8254-bb7f-4bdd-9a46-7183803cbdd2)
+- https://www.atlassian.com/data/sql/how-indexing-works
 - CREATE INDEX idx_name_trgm ON products USING gin (name gin_trgm_ops);
-
+- Trong index có nhiều loại nhưng tiêu biểu nhất thì có 2 loại là B-tree và hash table
+- Trong đó B-tree thì linh động hơn phù hợp nhiều nhiều kiểu where ==, <, > ... => đây cũng là kiểu mặc định
+- Hash table thì kém hơn chỉ phù hợp với ==, do nó có cấu trúc giống như là của thằng hash table
+**6.3.2. A Các lưu ý khi đáng index**
+- Do khi đánh index  thì các giá trị đó sẽ được lưu trong một cấu trúc dữ liệu riêng biệt:
+  + Bảng chính (Table): Lưu toàn bộ dữ liệu của các dòng (record)
+  + Index: Là một cấu trúc dữ liệu riêng biệt, chứa:Giá trị của cột (hoặc cột tổ hợp) Con trỏ (hoặc ID) trỏ tới bản ghi tương ứng trong bảng chính |
+=> **cách thức hoạt động**:
+- Khi tạo index: CREATE INDEX idx_email ON users(email); => Database sẽ tạo một cấu trúc dữ liệu riêng (B-Tree), trông giống như(lưu cột và vị trí dòng): <img width="533" height="193" alt="image" src="https://github.com/user-attachments/assets/2953878d-2a38-4987-afd8-315f5356b8cf" />
+- Khi chúng ta truy vấn: SELECT * FROM users WHERE email = 'binh@example.com'; => DB sẽ tra cứu trong index idx_email trước, xác định dòng cần lấy, rồi nhảy nhanh đến dòng đó trong bảng chính (table).
+  +  Khi DB Engine có được pointer, nó dùng file offset (vị trí file) hoặc id để truy xuất trực tiếp đến đúng dòng đó không cần quét toàn bộ bảng.
+- Chính vì khi đánh index nó tạo thêm 1 bảng cấu trúc dữ liệu riêng => **tạo nhiều index sẽ gây chệm cho các câu lệnh insert, update, delete. Do phải update cả bảng index nữa**
+- **Khi đánh nhiều Index thì sẽ có các vấn đề gì?**
+  + Mỗi một hệ quản trị cơ sở dữ liệu thì đều có 1 cách khác nhau để quản lý
+  + Hệ quản trị cơ sở dữ liệu sử dụng thống kê về dữ liệu trong bảng để quyết định chỉ mục nào sẽ được sử dụng => **Nếu một chỉ mục có nhiều bản ghi hoặc có tỷ lệ chọn lọc tốt hơn, nó có thể được ưu tiên hơn.**
+  + **Sử dụng câu lệnh EXPLAIN để xem kế hoạch thực thi của truy vấn để biết hệ quản trị cơ sở dữ liệu đã chọn chỉ mục nào và tại sao**
 **6.3.3 Sự khác nhau giữa DROP và TRUNCATE và DELETE**
 - ![image](https://github.com/user-attachments/assets/23dc40ca-e49c-4631-8286-ce17049fb533)
 - TRUNCATE là DDL nên:
