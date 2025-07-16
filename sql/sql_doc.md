@@ -15,6 +15,7 @@
 14. Subquery
 15. Miscellaneous Topics
 16. Database Security
+17. Tối ưu hiện suất sql
 
 # **------ Nội dung chi tiết ------**
 
@@ -252,44 +253,7 @@
 - GENERATED ... VIRTUAL (mysql) là cột có giá trị được tính toán "tạm thời" mỗi khi truy vấn — không được lưu trữ vào ổ đĩa.
 
 **6.3.2 INDEX**
-- https://200lab.io/blog/index-la-gi
-- ![image](https://github.com/user-attachments/assets/893b8254-bb7f-4bdd-9a46-7183803cbdd2)
-- https://www.atlassian.com/data/sql/how-indexing-works
-- CREATE INDEX idx_name_trgm ON products USING gin (name gin_trgm_ops);
-- Trong index có nhiều loại nhưng tiêu biểu nhất thì có 2 loại là B-tree và hash table
-- Trong đó B-tree thì linh động hơn phù hợp nhiều nhiều kiểu where ==, <, > ... => đây cũng là kiểu mặc định
-- Hash table thì kém hơn chỉ phù hợp với ==, do nó có cấu trúc giống như là của thằng hash table
-
-**6.3.2. A Các lưu ý khi đáng index**
-
-- Do khi đánh index  thì các giá trị đó sẽ được lưu trong một cấu trúc dữ liệu riêng biệt:
-  + Bảng chính (Table): Lưu toàn bộ dữ liệu của các dòng (record)
-  + Index: Là một cấu trúc dữ liệu riêng biệt, chứa:Giá trị của cột (hoặc cột tổ hợp) Con trỏ (hoặc ID) trỏ tới bản ghi tương ứng trong bảng chính |
-=> **cách thức hoạt động**:
-- Khi tạo index: CREATE INDEX idx_email ON users(email); => Database sẽ tạo một cấu trúc dữ liệu riêng (B-Tree), trông giống như(lưu cột và vị trí dòng): <img width="533" height="193" alt="image" src="https://github.com/user-attachments/assets/2953878d-2a38-4987-afd8-315f5356b8cf" />
-- Khi chúng ta truy vấn: SELECT * FROM users WHERE email = 'binh@example.com'; => DB sẽ tra cứu trong index idx_email trước, xác định dòng cần lấy, rồi nhảy nhanh đến dòng đó trong bảng chính (table).
-  +  Khi DB Engine có được pointer, nó dùng file offset (vị trí file) hoặc id để truy xuất trực tiếp đến đúng dòng đó không cần quét toàn bộ bảng.
-- Chính vì khi đánh index nó tạo thêm 1 bảng cấu trúc dữ liệu riêng => **tạo nhiều index sẽ gây chệm cho các câu lệnh insert, update, delete. Do phải update cả bảng index nữa**
-- **Khi đánh nhiều Index thì sẽ có các vấn đề gì?**
-  + Mỗi một hệ quản trị cơ sở dữ liệu thì đều có 1 cách khác nhau để quản lý
-  + Hệ quản trị cơ sở dữ liệu sử dụng thống kê về dữ liệu trong bảng để quyết định chỉ mục nào sẽ được sử dụng => **Nếu một chỉ mục có nhiều bản ghi hoặc có tỷ lệ chọn lọc tốt hơn, nó có thể được ưu tiên hơn.**
-  + **Sử dụng câu lệnh EXPLAIN để xem kế hoạch thực thi của truy vấn để biết hệ quản trị cơ sở dữ liệu đã chọn chỉ mục nào và tại sao**
-  + **Về việc tối ưu khi đặt index thì nên tìm hiểu về **Query optimizer** Query optimizer sẽ hoạt động dựa trên (cost,thống kê..)
-
-**6.3.2. B Các loại index**
-
-**6.3.3. Query optimizer**
- 
-**6.3.3 Sự khác nhau giữa DROP và TRUNCATE và DELETE**
-- ![image](https://github.com/user-attachments/assets/23dc40ca-e49c-4631-8286-ce17049fb533)
-- TRUNCATE là DDL nên:
-  + Không sinh trigger (PostgreSQL, MySQL)
-  + Không dùng được nếu bảng bị FOREIGN KEY ràng buộc
-
-- DELETE là DML: 
-  + Ghi log từng dòng → phù hợp với audit, an toàn hơn
-
-- DROP không thể rollback nếu không nằm trong transaction block đặc biệt (PostgreSQL 13+ cho phép DROP TABLE trong transaction)
+Phần 13
 
 ## 6.4 MỆNH ĐỀ CON (SUBQUERY)**
 
@@ -346,3 +310,47 @@
 **6.5.1 SET**
 - SET – Gán giá trị hoặc thiết lập cấu hình
 - ![image](https://github.com/user-attachments/assets/c52cf9c4-0bfc-4238-9956-5a3a274688cd)
+
+# 13 Index
+**13.1 Khái niệm**
+- https://200lab.io/blog/index-la-gi
+- ![image](https://github.com/user-attachments/assets/893b8254-bb7f-4bdd-9a46-7183803cbdd2)
+- https://www.atlassian.com/data/sql/how-indexing-works
+- CREATE INDEX idx_name_trgm ON products USING gin (name gin_trgm_ops);
+- Trong index có nhiều loại nhưng tiêu biểu nhất thì có 2 loại là B-tree và hash table
+- Trong đó B-tree thì linh động hơn phù hợp nhiều nhiều kiểu where ==, <, > ... => đây cũng là kiểu mặc định
+- Hash table thì kém hơn chỉ phù hợp với ==, do nó có cấu trúc giống như là của thằng hash table
+
+**13.2 Các lưu ý khi đáng index**
+
+- Do khi đánh index  thì các giá trị đó sẽ được lưu trong một cấu trúc dữ liệu riêng biệt:
+  + Bảng chính (Table): Lưu toàn bộ dữ liệu của các dòng (record)
+  + Index: Là một cấu trúc dữ liệu riêng biệt, chứa:Giá trị của cột (hoặc cột tổ hợp) Con trỏ (hoặc ID) trỏ tới bản ghi tương ứng trong bảng chính |
+=> **cách thức hoạt động**:
+- Khi tạo index: CREATE INDEX idx_email ON users(email); => Database sẽ tạo một cấu trúc dữ liệu riêng (B-Tree), trông giống như(lưu cột và vị trí dòng): <img width="533" height="193" alt="image" src="https://github.com/user-attachments/assets/2953878d-2a38-4987-afd8-315f5356b8cf" />
+- Khi chúng ta truy vấn: SELECT * FROM users WHERE email = 'binh@example.com'; => DB sẽ tra cứu trong index idx_email trước, xác định dòng cần lấy, rồi nhảy nhanh đến dòng đó trong bảng chính (table).
+  +  Khi DB Engine có được pointer, nó dùng file offset (vị trí file) hoặc id để truy xuất trực tiếp đến đúng dòng đó không cần quét toàn bộ bảng.
+- Chính vì khi đánh index nó tạo thêm 1 bảng cấu trúc dữ liệu riêng => **tạo nhiều index sẽ gây chệm cho các câu lệnh insert, update, delete. Do phải update cả bảng index nữa**
+- **Khi đánh nhiều Index thì sẽ có các vấn đề gì?**
+  + Mỗi một hệ quản trị cơ sở dữ liệu thì đều có 1 cách khác nhau để quản lý
+  + Hệ quản trị cơ sở dữ liệu sử dụng thống kê về dữ liệu trong bảng để quyết định chỉ mục nào sẽ được sử dụng => **Nếu một chỉ mục có nhiều bản ghi hoặc có tỷ lệ chọn lọc tốt hơn, nó có thể được ưu tiên hơn.**
+  + **Sử dụng câu lệnh EXPLAIN để xem kế hoạch thực thi của truy vấn để biết hệ quản trị cơ sở dữ liệu đã chọn chỉ mục nào và tại sao**
+  + **Về việc tối ưu khi đặt index thì nên tìm hiểu về **Query optimizer** Query optimizer sẽ hoạt động dựa trên (cost,thống kê..)
+
+**13.3 Các loại index**
+
+**13.4 Query optimizer**
+ 
+**13.5 Sự khác nhau giữa DROP và TRUNCATE và DELETE**
+- ![image](https://github.com/user-attachments/assets/23dc40ca-e49c-4631-8286-ce17049fb533)
+- TRUNCATE là DDL nên:
+  + Không sinh trigger (PostgreSQL, MySQL)
+  + Không dùng được nếu bảng bị FOREIGN KEY ràng buộc
+
+- DELETE là DML: 
+  + Ghi log từng dòng → phù hợp với audit, an toàn hơn
+
+- DROP không thể rollback nếu không nằm trong transaction block đặc biệt (PostgreSQL 13+ cho phép DROP TABLE trong transaction)
+
+# 17. Tối ưu hiện suất sql
+
