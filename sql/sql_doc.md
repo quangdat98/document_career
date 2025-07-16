@@ -259,7 +259,9 @@
 - Trong index có nhiều loại nhưng tiêu biểu nhất thì có 2 loại là B-tree và hash table
 - Trong đó B-tree thì linh động hơn phù hợp nhiều nhiều kiểu where ==, <, > ... => đây cũng là kiểu mặc định
 - Hash table thì kém hơn chỉ phù hợp với ==, do nó có cấu trúc giống như là của thằng hash table
+
 **6.3.2. A Các lưu ý khi đáng index**
+
 - Do khi đánh index  thì các giá trị đó sẽ được lưu trong một cấu trúc dữ liệu riêng biệt:
   + Bảng chính (Table): Lưu toàn bộ dữ liệu của các dòng (record)
   + Index: Là một cấu trúc dữ liệu riêng biệt, chứa:Giá trị của cột (hoặc cột tổ hợp) Con trỏ (hoặc ID) trỏ tới bản ghi tương ứng trong bảng chính |
@@ -272,6 +274,12 @@
   + Mỗi một hệ quản trị cơ sở dữ liệu thì đều có 1 cách khác nhau để quản lý
   + Hệ quản trị cơ sở dữ liệu sử dụng thống kê về dữ liệu trong bảng để quyết định chỉ mục nào sẽ được sử dụng => **Nếu một chỉ mục có nhiều bản ghi hoặc có tỷ lệ chọn lọc tốt hơn, nó có thể được ưu tiên hơn.**
   + **Sử dụng câu lệnh EXPLAIN để xem kế hoạch thực thi của truy vấn để biết hệ quản trị cơ sở dữ liệu đã chọn chỉ mục nào và tại sao**
+  + **Về việc tối ưu khi đặt index thì nên tìm hiểu về **Query optimizer** Query optimizer sẽ hoạt động dựa trên (cost,thống kê..)
+
+**6.3.2. B Các loại index**
+
+**6.3.3. Query optimizer**
+ 
 **6.3.3 Sự khác nhau giữa DROP và TRUNCATE và DELETE**
 - ![image](https://github.com/user-attachments/assets/23dc40ca-e49c-4631-8286-ce17049fb533)
 - TRUNCATE là DDL nên:
