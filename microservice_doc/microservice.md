@@ -674,6 +674,53 @@ Phần 30- 32
 - Nếu OAuth 2.0 = cấp quyền (authorization), thì OpenID Connect = xác thực người dùng (authentication).
 - https://openid.net/developers/how-connect-works/
 
+### 4.2 cài đặt keycloak với docker
+- Link https://quay.io/repository/keycloak/keycloak
+- Chúng ta tạo 1 file docker compose: <img width="865" height="353" alt="image" src="https://github.com/user-attachments/assets/1bcfe807-8e33-47c5-95c0-351422b7732b" />
+- RUn câu lệnh docker compose: docker compose -f \docker-compose-provider.yml up -d
+- Down docker compose: docker compose -f \docker-compose-provider.yml up -d
+- chúng ta truy cập localhost:8180 (được set up trong docker "8180:8080") thì sẽ vào giao diện: <img width="1727" height="739" alt="image" src="https://github.com/user-attachments/assets/bb28147f-be5b-4d9f-b821-48575d4f6a94" />
+- Lưu ý là username và pass đều có trong config docker. Và đây là giao diện ban đầu
+
+### 4.3 Giới thiệu các chức năng trong keycloak
+- Master realm là gì? Realm trong Keycloak giống như 1 "vũ trụ con" tách biệt – mỗi realm có người dùng, client, role, v.v. riêng. master realm là realm quản trị toàn bộ các realm khác. TÓm lại nó khá giống User Pool.
+- Clients: là 1 ứng dụng hay 1 service có yêu cầu xác thực.
+- **clients scopes**:  "gói quyền và thông tin" mà bạn có thể đính kèm vào client để kiểm soát token chứa gì sau khi người dùng đăng nhập.<img width="1486" height="863" alt="image" src="https://github.com/user-attachments/assets/047aae8b-35a5-43cc-a608-1c224d949bd1" />
+- Realm Roles:: Vai trò chung trong một Realm, có thể gán cho người dùng hoặc nhóm để quản lý quyền truy cập trên nhiều client/app.
+- User: người sử dụng ứng dụng của bạn, có thể có tài khoản, mật khẩu, vai trò (role), thuộc nhóm (group), và thuộc tính (attribute) riêng.
+- Groups: gom nhóm các user lại giúp quản lý quyền hạn (giống hệt như group trong cognito)
+- Sessions: đại diện cho lần đăng nhập của người dùng vào hệ thống – tức là khi một user đã xác thực thành công và nhận được token (access token, refresh token, ID token).
+- Event: hệ thống ghi lại các sự kiện (event logs) xảy ra trong quá trình người dùng và hệ thống hoạt động → giúp bạn giám sát, kiểm tra, và xử lý sự cố.
+
+**4.3.1 Tạo client**
+- Trong phần Capability config có nhiều lựa chọn flow **Hãy tìm hiểu kỹ phần này để chọn flow phù hợp**
+  + **Standard Flow** React frontend redirect đến Keycloak để đăng nhập → Keycloak trả về code → frontend/backend dùng code đổi lấy access token.
+  + **Direct Access Grants** Gửi POST API với username/password đến /token để nhận token.
+  + **Service Accounts Roles** Một microservice backend cần token để gọi API của service khác.
+  + ...
+- <img width="1414" height="521" alt="image" src="https://github.com/user-attachments/assets/f5ff35bc-5547-4b9b-b80c-f3cb940c8a44" />
+- Task Login setting. Root URL/Home URL của FE
+  + Valid redirect URIs: khi login thành công thì sẽ trả về trang này, và trả về thông tin tonken:
+  + Valid post logout redirect URIs: logout
+  + Web origins: config origin xem api nào dk gọi tới: để là *
+  + <img width="1327" height="603" alt="image" src="https://github.com/user-attachments/assets/55b3a65a-439c-4ebb-992b-a33ee6e78223" />
+- Khi tạo xong client thì nhận ra nó khá giống với cognito cũng có key cho client ( giống với user pool id): <img width="1629" height="716" alt="image" src="https://github.com/user-attachments/assets/3e71ecd2-c4fe-49d9-ba7a-8c1fd8a61644" />
+
+**4.3.2 Tạo user**
+- Khi tạo xong user sang task credential tạo user password: <img width="1629" height="716" alt="image" src="https://github.com/user-attachments/assets/e8152777-729c-43fc-818c-c818c2661e36" /> <img width="1839" height="492" alt="image" src="https://github.com/user-attachments/assets/1f9fd767-7b3d-4f24-93c1-f35b10bfaae6" />
+
+- Hướng dãn list endpoint trong keycloak: https://www.keycloak.org/securing-apps/oidc-layers
+- API lấy list endpoint: <img width="1230" height="288" alt="image" src="https://github.com/user-attachments/assets/2cec8d8f-4287-40ce-9206-fcf6546b3699" />
+ + Call dưới postman:<img width="1010" height="424" alt="image" src="https://github.com/user-attachments/assets/85fc8aa5-9cd9-4c73-a014-00baffb35af0" />
+ + <img width="1192" height="765" alt="image" src="https://github.com/user-attachments/assets/5e64f3d1-1e93-4f2c-91e5-15255edf3854" />
+
+- VD Token endpoint: /realms/{realm-name}/protocol/openid-connect/token 
+  + Khi call api thì chúng ta sẽ lấy dk thông tin token, refeshtoken,,,
+  + <img width="1430" height="839" alt="image" src="https://github.com/user-attachments/assets/5eaf2278-9b3b-45c9-a8f6-58c5060f58ba" />
+
+- VD Userinfo endpoint - láy thông tin user /realms/{realm-name}/protocol/openid-connect/userinfo
+  + <img width="1452" height="629" alt="image" src="https://github.com/user-attachments/assets/77182e2d-15b7-48ed-ab00-d84f0f598a23" />
+
 
 
 
