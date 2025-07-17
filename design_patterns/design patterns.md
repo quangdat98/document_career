@@ -23,12 +23,24 @@ Template Method
 
 ### 1.1 Singleton
 **1.1.1 Khái niệm**
-- Mục đích: Tạo bản sao của 1 object gốc
+- Mục đích: Singleton là một mẫu thiết kế (design pattern) thuộc nhóm Creational Pattern, mục tiêu là đảm bảo rằng chỉ có một instance duy nhất của một class tồn tại trong toàn bộ ứng dụng
 - Dùng khi nào: Cần quản lý trạng thái chung: config, DB pool, logger...
 - Ý nghĩa: Tránh tạo nhiều object không cần thiết, tiết kiệm tài nguyên
 ***1.1.2 Ví dụ***
 - ![image](https://github.com/user-attachments/assets/733cf8a0-e671-4470-a4eb-e9b16101d954)
 - 1 class singleton cần có: 1 là khai báo, 2 contructor là private để ko khởi tạo ở class bên ngoài được, 3 là hàm lấy.
+=> Các trên rất không an toàn trong môi trường đa luồng -> do nếu 2 hay nhiều luồng chạy song song thì sẽ tạo ra nhiều instance cho class đó: <img width="771" height="520" alt="image" src="https://github.com/user-attachments/assets/7430eb73-7102-48b7-b96f-3229bf9d735c" />
+- Để fix chúng ta dùng synchronized: <img width="628" height="354" alt="image" src="https://github.com/user-attachments/assets/0db27891-a9c2-4802-b1fb-d942efa32177" />
+- Ngoài ra còn cách: Static Inner Class
+  + Do khối static chỉ chạy đúng 1 lần do đó: Chạy static block đúng một lần. Các thread khác nếu gọi sau sẽ không tái thực hiện static block. => Đảm bảo tính thread-safe tự nhiên.
+  + <img width="578" height="401" alt="image" src="https://github.com/user-attachments/assets/bac46058-845c-4e7e-ae12-d006f7ab54ba" />
+  + Giá trị lấy lúc nào cũng giống nhau: <img width="642" height="368" alt="image" src="https://github.com/user-attachments/assets/b5867779-ede1-4e2b-b8f6-636096a1f0ff" />
+  + Lý do thì tìm hiểu lại cơ chế hoạt động của static
+- Singleton có bị phá vỡ không?
+  + Thông qua Reflection (Phản chiếu): <img width="853" height="527" alt="image" src="https://github.com/user-attachments/assets/4f5ca95f-5119-4748-8ccf-fdbd07b80269" />
+  + <img width="939" height="546" alt="image" src="https://github.com/user-attachments/assets/7f1cfe19-a45f-460a-90f9-cdff3214c3ed" />
+  + <img width="796" height="305" alt="image" src="https://github.com/user-attachments/assets/59dd6188-cda8-4165-8548-adb438aefac8" />
+
 
 
 ### 1.2 Prototype
@@ -63,6 +75,10 @@ Template Method
 - class user và inner class builder: ![image](https://github.com/user-attachments/assets/8cab9096-2938-4445-85c5-556579646a3e)
 - Khi tạo object thì chỉ cần truyền vào builder, hạn chế dùng contructor nhiều tham số: ![image](https://github.com/user-attachments/assets/3f8932a9-b6d1-4169-8e17-a5cdcceb0c71)
 - Sau thì có loobook thì ko cần làm thủ công ntn.
+
+**1.4.3 Giải thích khác hoạt đông**
+- Lý đo nó có thể **chain method** (xích chuỗi) => do trong mỗi hàm đểu có return về chính Build dó build là static nên nó có thể call trức tiếp đến hàm khác.
+  + <img width="844" height="649" alt="image" src="https://github.com/user-attachments/assets/b1a91cb1-6f2d-450f-bf4c-04db24861fdd" />
 
 
 ## 2. Structural Patterns – Nhóm Cấu trúc
