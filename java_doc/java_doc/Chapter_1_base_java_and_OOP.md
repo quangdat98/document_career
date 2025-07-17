@@ -195,6 +195,10 @@
   - Biến final: là hằng số, sau khi gán giá trị lần đầu tiên thì không thể thay đổi nữa. (không thế kế thừa và ghi đè phương thức final)
   - **Khối static hay là static block chỉ chạy 1 lần và nạp vào bộ nhớ (giá trị thì có thể gán nhiều lần)**: <img width="642" height="547" alt="image" src="https://github.com/user-attachments/assets/0c5fd35b-48ea-4ab5-ab6e-fcd7e4f2498e" /> => chúng ví dụ có thể thấy khởi tạo 2 lần nhưng chỉ chạy đúng 1 lần.
   - https://www.geeksforgeeks.org/java/static-blocks-in-java/
+  - Chỉ inner class (lớp lồng nhau) mới cần từ khóa static để được dùng mà không cần instance của outer class.
+  - <img width="850" height="465" alt="image" src="https://github.com/user-attachments/assets/2f20a611-5116-498c-8057-420ed1b2b5c3" />
+  - <img width="835" height="409" alt="image" src="https://github.com/user-attachments/assets/d9ae6db8-df2b-4041-86ea-8e98443125f1" />
+
 
 
 ### 4.3 Kiểu dữ liệu
