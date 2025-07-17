@@ -185,7 +185,7 @@
   - Biến instance (biến toàn cục)
     + Được khai báo bên trong lớp nhưng bên ngoài phương thức, biến instance được lưu trong bộ nhớ heap. Bộ nhớ được cấp phát riêng cho từng đối tượng
     + Biến instance có giá trị mặc định phụ thuộc vào kiểu dữ liệu của nó. Ví dụ nếu là kiểu int, short, byte thì giá trị mặc định là 0, kiểu double thì là 0.0d, ... Vì vậy, bạn sẽ không cần khởi tạo giá trị cho biến instance trước khi sử dụng.
-  - Biến static (biến tĩnh)
+  - **Biến static** (biến tĩnh)
     + Biến static được khai báo trong một class với từ khóa "static", phía bên ngoài các phương thức, constructor và block
     + Sẽ chỉ có duy nhất một bản sao của các biến static được tạo ra, dù bạn tạo bao nhiêu đối tượng từ lớp tương ứng
     + Biến static được lưu trữ trong bộ nhớ static riêng. Biến static được tạo khi chương trình bắt đầu chạy và chỉ bị phá hủy khi chương trình dừng.
@@ -193,7 +193,11 @@
     + ![image](https://github.com/user-attachments/assets/4f909473-63e9-4951-adc5-28443f569b22)
   - Biến transient: transient dùng trong Serializable để bỏ qua biến khi ghi đối tượng vào file.
   - Biến final: là hằng số, sau khi gán giá trị lần đầu tiên thì không thể thay đổi nữa. (không thế kế thừa và ghi đè phương thức final)
-  - **Khối static hay là static block chỉ chạy 1 lần và nạp vào bộ nhớ (giá trị thì có thể gán nhiều lần)**: <img width="642" height="547" alt="image" src="https://github.com/user-attachments/assets/0c5fd35b-48ea-4ab5-ab6e-fcd7e4f2498e" /> => chúng ví dụ có thể thấy khởi tạo 2 lần nhưng chỉ chạy đúng 1 lần.
+- **Khối static hay là static block chỉ chạy 1 lần và nạp vào bộ nhớ (giá trị thì có thể gán nhiều lần)**: <img width="642" height="547" alt="image" src="https://github.com/user-attachments/assets/0c5fd35b-48ea-4ab5-ab6e-fcd7e4f2498e" /> => chúng ví dụ có thể thấy khởi tạo 2 lần nhưng chỉ chạy đúng 1 lần.
+  - static initializer: có dạng : <img width="469" height="184" alt="image" src="https://github.com/user-attachments/assets/de72dcd1-1e76-4176-a651-323daf3c351e" /> hoặc  private static final Singleton INSTANCE = new Singleton();
+  - Cần phân biệt với method static vì method static nó là kiểu **Lazy initializer** là chạy khi hàm đó được gọi
+  - Còn khối static thì gọi là **Eager initialization** là có sẽ mặc định chạy khi class đó dk khai báo.
+
   - https://www.geeksforgeeks.org/java/static-blocks-in-java/
   - Chỉ inner class (lớp lồng nhau) mới cần từ khóa static để được dùng mà không cần instance của outer class.
   - <img width="850" height="465" alt="image" src="https://github.com/user-attachments/assets/2f20a611-5116-498c-8057-420ed1b2b5c3" />
