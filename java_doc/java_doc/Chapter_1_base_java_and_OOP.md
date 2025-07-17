@@ -193,6 +193,9 @@
     + ![image](https://github.com/user-attachments/assets/4f909473-63e9-4951-adc5-28443f569b22)
   - Biến transient: transient dùng trong Serializable để bỏ qua biến khi ghi đối tượng vào file.
   - Biến final: là hằng số, sau khi gán giá trị lần đầu tiên thì không thể thay đổi nữa. (không thế kế thừa và ghi đè phương thức final)
+  - **Khối static hay là static block chỉ chạy 1 lần và nạp vào bộ nhớ (giá trị thì có thể gán nhiều lần)**: <img width="642" height="547" alt="image" src="https://github.com/user-attachments/assets/0c5fd35b-48ea-4ab5-ab6e-fcd7e4f2498e" /> => chúng ví dụ có thể thấy khởi tạo 2 lần nhưng chỉ chạy đúng 1 lần.
+  - https://www.geeksforgeeks.org/java/static-blocks-in-java/
+
 
 ### 4.3 Kiểu dữ liệu
 - Java chia kiểu dữ liệu thành 2 nhóm chính là **Kiểu dữ liệu nguyên thủy (Primitive Data Types) ** và ** Kiểu dữ liệu tham chiếu  (Reference Data Types) **
