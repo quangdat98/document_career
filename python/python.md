@@ -50,3 +50,15 @@
 - <img width="845" height="411" alt="image" src="https://github.com/user-attachments/assets/bddbfc64-88b1-495c-b856-efeb58b2ca47" />
 
 ## 3.4 Hàm
+- Hàm là một khối mã có thể tái sử dụng, dùng để thực hiện một nhiệm vụ cụ thể. Bạn có thể định nghĩa hàm một lần và gọi lại nhiều lần.
+- <img width="897" height="218" alt="image" src="https://github.com/user-attachments/assets/ee4f394a-a2ec-4abf-9ed4-e527f2bc473b" />
+- Hàm không có kiểu trả về: <img width="882" height="441" alt="image" src="https://github.com/user-attachments/assets/e2e4a7d3-66e9-46d9-8916-b3e70f0a2811" />
+- Hàm có kiểu trả về: <img width="868" height="329" alt="image" src="https://github.com/user-attachments/assets/ad6cb88e-a5ef-4fe4-b6dd-7cdd2a319d5d" />
+- <img width="871" height="256" alt="image" src="https://github.com/user-attachments/assets/baeaf6f7-6309-48df-9f5c-f3de4468d4d6" />
+- hàm có tham số mặc định: <img width="817" height="328" alt="image" src="https://github.com/user-attachments/assets/289aa7e2-ce22-4dab-a410-98d0d9659c67" />
+- **Chú ý: Các tham số có mặc định phải đặt sau tham số không mặc định.**
+- **Nếu không có mặc định thì bắt buộc phải truyền tham số**
+
+
+
+
