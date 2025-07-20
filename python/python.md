@@ -63,14 +63,19 @@
 
 - <img width="329" height="105" alt="image" src="https://github.com/user-attachments/assets/d8234ee2-6f0f-4ada-bd89-1dace0895cb4" />
 - <img width="474" height="143" alt="image" src="https://github.com/user-attachments/assets/24e9cb68-0019-46b2-a79e-58f29ecb34be" />
-- **Trích xuất chuỗi con**
+
+## 3.5.1 Trích xuất chuỗi con
   + [start:end]: start bắt đầu từ 0, end là đến vị trí cuối chuỗi <img width="812" height="276" alt="image" src="https://github.com/user-attachments/assets/adc48cc4-7cd1-419a-8dac-d6bd7b27a16e" />
--**Lấy độ dài của chuỗi: len()**
+## 3.5.2 Lấy độ dài của chuỗi: len()
+
+## 3.5.3 Tìm chuỗi 
 -**Tìm và thay thế nội dung: replace**
   + Dạng 1: dùng replace("","")
   + Dạng 2: set số lượng replace: .replace("text1,"text2",3) -> thay 3 text1 thành 3 text2. <img width="804" height="300" alt="image" src="https://github.com/user-attachments/assets/1e5b2fb6-a686-48b4-8b97-b0515fe4d28b" />
 -**Tìm vị trí chuỗi con: find**
   + Băt đầu từ vị trí 0, nếu không tìm ra thì trả về -1. <img width="383" height="248" alt="image" src="https://github.com/user-attachments/assets/996450af-10a3-4d2e-97dc-120a41db1c31" />
+  + <img width="854" height="219" alt="image" src="https://github.com/user-attachments/assets/85dd830a-0009-46b6-8fcc-5162661e443d" />
+
 -**Tìm vị trí cuối cùng chuỗi con: rfind**
   + <img width="615" height="190" alt="image" src="https://github.com/user-attachments/assets/6b24230b-8c54-4e3e-8423-93f856913fb4" />
 -**Tìm vị trí chuỗi con: in**
@@ -83,6 +88,89 @@
 
 =>**Tóm tắt:** <img width="786" height="387" alt="image" src="https://github.com/user-attachments/assets/87c40096-c53c-49d3-8216-4862d114fb0c" />
 
+## 3.5.3 Trim và tách chuỗi
+-**tách chuỗi**
+ + <img width="745" height="168" alt="image" src="https://github.com/user-attachments/assets/4bd1f3f4-ffcd-4ea7-91cd-67024ff234f8" />
+
+-**Trim ky tự khoảng trắng**
+ + <img width="852" height="212" alt="image" src="https://github.com/user-attachments/assets/05ccf34e-304b-471a-ae77-fceec3cf6dbe" />
+ + strip() -> loại bỏ 2 đầu
+ + lstrip() -> loại bỏ phía trước
+ + rstrip() -> loại bỏ phía sau
+
+## 3.5.4 Mộ số hàm xử lý chuỗi
+- **isnumeric()**:  kiểm tra một chuỗi có phải là chuỗi số hay ko
+  + <img width="852" height="212" alt="image" src="https://github.com/user-attachments/assets/a39532a9-9f45-459a-b18c-50e1e8bf1a12" />
+
+- **lower()**: chuyển chuỗi thành chữ thường
+- **upper()**: chuyển chuỗi hết thành chữ hoa
+
+
+# 3.6 List
+- list là kiểu dữ liệu dạng mảng có thể chứa nhiều phần tử và có thể thay đổi được (mutable).
+- Đặc biệt trong truy suất là có thể truy xuất âm, phần tử cuối là -1 lần lượt -2,-3: <img width="852" height="212" alt="image" src="https://github.com/user-attachments/assets/1f577d12-4f77-431a-bb6f-a08b5437632f" />
+- Duyệt list: <img width="486" height="220" alt="image" src="https://github.com/user-attachments/assets/12fcbb91-d7f9-4550-8834-9b5bb33bd80d" />
+- my_list.reverse()	Đảo ngược
+- my_list.clear()	Xóa hết phần tử
+- "a" in my_list	Kiểm tra có "a" hay không -> ngược lại dùng "not in"
+- Nối 2 mảng: <img width="428" height="167" alt="image" src="https://github.com/user-attachments/assets/a4904d0d-0171-4ce4-9c6e-ee6dfc1a8c04" />
+
+
+## 3.6.1 Thêm phần tử
+- Thêm vào cuối danh sách: my_list.append(5)
+- Thêm theo vị trí: my_list.insert(2, 10)     # Thêm 10 vào vị trí index = 2 <img width="852" height="212" alt="image" src="https://github.com/user-attachments/assets/c3b5354d-7938-4fd4-bd46-e0134e29a93f" />
+
+## 3.6.2 xóa phần tử
+- my_list.remove(3)     # Xóa giá trị 3 đầu tiên gặp
+- my_list.pop()         # Xóa phần tử cuối (lấy phần tử và xóa nó ra khỏi mảng)
+- my_list.pop(1)        # Xóa phần tử tại index = 1
+- del my_list[0]        # Xóa phần tử index 0
+- del number[start:end] # xóa phần tử dựa theo start và end
+
+## 3.6.3 copy list
+- <img width="309" height="90" alt="image" src="https://github.com/user-attachments/assets/21d13413-73e2-4d89-9d8c-27819c64df98" />
+
+## 3.6.4 trích xuất bảng con
+- <img width="512" height="239" alt="image" src="https://github.com/user-attachments/assets/b30c94a9-bdd6-4115-b587-f484b398a085" />
+
+## 3.6.5 sắp xếp mảng 1 chiều
+- <img width="434" height="255" alt="image" src="https://github.com/user-attachments/assets/52c504e6-3ef6-4e10-a30d-50ee4f9e5af8" />
+- dùng sorted để tạo 1 mảng sắp xếp khác: <img width="494" height="336" alt="image" src="https://github.com/user-attachments/assets/98d24fd6-d2f3-469b-9ef3-019773f0b5b4" />
+- **Sắp xếp theo tiêu chí tùy chọn**
+  + đội dài len: <img width="467" height="98" alt="image" src="https://github.com/user-attachments/assets/479fa507-ff6d-4377-bb03-d66660a63416" />
+  + sắp xếp ko phân biệt hoa thường: <img width="493" height="94" alt="image" src="https://github.com/user-attachments/assets/011b9949-de89-4355-b815-31052e43f681" />
+
+# 3.7 Tuple
+- Tuple là một kiểu dữ liệu dạng danh sách cố định, giống như list nhưng không thể thay đổi sau khi tạo ra. VD: my_tuple = (1, 2, 3)
+- <img width="418" height="265" alt="image" src="https://github.com/user-attachments/assets/e329b590-8c1a-4951-961a-b1d2e07b798b" />
+
+# 3.8 Dictionary
+- Dictionary (gọi tắt là dict) là kiểu dữ liệu ánh xạ (key -> value) — giống như một từ điển thật: bạn tra từ khóa (key) để lấy nghĩa (value). (nó giống với json)
+
+## 3.8.1 khởi tạo
+- <img width="268" height="134" alt="image" src="https://github.com/user-attachments/assets/53ef79f1-8cdb-4667-8c23-aac621ad1fde" />
+- Tạo dict bằng dict() hoặc từ list of tuple: <img width="322" height="60" alt="image" src="https://github.com/user-attachments/assets/3bb89268-f7c3-46fd-bdaf-8f2e0a6e17cf" />
+- fromkeys(): tạo 1 dict mới từ danh sách key với cùng một giá trị mặc định
+  + <img width="481" height="315" alt="image" src="https://github.com/user-attachments/assets/6e17dec5-5a85-4d5f-b03f-ef0bb6e906d6" />
+  + <img width="381" height="344" alt="image" src="https://github.com/user-attachments/assets/fcd212be-972d-46a7-9635-bf498856057b" />
 
 
 
+## 3.8.2 truy cập giá trị theo key
+- print(person["name"])
+- Truy cập an toàn bằng .get(): print(person.get("name"))       # 👉 Dat
+- Thêm hoặc cập nhật phần tử:
+  + person["email"] = "dat@example.com"  # Thêm mới
+  + person["age"] = 26                   # Cập nhật
+- Xóa phần tử:
+  + del person["city"]         # Xóa theo key
+  + person.pop("email")        # Xóa và trả về giá trị
+  + person.clear()             # Xóa hết
+
+## 3.8.2 Duyệt
+- <img width="405" height="268" alt="image" src="https://github.com/user-attachments/assets/9f94451c-2e48-4da8-952b-a41740ad0fef" />
+
+## 3.8.3 Dict lồng nhau
+- <img width="404" height="127" alt="image" src="https://github.com/user-attachments/assets/c65af675-187d-43d6-885c-de7d46becb00" />
+
+# 4. Phân chia module
