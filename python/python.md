@@ -201,14 +201,46 @@
 # 6. Xử lý tệp tin
 # 7. xử lý hình ảnh
 # 8. xử lý json
+
 # 9. xử lý xml
+
+# 9.1 Cài đặt beautifulsoup (trong ví dụ scrape một web site)
+- **urllib.request** là một module tích hợp sẵn trong Python dùng để:
+  + Gửi yêu cầu HTTP (GET, POST, v.v.)
+  + Tải nội dung từ URL
+  + Không cần cài thêm thư viện ngoài
+  + Lấy nội dùng html:: urllib.request.urlopen("")
+- **Thư viện BeautifulSoup** là một thư viện Python rất phổ biến dùng để phân tích cú pháp (parse) và trích xuất dữ liệu từ HTML hoặc XML.
+  + Phân tích (parse) HTML/XML.
+  + Tìm, truy cập và chỉnh sửa các phần tử trong tài liệu web.
+  + Phục vụ cho việc web scraping (trích xuất dữ liệu từ trang web).
+
+-**Cài đặt**: pip install beautifulsoup4
+- Các sử dụng: soup = BeautifulSoup(html_doc, "html.parser")
+- **Các phương thức thường dùng**
+  + <img width="803" height="489" alt="image" src="https://github.com/user-attachments/assets/bd91fc8e-2de2-4f2c-82d4-73b88e84062c" />
+  + <img width="875" height="307" alt="image" src="https://github.com/user-attachments/assets/f1c4a82e-2f34-4f57-a467-42b7214aa355" />
+
+
+
 # 10. Kết nối sql
 # 11. Kết nối redis
 # 12. Kết nối Memcached
 # 13 Kết nối RabbitMQ
 # 14. Restful client
-# 15. Gửi mail với SMTP
-# 16. Socket programming
+# 15 Set up môi trường:  virtual environment (cô lập thư viện theo từng project.)
+- Giúp bạn tạo ra một không gian độc lập để cài đặt thư viện, tách biệt với các dự án khác và với Python toàn hệ thống.
+- Step cài đặt
+  + sudo apt install python3.12-venv
+  + Tạo môi trường ảo(chạy trong project: python3 -m venv venv
+  + Kích hoạt môi trường(**đây là cách mở môi trường ảo nhé**): source venv/bin/activate
+  + Cài đặt thư viện mong muốn (phải chạy trong môi trường ảo nhé - terminal có chữ venv ở đầu). VD <img width="1308" height="128" alt="image" src="https://github.com/user-attachments/assets/54e1283a-94a2-4a6f-a8a9-2b1f805d0c51" />
+
+
+
+# 16. Gửi mail với SMTP
+# 17. Socket programming
+
 
 
 
