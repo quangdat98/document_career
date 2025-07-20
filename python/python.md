@@ -59,6 +59,30 @@
 - **Chú ý: Các tham số có mặc định phải đặt sau tham số không mặc định.**
 - **Nếu không có mặc định thì bắt buộc phải truyền tham số**
 
+# 3.5 xử lý chuỗi
+
+- <img width="329" height="105" alt="image" src="https://github.com/user-attachments/assets/d8234ee2-6f0f-4ada-bd89-1dace0895cb4" />
+- <img width="474" height="143" alt="image" src="https://github.com/user-attachments/assets/24e9cb68-0019-46b2-a79e-58f29ecb34be" />
+- **Trích xuất chuỗi con**
+  + [start:end]: start bắt đầu từ 0, end là đến vị trí cuối chuỗi <img width="812" height="276" alt="image" src="https://github.com/user-attachments/assets/adc48cc4-7cd1-419a-8dac-d6bd7b27a16e" />
+-**Lấy độ dài của chuỗi: len()**
+-**Tìm và thay thế nội dung: replace**
+  + Dạng 1: dùng replace("","")
+  + Dạng 2: set số lượng replace: .replace("text1,"text2",3) -> thay 3 text1 thành 3 text2. <img width="804" height="300" alt="image" src="https://github.com/user-attachments/assets/1e5b2fb6-a686-48b4-8b97-b0515fe4d28b" />
+-**Tìm vị trí chuỗi con: find**
+  + Băt đầu từ vị trí 0, nếu không tìm ra thì trả về -1. <img width="383" height="248" alt="image" src="https://github.com/user-attachments/assets/996450af-10a3-4d2e-97dc-120a41db1c31" />
+-**Tìm vị trí cuối cùng chuỗi con: rfind**
+  + <img width="615" height="190" alt="image" src="https://github.com/user-attachments/assets/6b24230b-8c54-4e3e-8423-93f856913fb4" />
+-**Tìm vị trí chuỗi con: in**
+  + <img width="805" height="307" alt="image" src="https://github.com/user-attachments/assets/e97679f0-9fda-49b1-94e0-dc3e93308768" />
+-**Tìm vị trí chuỗi con: index** : giống với find nhưng nếu ko tìm thấy thì sẽ trả ra lỗi
+-**Tìm vị trí chuỗi con:count**: đếm số lần xuất hiện của chuỗi con
+  + <img width="734" height="224" alt="image" src="https://github.com/user-attachments/assets/3f6c9c8e-9266-4e40-b0de-d65a50d2fbe7" />
+-**Tìm vị trí chuỗi con:re**: rìm bằng biểu thức chính quy
+  + <img width="607" height="340" alt="image" src="https://github.com/user-attachments/assets/6a3ba507-0b52-42f5-9ae6-66cb20029ddc" />
+
+=>**Tóm tắt:** <img width="786" height="387" alt="image" src="https://github.com/user-attachments/assets/87c40096-c53c-49d3-8216-4862d114fb0c" />
+
 
 
 
