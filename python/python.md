@@ -63,10 +63,12 @@
 
 - <img width="329" height="105" alt="image" src="https://github.com/user-attachments/assets/d8234ee2-6f0f-4ada-bd89-1dace0895cb4" />
 - <img width="474" height="143" alt="image" src="https://github.com/user-attachments/assets/24e9cb68-0019-46b2-a79e-58f29ecb34be" />
+- Dùng: f-string: print(f'Xin chào {self.name}, bạn có tuổi là {self.age}')
 
 ## 3.5.1 Trích xuất chuỗi con
   + [start:end]: start bắt đầu từ 0, end là đến vị trí cuối chuỗi <img width="812" height="276" alt="image" src="https://github.com/user-attachments/assets/adc48cc4-7cd1-419a-8dac-d6bd7b27a16e" />
 ## 3.5.2 Lấy độ dài của chuỗi: len()
+- <img width="408" height="103" alt="image" src="https://github.com/user-attachments/assets/6c7d1aa5-6b8d-440d-911b-9949ef109363" />
 
 ## 3.5.3 Tìm chuỗi 
 -**Tìm và thay thế nội dung: replace**
@@ -174,3 +176,39 @@
 - <img width="404" height="127" alt="image" src="https://github.com/user-attachments/assets/c65af675-187d-43d6-885c-de7d46becb00" />
 
 # 4. Phân chia module
+- **Sơ cấp**: chúng ta dùng import [ten file]
+  + <img width="308" height="107" alt="image" src="https://github.com/user-attachments/assets/75f02147-8716-4f5d-9f20-254c916acdad" /> <img width="419" height="145" alt="image" src="https://github.com/user-attachments/assets/990afe4b-5a3e-47bc-9744-379d5140f3a6" />
+- Các cách import: <img width="651" height="175" alt="image" src="https://github.com/user-attachments/assets/cb2db809-954b-4ba7-8aef-76fea547aeca" />
+-**Phân chia thành nhiều file/module**
+  + cách 1: import utils.math_utils as t  => chỉ cần t.method là dùng được
+  + Cách 2: là import cả hàm và chung ta chỉ cẩn gọi hàm là dk => from utils.string_utils import calLen
+  + <img width="463" height="189" alt="image" src="https://github.com/user-attachments/assets/493eb516-299c-4ad8-94d6-8d370eac2f80" />
+- Cách liệt kê các thuộc tích của các đối tượng:
+  + print(dir("hello"))     # liệt kê thuộc tính của string
+  + print(dir([]))          # list
+  + print(dir({}))          # dict
+
+# 5. Class
+- Cú phám <img width="604" height="368" alt="image" src="https://github.com/user-attachments/assets/eafab76a-cd9f-49ec-ab88-5fa586e934a5" />
+  + __init__: là contructor, chạy tự động khi tạo object
+  + self: giống this trong java
+- <img width="358" height="107" alt="image" src="https://github.com/user-attachments/assets/f6f5de8e-43e4-4e92-8435-e13edd7da6c2" />
+
+# 5.1 kế thừa 
+- Cú pháp: class child(patent):
+- VD: <img width="889" height="431" alt="image" src="https://github.com/user-attachments/assets/270d7596-8c36-45a7-9fce-5d21c30ae11e" />
+
+# 6. Xử lý tệp tin
+# 7. xử lý hình ảnh
+# 8. xử lý json
+# 9. xử lý xml
+# 10. Kết nối sql
+# 11. Kết nối redis
+# 12. Kết nối Memcached
+# 13 Kết nối RabbitMQ
+# 14. Restful client
+# 15. Gửi mail với SMTP
+# 16. Socket programming
+
+
+
