@@ -228,6 +228,15 @@
 ## 10.1 Kết nối postgres
 - sử dụng thư viện: psycopg2
 - Cài đặt: pip install psycopg2-binary
+- Vd hàm connect: <img width="458" height="386" alt="image" src="https://github.com/user-attachments/assets/aa40d1e3-529b-43da-aa82-56bcc0d23c1d" />
+  + connection.autocommit = True => Bật chế độ tự động commit (không cần gọi connection.commit()). Nếu ko bật thì mỗi câu lệnh sql đều phải commit: <img width="554" height="181" alt="image" src="https://github.com/user-attachments/assets/252a8ce9-d256-473d-ad34-21f95ed02373" />
+- <img width="924" height="423" alt="image" src="https://github.com/user-attachments/assets/c044a0f1-fb35-44ec-a25a-de4b9db90181" />
+  + cursor dùng: Gửi các câu lệnh SQL tới database. Nhận kết quả từ database (trong trường hợp SELECT).... <img width="402" height="201" alt="image" src="https://github.com/user-attachments/assets/91079961-ae38-4258-ad7f-b1997c3836e2" />
+
+- Tại sao insertData(("My Title", "This is the content", "Nice article!")) lại tự map được vào %s, %s, %s?
+  + <img width="873" height="377" alt="image" src="https://github.com/user-attachments/assets/7337b887-2d22-4dfe-92b2-0cc3dff802fc" />
+
+
 
 
 # 11. Kết nối redis
