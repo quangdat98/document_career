@@ -224,6 +224,12 @@
 
 
 # 10. Kết nối sql
+
+## 10.1 Kết nối postgres
+- sử dụng thư viện: psycopg2
+- Cài đặt: pip install psycopg2-binary
+
+
 # 11. Kết nối redis
 # 12. Kết nối Memcached
 # 13 Kết nối RabbitMQ
