@@ -18,6 +18,7 @@
 ## ***1. Tài liệu tham khảo***
 - https://docs.spring.io/spring-framework/reference/core.html
 - https://www.digitalocean.com/community/tutorials/spring-tutorial-spring-core-tutorial
+- https://www.geeksforgeeks.org/advance-java/spring-framework-annotations/
 
 ## ***2. Khái quát spring***
 **2.1 Các thành phần chính**
