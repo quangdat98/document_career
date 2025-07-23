@@ -46,6 +46,29 @@
   + Service Locator – Một đối tượng trung tâm cung cấp dependencies.
   + Factory Pattern – Một factory tạo đối tượng thay vì tự khởi tạo.
   + Event-driven Architecture – Xử lý sự kiện thay vì gọi trực tiếp các phương thức.
+- Ỹ nghĩa:
+  + việc kiểm soát luồng chương trình hoặc tạo đối tượng không do chính class đảm nhận nữa, mà chuyển sang một framework hoặc container (ví dụ: Spring).
+  + Nếu ko dùng IOC (coupling chặt): <img width="695" height="677" alt="image" src="https://github.com/user-attachments/assets/6da35ea3-760e-4bb0-8d22-a00e80e36633" />
+  + => Không thể thay Engine bằng ElectricEngine mà không sửa lại class Car.
+  + Không test được Car một cách độc lập (vì không thể mock Engine).
+- Thực hiện ioc mà ko dùng framework:
+  + <img width="660" height="522" alt="image" src="https://github.com/user-attachments/assets/b9e54621-a6f6-463c-903d-1b6fdebbab8a" />
+  + <img width="696" height="340" alt="image" src="https://github.com/user-attachments/assets/4badfd14-9404-43ef-8ad3-1adfc9639119" />
+  + <img width="691" height="445" alt="image" src="https://github.com/user-attachments/assets/e4a6a39e-0cc1-4e48-94a5-4f043558911b" />
+  + Từ ví dụ trên ta sẽ thấy chúng ta có thể thay thế ElectricEngine bằng 1 class khác => **Tìm kiểu lập trình hướng giao diện**
+- Thực hiện ioc dùng với framework:  tương tự nhưng rút ngắn công đoạn ở hàm main -> thay vì tự khởi tạo new object chúng ta giao phó cho spring làm
+  + <img width="667" height="623" alt="image" src="https://github.com/user-attachments/assets/bfb7c665-dd08-4dda-b15f-b49cf461d81c" />
+- Cách chúng ta thường dùng trong dự án là: class service inject trực tiếp vào trong controller -> nhưng cách này thì là gắn chặt rồi nếu cần dùng 1 server sẽ phải sửa code
+  + bất lợi: <img width="637" height="656" alt="image" src="https://github.com/user-attachments/assets/1a51d45e-ddb3-45db-8899-827664687328" />
+- Trường hợp cần linh hoạt thì phải chuyển đổi sang inteface như trên để linh hoạt
+  + Lúc đó chúng chúng ta cần kết hợp cả @Qualifier bằng @Primary
+  + <img width="661" height="173" alt="image" src="https://github.com/user-attachments/assets/d6743a94-0d49-4c83-963d-5b3992b6ed3d" />
+  + <img width="663" height="487" alt="image" src="https://github.com/user-attachments/assets/dd48c0ad-06c7-4b52-b1b9-05f3f51ee013" />
+  + <img width="689" height="425" alt="image" src="https://github.com/user-attachments/assets/57240ef0-409e-44ba-bf22-5a1566671205" />
+
+
+
+
 
 **3.2 Dependency Injection (DI)**
 - ![image](https://github.com/user-attachments/assets/c561a850-793d-479d-8d8f-f0c050e33430)
