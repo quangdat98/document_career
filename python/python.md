@@ -237,6 +237,18 @@
   + <img width="873" height="377" alt="image" src="https://github.com/user-attachments/assets/7337b887-2d22-4dfe-92b2-0cc3dff802fc" />
 
 
+# 11 Alembic
+- https://www.geeksforgeeks.org/python/install-alembic-in-python/
+- Alembic giúp bạn tạo, theo dõi và áp dụng các thay đổi trong cấu trúc CSDL (schema) một cách có kiểm soát, giống như Flyway, Liquibase trong Java hoặc Rails migrations.
+
+## 11.1 Cài đặt
+- Cài đặt: pip install alembic
+- Khởi tạo Alembic trong project: alembic init alembic
+- Kiểm tra: which alembic => do chúng ta dùng venv thì chúng phải cài đúng trên venv:
+  +  Nếu kết quả là đường dẫn vào folder project như sau là đúng: <img width="598" height="76" alt="image" src="https://github.com/user-attachments/assets/c1ab6417-1625-4c14-ac90-051fc92c4edf" />
+
+  
+# 12 SQLAlchemy 
 
 
 # 11. Kết nối redis
