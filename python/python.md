@@ -49,6 +49,12 @@
   + <img width="840" height="358" alt="image" src="https://github.com/user-attachments/assets/8632f7ac-4d5b-45cf-8f9b-c20f31015996" />
 ## 3.3.4 while
 - <img width="845" height="411" alt="image" src="https://github.com/user-attachments/assets/bddbfc64-88b1-495c-b856-efeb58b2ca47" />
+-**range**:Hàm range trong Python được sử dụng để tạo ra một dãy số: range(start, stop, step)
+  + start (tùy chọn): Giá trị bắt đầu của dãy. Mặc định là 0 nếu không chỉ định.
+  + stop: Giá trị kết thúc của dãy (không bao gồm giá trị này).
+  + step (tùy chọn): Bước nhảy giữa các giá trị. Mặc định là 1.
+  + <img width="375" height="366" alt="image" src="https://github.com/user-attachments/assets/0effe0bc-c9ef-4773-830d-8cc4d28eda33" />
+
 
 ## 3.4 Hàm
 - Hàm là một khối mã có thể tái sử dụng, dùng để thực hiện một nhiệm vụ cụ thể. Bạn có thể định nghĩa hàm một lần và gọi lại nhiều lần.
@@ -65,6 +71,7 @@
   + Dùng List, Dict, Tuple: <img width="425" height="316" alt="image" src="https://github.com/user-attachments/assets/cc02590e-10a7-443b-b429-5e5b9dc4e34c" />
   + Union: Cho phép nhiều kiểu: <img width="466" height="129" alt="image" src="https://github.com/user-attachments/assets/42fb0ebc-ae5c-42df-816a-0126a8c7c339" />
   + Any kiểu nào cũng được: def debug(value: Any) -> None:
+  + Với dùng các điểu thì phải nhớ import thư viện: from typing import List, Union
 
 
 # 3.5 xử lý chuỗi
