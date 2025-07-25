@@ -59,6 +59,13 @@
 - hàm có tham số mặc định: <img width="817" height="328" alt="image" src="https://github.com/user-attachments/assets/289aa7e2-ce22-4dab-a410-98d0d9659c67" />
 - **Chú ý: Các tham số có mặc định phải đặt sau tham số không mặc định.**
 - **Nếu không có mặc định thì bắt buộc phải truyền tham số**
+- **Hàm với type hinting - gợi ý kiểu dữ liệu**
+  + VD: <img width="565" height="179" alt="image" src="https://github.com/user-attachments/assets/5022c101-4a18-4ea3-a79d-55c0121c7c12" />
+  + Các kiểu cơ bản trong type hint: <img width="649" height="346" alt="image" src="https://github.com/user-attachments/assets/1e7748de-820c-494e-b404-34aa5e51a334" />
+  + Dùng List, Dict, Tuple: <img width="425" height="316" alt="image" src="https://github.com/user-attachments/assets/cc02590e-10a7-443b-b429-5e5b9dc4e34c" />
+  + Union: Cho phép nhiều kiểu: <img width="466" height="129" alt="image" src="https://github.com/user-attachments/assets/42fb0ebc-ae5c-42df-816a-0126a8c7c339" />
+  + Any kiểu nào cũng được: def debug(value: Any) -> None:
+
 
 # 3.5 xử lý chuỗi
 
