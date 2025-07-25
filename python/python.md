@@ -37,6 +37,7 @@
  - Các cấu trúc điều khiển đều thụt đầu dòng để tạo thành 1 block xử lý thay vì sử dụng {}
  - if-elif-else:
  - <img width="859" height="375" alt="image" src="https://github.com/user-attachments/assets/54211b02-300d-4e35-877a-04bffbbeaaef" />
+ - **if else rút ngọn**: A if condition else B (giải thích:  Nếu condition đúng thì trả về A, ngược lại trả về B)
 
 ## 3.3.2 swtich case
 - Trong python ko có switch case
