@@ -37,3 +37,5 @@ https://itviec.com/viec-lam-it/java/ha-noi?job_selected=middle-developer-nodejs-
 https://itviec.com/viec-lam-it/java/ha-noi?job_selected=cvcc-phat-trien-ung-dung-kenh-ngan-hang-so-java-net-ngan-hang-tmcp-thinh-vuong-va-phat-trien-pgbank-1954
 
 https://itviec.com/viec-lam-it/java/ha-noi?job_selected=java-developer-oop-spring-tong-cong-ty-co-phan-bao-hiem-sai-gon-ha-noi-bsh-0011 (trọng điểm)
+
+20250726 - vietttell post
