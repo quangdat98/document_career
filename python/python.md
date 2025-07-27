@@ -256,14 +256,60 @@
 - https://www.geeksforgeeks.org/python/install-alembic-in-python/
 - Alembic giúp bạn tạo, theo dõi và áp dụng các thay đổi trong cấu trúc CSDL (schema) một cách có kiểm soát, giống như Flyway, Liquibase trong Java hoặc Rails migrations.
 
-## 11.1 Cài đặt
-- Cài đặt: pip install alembic
-- Khởi tạo Alembic trong project: alembic init alembic
+## 11.1 Cài đặt - kết nối với DB
+- Cài đặt: **pip install alembic**
+- Khởi tạo Alembic trong project: **alembic init alembic**
 - Kiểm tra: which alembic => do chúng ta dùng venv thì chúng phải cài đúng trên venv:
   +  Nếu kết quả là đường dẫn vào folder project như sau là đúng: <img width="598" height="76" alt="image" src="https://github.com/user-attachments/assets/c1ab6417-1625-4c14-ac90-051fc92c4edf" />
+- Đầu tiên để kết nối với DB thì chúng ta sửa file: **alembic.ini**
+  + **Tìm dòng sqlalchemy.url** và sửa giá trị theo fomat: postgresql://<username>:<password>@<host>:<port>/<database>
+- Sửa file **env.py**
+  + sửa dòng **target_metadata**  giúp Alembic biết được các model nào cần được theo dõi:**target_metadata = Base.metadata**
+  + Giải thích: target_metadata chứa thông tin về cấu trúc của các bảng trong cơ sở dữ liệu và trỏ tới Base.metadata  -> Base là giá trị của sqlalchemy (check # 12 SQLAlchemy - lớp Base) =>  tóm lại đây là kết nối alembic và sqlalchemy.
 
+## 11.2 Thực hành với tạo bảng
+- Step 1: Tạo model bằng code python trước(Chúng ta phải kết hợp với sqlalchemy - 1 ORM):  <img width="536" height="275" alt="image" src="https://github.com/user-attachments/assets/4113f10b-6acd-447c-9530-6131aa28d263" />
+- Step 2: **Tạo Migration** tức chúng ta sẽ chạy 1 câu lệnh ở terminal để thực hiện generate ra 1 file trong foler version của alemic. **alembic revision -m "create users table"** VD:  <img width="570" height="306" alt="image" src="https://github.com/user-attachments/assets/aaffdbb5-e94b-42cc-8d1a-c226c57ae9e9" />
+  + Trong file đó nó sẽ có 2 hàm là upgrade() và downgrade(): <img width="555" height="338" alt="image" src="https://github.com/user-attachments/assets/abd3b646-5f91-44e2-abd3-6503ab45619a" />
+- Step 3: Áp Dụng Migration -chạy câu lệnh **alembic upgrade head** để thực hiện việc tạo chạy câu query DB, nếu là downgrade thì sẽ là hoàn tác -> downgrade liên tục thì sẽ theo thứ tự version mà hoàn tác lần lượt.
+-**Sửa bảng thì chúng ta sửa trực tiếp vào model nhá**
+  + VD thêm code created_at: created_at = Column(DateTime, server_default=func.now()) 
+  + alembic revision --autogenerate -m "add created_at to parsing"
+  + alembic upgrade head
+  + Giải thích: DateTime: Đây là kiểu dữ liệu dùng để lưu trữ thông tin về ngày và giờ, func.now(): Đây là một hàm được cung cấp bởi SQLAlchemy, đại diện cho hàm NOW() trong SQL. Hàm này trả về thời gian hiện tại ở phía máy chủ cơ sở dữ liệu.
+  + Nhớ import nhà ko lỗi: from sqlalchemy import Column ,Integer, String, func, DateTime
+ 
+## 11.3 Thực hành với thêm sửa xóa.
   
 # 12 SQLAlchemy 
+
+# 12.1 COnfig kết nối với DB
+- create_engine: Hàm này được sử dụng để tạo một đối tượng Engine, đại diện cho kết nối đến cơ sở dữ liệu.
+- sessionmaker: Đây là một hàm tạo ra một lớp session, cho phép bạn quản lý và tương tác với cơ sở dữ liệu thông qua các đối tượng Python.
+- **engine = create_engine(DATABASE_URL, echo=True)**: tạo một Engine object, là cổng kết nối chính giữa SQLAlchemy và database.
+  + quản lý pool connection
+  + thực thi các câu SQL
+  + là "entry point" để giao tiếp với DB
+  + echo=True → SQLAlchemy sẽ in ra tất cả câu lệnh SQL được thực thi, dùng để debug. (tắt log thì set false)
+- **SessionLocal = sessionmaker(...)**: sessionmaker là factory (hàm tạo session) để sinh ra các session kết nối với DB.
+  + autocommit=False → bạn phải gọi .commit() thủ công sau khi thêm/sửa dữ liệu. Nếu để True, mỗi thao tác sẽ tự commit (rất nguy hiểm và không kiểm soát được).
+  + autoflush=False → tắt việc SQLAlchemy tự động flush dữ liệu về DB trước mỗi query.Bạn sẽ tự gọi session.flush() hoặc session.commit() khi cần.
+  + bind=engine → kết nối session này với engine vừa tạo phía trên (nối với DB).
+  + => **SessionLocal() tạo ra 1 session mới, dùng để thao tác với DB (query, insert, delete...)**
+- Tổng kết: <img width="539" height="244" alt="image" src="https://github.com/user-attachments/assets/e9d722d9-eecf-4915-8092-c375b284ba17" />
+  + <img width="756" height="177" alt="image" src="https://github.com/user-attachments/assets/ff5fefba-73f6-4fc3-b4df-f3e9e800d614" />
+- Chúng ta sẽ gọi hàm SessionLocal trong các xử lý thao tắc với sql: <img width="408" height="324" alt="image" src="https://github.com/user-attachments/assets/2f789fa6-a40c-4032-96cb-e70b5e21c235" />
+
+# 12.2 Lớp Base
+- Lớp Base trong SQLAlchemy là một khái niệm quan trọng trong mô hình ORM (Object-Relational Mapping). Dưới đây là giải thích chi tiết về vai trò và ý nghĩa của lớp này.
+
+## 12.1 Lớp cơ sở (Base Class)
+- Lớp Base được tạo ra bởi hàm declarative_base() và hoạt động như một lớp cơ sở cho tất cả các model trong ứng dụng của bạn.
+- Base lưu trữ tất cả thông tin về cấu trúc của các bảng (metadata). Điều này bao gồm tên bảng, các cột, kiểu dữ liệu, và các ràng buộc (constraints).
+- VD: Tạo 1 model
+  + <img width="529" height="300" alt="image" src="https://github.com/user-attachments/assets/5b67547b-4233-47e8-a189-ce66323f47ed" />
+- Kế thừa: Khi bạn định nghĩa một model (ví dụ như Parsing), bạn kế thừa từ lớp Base. Điều này có nghĩa là model của bạn sẽ có tất cả các đặc tính và phương thức mà Base cung cấp.
+- Tạo và Quản lý Migration: Khi sử dụng các công cụ như Alembic để tạo migration, Base.metadata sẽ cung cấp thông tin cần thiết về các bảng mà bạn đã định nghĩa.
 
 
 # 11. Kết nối redis
