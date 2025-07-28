@@ -17,6 +17,8 @@
 
 # 3 Cú pháp
 - print 'hello world' -> file đôi .py -> để chạy python hello.py
+- try - exception - raise
+  + Ném lại lỗi đang bắt được trong except
 
 ## 3.1 Biến số
 - Khai báo biến bằng 1 lệnh gán: a = 1
@@ -320,11 +322,7 @@
 - Tạo và Quản lý Migration: Khi sử dụng các công cụ như Alembic để tạo migration, Base.metadata sẽ cung cấp thông tin cần thiết về các bảng mà bạn đã định nghĩa.
 
 
-# 11. Kết nối redis
-# 12. Kết nối Memcached
-# 13 Kết nối RabbitMQ
-# 14. Restful client
-# 15 Set up môi trường:  virtual environment (cô lập thư viện theo từng project.)
+# 13 Set up môi trường:  virtual environment (cô lập thư viện theo từng project.)
 - Giúp bạn tạo ra một không gian độc lập để cài đặt thư viện, tách biệt với các dự án khác và với Python toàn hệ thống.
 - Step cài đặt
   + sudo apt install python3.12-venv
@@ -332,10 +330,41 @@
   + Kích hoạt môi trường(**đây là cách mở môi trường ảo nhé**): source venv/bin/activate
   + Cài đặt thư viện mong muốn (phải chạy trong môi trường ảo nhé - terminal có chữ venv ở đầu). VD <img width="1308" height="128" alt="image" src="https://github.com/user-attachments/assets/54e1283a-94a2-4a6f-a8a9-2b1f805d0c51" />
 
+# 14 Decorator function
+- Decorator là một hàm dùng để bọc một hàm khác, nhằm thêm hành vi mới mà không làm thay đổi trực tiếp mã nguồn của hàm đó.
+- Một decorator là hàm nhận vào một hàm khác, rồi trả về một hàm mới đã được "gói lại". -> trong hàm deco của chúng ta thì phải có 1 hàm def wrapper đẻ bọc lại -> rồi hàm deco return ra hàm wrapper đó.
+- Chúng ta cần import: functools
+- <img width="346" height="158" alt="image" src="https://github.com/user-attachments/assets/23c1437d-0daa-4e16-a2c5-eed43ef9a23b" />
 
+- VD: 1 hàm ko dùng decorator: <img width="269" height="116" alt="image" src="https://github.com/user-attachments/assets/52180e83-043b-4431-95b4-ba0dd5f94580" />
+  + Bây giờ tối muốn ghi log trước và sau khi call hàm trên mà không muốn sửa mã nguồn hàm đó:
+  + tôi viết hàm decorator: <img width="362" height="145" alt="image" src="https://github.com/user-attachments/assets/f488dc25-2211-4e21-95af-28166372c2fc" />
+  + và áp dụng:<img width="318" height="415" alt="image" src="https://github.com/user-attachments/assets/2135fe39-bb71-4ca3-9ba0-62a557ceba8d" />
+=> Giải thích dòng @my_decorator tương đương với: say_hello = my_decorator(say_hello)
+
+- Một số khái niện cần nắm:
+  + *args là gì? => *args (arguments) cho phép bạn truyền nhiều tham số không đặt tên vào một hàm. <img width="300" height="127" alt="image" src="https://github.com/user-attachments/assets/11f965e2-66f7-41ba-97df-83f08425d016" />
+  + **kwargs là gì? => (keyword arguments) cho phép bạn truyền nhiều tham số có tên (key-value) vào một hàm. <img width="382" height="114" alt="image" src="https://github.com/user-attachments/assets/173b0c86-68ef-457c-83aa-d4e6e1fcb778" />
+  + @functools.wraps(func): @functools.wraps(func) sẽ giữ lại thông tin của hàm gốc (có thể tìm hiểu Special attribute). <img width="532" height="242" alt="image" src="https://github.com/user-attachments/assets/16d01e3d-0812-42e0-bcc7-31f78dccb1dd" />
+
+
+
+## 14.1  Decorator với tham số
+- Chúng ta kết hợp với *args và **kwargs: <img width="335" height="359" alt="image" src="https://github.com/user-attachments/assets/b1936f9e-9d88-42ee-ad42-10c492c76e62" />
+- Trong code sẽ hoạt động ntn: <img width="738" height="444" alt="image" src="https://github.com/user-attachments/assets/469da6df-f213-485f-b33f-b2af0a7eacc1" />
+
+
+
+
+# 11. Kết nối redis
+# 12. Kết nối Memcached
+# 13 Kết nối RabbitMQ
+# 14. Restful client
 
 # 16. Gửi mail với SMTP
 # 17. Socket programming
+
+# 18
 
 
 
