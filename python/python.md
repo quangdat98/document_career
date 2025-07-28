@@ -272,14 +272,22 @@
 - Step 2: **Tạo Migration** tức chúng ta sẽ chạy 1 câu lệnh ở terminal để thực hiện generate ra 1 file trong foler version của alemic. **alembic revision -m "create users table"** VD:  <img width="570" height="306" alt="image" src="https://github.com/user-attachments/assets/aaffdbb5-e94b-42cc-8d1a-c226c57ae9e9" />
   + Trong file đó nó sẽ có 2 hàm là upgrade() và downgrade(): <img width="555" height="338" alt="image" src="https://github.com/user-attachments/assets/abd3b646-5f91-44e2-abd3-6503ab45619a" />
 - Step 3: Áp Dụng Migration -chạy câu lệnh **alembic upgrade head** để thực hiện việc tạo chạy câu query DB, nếu là downgrade thì sẽ là hoàn tác -> downgrade liên tục thì sẽ theo thứ tự version mà hoàn tác lần lượt.
--**Sửa bảng thì chúng ta sửa trực tiếp vào model nhá**
+
+- **Sửa bảng thì chúng ta sửa trực tiếp vào model nhá**
   + VD thêm code created_at: created_at = Column(DateTime, server_default=func.now()) 
-  + alembic revision --autogenerate -m "add created_at to parsing"
-  + alembic upgrade head
+  + Step 1: **alembic revision --autogenerate -m "add created_at to parsing"**
+  + Step 2: **alembic upgrade head**
   + Giải thích: DateTime: Đây là kiểu dữ liệu dùng để lưu trữ thông tin về ngày và giờ, func.now(): Đây là một hàm được cung cấp bởi SQLAlchemy, đại diện cho hàm NOW() trong SQL. Hàm này trả về thời gian hiện tại ở phía máy chủ cơ sở dữ liệu.
   + Nhớ import nhà ko lỗi: from sqlalchemy import Column ,Integer, String, func, DateTime
+
+## 11.3 Thực hành với xóa version
+- **Lưu ý không xóa file bằng tay -Phải dùng câu lệnh**
+- Step 1: alembic history => lấy id alembic
+- Step 2: alembic downgrade <version_id_trước_đó>
+
+- Nêu muốn xóa đi tạo lại từ đầu thì: phải xóa file trong folder version của alembic và xóa bảng đó trong DB + xóa version trong bảng alembic_version
  
-## 11.3 Thực hành với thêm sửa xóa.
+## 11.4 Thực hành với thêm sửa xóa.
   
 # 12 SQLAlchemy 
 
