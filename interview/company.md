@@ -30,8 +30,6 @@ https://itviec.com/viec-lam-it/java/ha-noi?job_selected=java-developer-45m-gross
 => đã lọc 1 số cv hiện tại thì chỉ còn:
 https://www.topcv.vn/brand/educa/tuyen-dung/full-stack-developer-java-springboot-luong-cung-upto-45m-j1792866.html?ta_source=JobSearchList_LinkDetail&u_sr_id=ybyedCn6QTYrfX5r2pmxSMXvjTgBzBMiX1QBYykD_1752162868 -> ngon cần hoc websoket (trọng điểm)
 
-https://itviec.com/viec-lam-it/java/ha-noi?job_selected=java-developer-45m-gross-1-month-signing-bonus-softroad-viet-nam-0001
-
 https://itviec.com/viec-lam-it/java/ha-noi?job_selected=middle-developer-nodejs-nextjs-nodejs-java-blue-technology-4333 => ứng tuyển
 
 https://itviec.com/viec-lam-it/java/ha-noi?job_selected=cvcc-phat-trien-ung-dung-kenh-ngan-hang-so-java-net-ngan-hang-tmcp-thinh-vuong-va-phat-trien-pgbank-1954
