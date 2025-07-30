@@ -39,3 +39,8 @@ https://itviec.com/viec-lam-it/java/ha-noi?job_selected=cvcc-phat-trien-ung-dung
 https://itviec.com/viec-lam-it/java/ha-noi?job_selected=java-developer-spring-boot-mysql-docker-cong-ty-co-phan-chung-khoan-xuan-thien-5957 -xa
 
 OSP 
+
+marusys misa
+
+sotatek
+
