@@ -353,7 +353,52 @@
 - Chúng ta kết hợp với *args và **kwargs: <img width="335" height="359" alt="image" src="https://github.com/user-attachments/assets/b1936f9e-9d88-42ee-ad42-10c492c76e62" />
 - Trong code sẽ hoạt động ntn: <img width="738" height="444" alt="image" src="https://github.com/user-attachments/assets/469da6df-f213-485f-b33f-b2af0a7eacc1" />
 
+# 14.A Decorator có sẵn
+- @classmethod: Dùng để định nghĩa một phương thức mà làm việc với class chứ không phải với instance (object).
+  + Đối số đầu tiên luôn là cls (class).
+  + @classmethod được dùng bên trong class, và nó gắn liền với class đó, không phải với instance (đối tượng) cụ thể.
+  + <img width="364" height="193" alt="image" src="https://github.com/user-attachments/assets/4a44124d-4409-47a1-b7d0-ecb96939925d" />
 
+- @staticmethod
+  + Dùng khi bạn không cần self (instance) hay cls (class).
+  + Chỉ là một hàm tiện ích nằm trong class để tổ chức code cho gọn gàng.
+  + <img width="643" height="202" alt="image" src="https://github.com/user-attachments/assets/dbf41d87-5a5b-4c31-8aff-dd00c886a20c" />
+  + **@staticmethod giống như hàm bình thường, không liên quan gì đến class hay object.**
+
+- @property: Cho phép bạn gọi một method như là thuộc tính.
+  + Thường dùng để tạo ra biến có tính toán (computed property).
+  + <img width="538" height="294" alt="image" src="https://github.com/user-attachments/assets/99ac681e-7254-48c7-b2a0-6bee5ad1329d" />
+
+- **so sánh @classmethod và @staticmethod**
+  + <img width="676" height="331" alt="image" src="https://github.com/user-attachments/assets/11a8b153-0e44-4f9c-8500-15e03174ad29" />
+
+
+- @abstractmethod
+- @dataclass
+
+# 15  Advanced Python / Quản lý tài nguyên
+
+## 15.1 Context Manager
+- Nó là một cơ chế để quản lý tài nguyên như:
+  + Mở và đóng file
+  + Kết nối database
+  + Mở network socket
+  + Lock/Unlock threading
+  + Giao dịch (transaction)
+
+- with ... as ...
+  + Mở session và tự đóng sau khi sử dụng => nó khác giống với với try - catch resource
+  + <img width="403" height="193" alt="image" src="https://github.com/user-attachments/assets/a0e2629c-6ea7-4ea0-99c1-ef9129fa5631" />
+
+# 16 OOP trong python 
+
+# 16.1 self
+- self là biến đại diện cho chính đối tượng (instance) khi bạn làm việc trong class.
+- Bạn không thể truy cập các biến và method trong object. <img width="486" height="283" alt="image" src="https://github.com/user-attachments/assets/1235cea6-7c98-4102-a628-09fe51ec1b16" />
+- <img width="546" height="320" alt="image" src="https://github.com/user-attachments/assets/72f0dc8a-745b-41dc-a741-11004cff2392" />
+# 16.2 contructor __init__
+- __init__ là constructor trong Python: Hàm này tự động chạy khi bạn tạo object từ class.
+- <img width="564" height="465" alt="image" src="https://github.com/user-attachments/assets/5b23837e-c5dc-4d34-ac69-447f33eb7a98" />
 
 
 # 11. Kết nối redis
