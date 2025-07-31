@@ -40,6 +40,7 @@
  - if-elif-else:
  - <img width="859" height="375" alt="image" src="https://github.com/user-attachments/assets/54211b02-300d-4e35-877a-04bffbbeaaef" />
  - **if else rút ngọn**: A if condition else B (giải thích:  Nếu condition đúng thì trả về A, ngược lại trả về B)
+ - return a or b -> cái nào có giá trị thì sẽ dk trả về
 
 ## 3.3.2 swtich case
 - Trong python ko có switch case
@@ -234,11 +235,21 @@
 
 -**Cài đặt**: pip install beautifulsoup4
 - Các sử dụng: soup = BeautifulSoup(html_doc, "html.parser")
-- **Các phương thức thường dùng**
-  + <img width="803" height="489" alt="image" src="https://github.com/user-attachments/assets/bd91fc8e-2de2-4f2c-82d4-73b88e84062c" />
-  + <img width="875" height="307" alt="image" src="https://github.com/user-attachments/assets/f1c4a82e-2f34-4f57-a467-42b7214aa355" />
+  + soup là một đối tượng đại diện cho cấu trúc HTML.
 
-
+# 9.2 Các phương thức thường dùng
+- soup.find_all("article", class_="item-news"): find_all("article", class_="item-news") tìm tất cả thẻ <article> có class là item-news.
+  + Kết quả: [<article class="item-news">Bài viết 1</article>,<article class="item-news">Bài viết 2</article>]
+  + 
+- Kiểu Tag -> là 1 thẻ html:
+  + <img width="724" height="388" alt="image" src="https://github.com/user-attachments/assets/96ef9d37-ca01-4a6f-8701-dea34302c0de" />
+- .find("") => Kết quả là một Tag hoặc None.
+- .get("") ->  để lấy giá trị của một thuộc tính mà không bị lỗi nếu không tồn tại.
+  + link.get("href") => là cách lấy giá trị của thuộc tính href từ thẻ HTML <a> một cách an toàn.
+  + .get("title", "")  -> trả về rỗng nếu thuộc tính title ko tồn tại
+- get_text("") => Lấy nội dung văn bản nằm giữa thẻ mở và đóng, loại bỏ khoảng trắng thừa.
+  + <a href="https://example.com" title="Example site">  Visit now  </a>
+  + link.get_text(strip=True)  # → "Visit now". strip = true để loại bổ khoảng trắng 2 đầu
 
 # 10. Kết nối sql
 
@@ -292,6 +303,7 @@
 ## 11.4 Thực hành với thêm sửa xóa.
   
 # 12 SQLAlchemy 
+- Link ver2: https://docs.sqlalchemy.org/en/20/tutorial/orm_related_objects.html#tutorial-orm-related-objects
 
 # 12.1 COnfig kết nối với DB
 - create_engine: Hàm này được sử dụng để tạo một đối tượng Engine, đại diện cho kết nối đến cơ sở dữ liệu.
@@ -320,6 +332,28 @@
   + <img width="529" height="300" alt="image" src="https://github.com/user-attachments/assets/5b67547b-4233-47e8-a189-ce66323f47ed" />
 - Kế thừa: Khi bạn định nghĩa một model (ví dụ như Parsing), bạn kế thừa từ lớp Base. Điều này có nghĩa là model của bạn sẽ có tất cả các đặc tính và phương thức mà Base cung cấp.
 - Tạo và Quản lý Migration: Khi sử dụng các công cụ như Alembic để tạo migration, Base.metadata sẽ cung cấp thông tin cần thiết về các bảng mà bạn đã định nghĩa.
+
+# 12A SQLAlchemy version 2.
+
+## 12A. 1 Một số định nghĩa
+- DeclarativeBase: lớp cơ sở để định nghĩa ORM class.
+- Mapped, mapped_column: dùng để định nghĩa cột trong bảng theo kiểu mới (SQLAlchemy 2.0+).
+
+## 12A. 2 lớp Base
+- class Base(DeclarativeBase):
+    pass
+- Đây là lớp cha cho mọi class ORM khác (giống declarative_base() trong SQLAlchemy cũ).
+- id: Mapped[int] = mapped_column(primary_key=True) => Cột id là khóa chính, tự tăng.
+- url: Mapped[str] = mapped_column(String(500), unique=True, nullable=False) => url: bắt buộc, tối đa 500 ký tự, không trùng nhau (duy nhất).
+## 12A. 3 một số truy vấn
+- Lấy tất cả: session.execute(select(Article)).scalars().all()
+- Lấy một bản ghi đầu tiên: session.execute(select(Article)).scalar_one_or_none()
+- Lấy theo điều kiện:session.execute(select(Article).where(Article.title.ilike('%education%'))).scalars().all()
+- Sắp xếp:select(Article).order_by(Article.create_time.desc())
+- Giới hạn & phân trang:select(Article).limit(10).offset(20)
+- <img width="794" height="433" alt="image" src="https://github.com/user-attachments/assets/7ea121c0-9acd-439a-b1bb-3162276ac6c4" />
+- <img width="783" height="354" alt="image" src="https://github.com/user-attachments/assets/58015db2-6941-4874-82d3-edb56bfd963a" />
+
 
 
 # 13 Set up môi trường:  virtual environment (cô lập thư viện theo từng project.)
@@ -358,6 +392,9 @@
   + Đối số đầu tiên luôn là cls (class).
   + @classmethod được dùng bên trong class, và nó gắn liền với class đó, không phải với instance (đối tượng) cụ thể.
   + <img width="364" height="193" alt="image" src="https://github.com/user-attachments/assets/4a44124d-4409-47a1-b7d0-ecb96939925d" />
+  + đặc biệt là trong phương thức class method (được khai báo với @classmethod), tham số cls là tham chiếu đến chính class đó – giống như self là tham chiếu đến instance trong instance method. -> ko khai báo @classmethod thì cũn ko dùng cls
+  + <img width="765" height="386" alt="image" src="https://github.com/user-attachments/assets/9615d9d8-58f2-4474-9de7-27a696685d4a" />
+
 
 - @staticmethod
   + Dùng khi bạn không cần self (instance) hay cls (class).
