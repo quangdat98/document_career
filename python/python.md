@@ -13,7 +13,7 @@
 -  Kiểm tra version: python --version
 
 ## 2.2 Cài đặt tool vs code
-- chúng ta dùng Visual code
+- chúng ta dùng Visual codef
 
 # 3 Cú pháp
 - print 'hello world' -> file đôi .py -> để chạy python hello.py
@@ -268,6 +268,11 @@
 # 11 Alembic
 - https://www.geeksforgeeks.org/python/install-alembic-in-python/
 - Alembic giúp bạn tạo, theo dõi và áp dụng các thay đổi trong cấu trúc CSDL (schema) một cách có kiểm soát, giống như Flyway, Liquibase trong Java hoặc Rails migrations.
+- alembic.ini: File cấu hình chính cho Alembic CLI
+  + Config CLI cơ bản (DB URL, script path)
+- env.py: Nơi xử lý logic migrate
+  + Đây là file Python được tự động gọi mỗi khi chạy Alembic.
+  + Logic chạy migration (metadata, engine…)
 
 ## 11.1 Cài đặt - kết nối với DB
 - Cài đặt: **pip install alembic**
