@@ -28,6 +28,9 @@ Các câu hỏi java
 17. lý do tại sao phải dùng kafka
 18. làm sao lọc các giá trị object trùng lặp (dùng: set or map)
 19. tại sao phải dùng kafka, cốt nõi của kafka
+20. dữ liệu của redis được lưu ở đâu
+21. Các lưu ý gì khi đánh index
+22. Cơ chế phân quyền
 
 Cac bai toan java
 1. dem phan tu trung nhau trong mot mang
