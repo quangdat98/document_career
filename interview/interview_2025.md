@@ -35,4 +35,14 @@ Các câu hỏi java
 Cac bai toan java
 1. dem phan tu trung nhau trong mot mang
 2. cach xoa so le trong mang ma ko tao mang moi
-3. 
+
+=> Thuật toán B-TREE
+- độ phức tạp thuật oán là gì
+- tìm kiếm kiểu B-TREE
+- Cơ chế lock khi nhiều record vào cùng 1 bảng (lock - retry ) -> lock DB và lock trong code
+- bất đồng bộ =>
+=> tối ưu sql; các cách
+- monitoring log: check log theo dõi DB ntn
+- Cơ chế mở rộng của array list
+- Check trùng 1 list object nhưng chỉ check mỗi thuộc tính là ID
+- Cách deploy 1 project
